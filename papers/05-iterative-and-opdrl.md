@@ -673,31 +673,56 @@ $$
 
 ---
 
-#### 📄 [TRB: Trust-Region Behavior Blending for OPD](https://arxiv.org/abs/2605.31159)
-- **arXiv**: [2605.31159](https://arxiv.org/abs/2605.31159)
-- **🎯 动机**: OPD 学生早期 rollout 差，教师监督落在弱/低质量 prefix 上。
-- **💡 方法**: TRB = warmup 方法 — 在 KL 信任域内用"最接近教师"的行为策略**替换**早期 rollout 策略，保留 per-prefix reverse-KL OPD loss。KL 预算退火到 0，warmup 后回到纯学生 rollout。
-- **📊 数字**: 两个数学蒸馏设置中**平均最强**。
+#### 📄 [TRB: Trust-Region Behavior Blending for On-Policy Distillation](https://arxiv.org/abs/2605.31159) | Alexey Gorbatovski, 2026-05-29
+- **🎯 问题**: OPD 在学生 rollout prefix 上做教师监督 → 解决 offline 蒸馏的 prefix mismatch。但**早期训练学生 rollout 仍差**，教师监督落在**弱/低质量 prefix** 上 → 学习信号被污染。需要 warmup 机制。
+- **💡 思路**: **别让学生"硬" rollout 一开始就接受教师监督**。在 warmup 阶段，**用"接近教师"的行为策略替代学生早期 rollout**（在 KL 信任域内），等学生强了再让学生接管。问题从"如何提升早期 OPD 质量"变成"**如何用 KL 门控分阶段 rollout**"。
+- **🔧 方法**:
+  1. **TRB (Trust-Region Behavior Blending)** —— **warmup 方法**；
+  2. 在**以学生为中心的 KL 信任域**内，**用"最接近教师"的行为策略替换早期 rollout 策略**；
+  3. 保留**per-prefix reverse-KL OPD loss 不变**（核心信号不变）；
+  4. **KL 预算退火到 0** —— warmup 后**自然回到纯学生 rollout**（无侵入式改变）。
+- **📊 效果**: 两个**数学推理蒸馏**设置中，TRB **平均最强**（对比纯 OPD、RL 起步、纯蒸馏等）。
+- **⚠️ 局限**: "最近教师行为策略"的构造代价（每步需评估 KL）；KL 预算 schedule 需要设计；warmup 何时结束需调；只验证数学推理。
+- **价值**: 把"**warmup 阶段如何安全做 OPD**"形式化为"**KL 信任域行为混合**" —— 是 PPO trust-region 思想在 OPD 训练初期的具体实现。
 
 
-#### 📄 [LGR: Lookahead Group Reward (Combating Supervision Fidelity Decay)](https://arxiv.org/abs/2605.30833)
-- **arXiv**: [2605.30833](https://arxiv.org/abs/2605.30833)
-- **🎯 动机**: **SFD（监督保真度衰减）** — 学生前缀越长，教师 next-token 分布越不 confident/discriminative → reverse-KL 纠正信号越弱。
-- **💡 方法**: Lookahead Group Reward — 用教师在**下一步**的 confidence 评估学生 top-K 候选 token，给 group-normalized 奖励。配合熵触发的 tree-attention 保效率。
-- **📊 数字**: 6 个数学/代码 benchmark，**mean@8 比 OPD +2.57**；长生成 +4.92（**AIME-26, 39k tokens**）。
+#### 📄 [LGR: Lookahead Group Reward — Combating Supervision Fidelity Decay in OPD](https://arxiv.org/abs/2605.30833) | Yanjiang Liu, 2026-05-29
+- **🎯 问题**: 识别 OPD 的**关键瓶颈** —— **SFD (Supervision Fidelity Decay)**：**学生 prefix 越长，教师的 next-token 分布越不 confident/discriminative**。结果：teacher-dependent 纠错信号**在长 reasoning chain 后期被冲淡**，学生 drift 复合。reverse-KL 的"教师应该纠错"假设在长链下失效。
+- **💡 思路**: 既然 SFD 是**"教师监督"会衰减**，**就用 lookahead 评估"如果教师预测下一步会多 confident"** 作信号。Group-normalized 奖励，让"教师未来 confident 的 token 拿更大优势"。问题从"如何用现有 reverse-KL"变成"**如何提前用教师 confidence**"。
+- **🔧 方法**:
+  1. **Lookahead Group Reward (LGR)**：用教师在**下一步**的 confidence 评估学生 top-K 候选 token；
+  2. **Group-normalized 奖励**（避免尺度问题）；
+  3. **熵触发的 tree-attention 机制** —— 只在需要 lookahead 时启用，保持计算效率；
+  4. 核心 insight：next-step teacher confidence 反映**未来 reverse-KL 监督的判别强度**。
+- **📊 效果**: 6 个数学/代码 benchmark，**7B 学生 mean@8 比 OPD +2.57**；**长生成增益最大 +4.92**（AIME-26 39k tokens）。**长链越深，优势越大**（正是 SFD 严重的地方）。
+- **⚠️ 局限**: Tree-attention 实现复杂；lookahead 步数需调；group normalization 假设可能不适用所有任务；7B 学生未验证更大模型的 scalability。
+- **价值**: 把"**监督保真度**"从"**被动观察**"变成"**主动 lookahead**" —— 是 SFD 系列工作的关键进展，对长 reasoning chain 训练是直接收益。
 
 
-#### 📄 [ADWIN: Adaptive Windows for Horizon-Aware OPD](https://arxiv.org/abs/2605.28396)
-- **arXiv**: [2605.28396](https://arxiv.org/abs/2605.28396)
-- **🎯 动机**: 标准 full-rollout OPD 把每次更新绑到一次贵完成，且可能把监督过度分配到对当前学生**边际价值低**的后段。
-- **💡 方法**: ADWIN = **自适应窗口框架** — rollout 长度是**在线可接受性决策**：短教师锚定 prefix 训练，延迟 full-rollout probe 审计 prefix-full 对齐。
-- **📊 数字**: 数学/代码推理单任务/多任务/强对弱设置，**端到端训练成本最多 -4.1 倍**且精度相当或更好。
+#### 📄 [ADWIN: Adaptive Windows for Horizon-Aware On-Policy Distillation](https://arxiv.org/abs/2605.28396) | Kun Liang, 2026-05-27
+- **🎯 问题**: 标准 full-rollout OPD 把**每次更新绑到一次贵完成**，且可能把监督**过度分配**到对当前学生**边际价值低**的后段。隐含假设"长 rollout 总更好"未必成立 —— **学生-induced rollout 可能从某点起就漂出教师偏好**。
+- **💡 思路**: 重新概念化 —— **rollout 长度不是固定值，是"在线可接受性决策"**。问题从"用多长 rollout"变成"**何时接受当前 prefix、何时启动 full rollout probe**"。
+- **🔧 方法**:
+  1. **ADWIN (Adaptive Windows) 自适应窗口框架**；
+  2. **Useful supervision horizon** 视角：student-induced rollout 会从某点起漂出 teacher-preferred continuations；aligned prefixes 可能已保留 long-horizon OPD 更新方向；
+  3. **训练在短教师锚定 prefix** 上（用 trust-region 风格约束）；
+  4. **延迟 full-rollout probe 审计 prefix-full 对齐**（用 staleness control 防 stale 决策）；
+  5. **在线调整下一步 horizon**。
+- **📊 效果**: 数学/代码推理单任务/多任务/强对弱设置，**端到端训练成本最多 -4.1 倍**且精度相当或更好。**accuracy-compute trade-off 显著优**。
+- **⚠️ 局限**: Staleness 控制的设计参数需调；"prefix-full alignment" 度量选择需适配任务；延迟 probe 本身有计算代价；可能不适用超长 reasoning（>10K tokens）任务。
+- **价值**: 把"**rollout horizon 决策**"从"**离线固定**"变成"**在线可接受性**" —— 是 ESR/POPD 系列"短 rollout"思路的**自适应升级版**，代表"horizon-aware OPD" 走向成熟。
 
 
-#### 📄 [CaMOPD: Counteraction-Aware Multi-Teacher OPD](https://arxiv.org/abs/2605.27115)
-- **arXiv**: [2605.27115](https://arxiv.org/abs/2605.27115)
-- **🎯 动机**: 领域特化常削弱通用能力。MOPD 恢复能力，但**假设教师对齐的 prompt 覆盖** — 开源通用教师后训练数据未知时这假设难满足。
-- **💡 方法**: 用易得 proxy 通用 prompt。两个失败模式 — (1) recovery-preservation **counteraction**；(2) weak-signal flattening。CaMOPD = **解耦交替训练** + **gap-based 样本选择**。
-- **📊 数字**: 角色扮演对话、医疗推理 QA — 通用恢复最佳且保持领域特化。
+#### 📄 [CaMOPD: Counteraction-Aware Multi-Teacher OPD for General Capability Recovery with Domain Preservation](https://arxiv.org/abs/2605.27115) | Tianlei Chen, 2026-05-26
+- **🎯 问题**: 领域特化（role-play、medical、...）常**削弱通用能力**。MOPD（Multi-Teacher OPD）通过多教师监督恢复能力，但**假设"教师对齐的 prompt 覆盖"** —— 开源通用教师的**后训练数据未知**，这假设难满足。直接用 proxy 通用 prompt 训练会出**两个失败模式**：① recovery-preservation **counteraction**（冲突梯度相互抵消）；② weak-signal **flattening**（信号平均稀释）。
+- **💡 思路**: 不重建"教师隐藏分布"，**直面不完整覆盖的现实**，用代理 prompt + 显式处理两种失败模式。问题从"如何用完美 prompt 覆盖"变成"**如何在不完美覆盖下仍能恢复**"。
+- **🔧 方法**:
+  1. **CaMOPD (Counteraction-Aware MOPD)**：三个组件：
+  2. **解耦交替训练** —— 通用恢复给专门更新，**周期性 review 领域 prompt 作 preservation**（避免梯度冲突同时保留领域能力）；
+  3. **Gap-based 样本选择** —— 选**平均 token-level teacher-student log-prob gap 大**的样本，**集中纠错信号**；
+  4. **梯度连贯性分析**（gradient coherence）支持 CaMOPD 产生**更连贯的纠错信号**。
+- **📊 效果**: **角色扮演对话、医疗推理 QA** 场景，**通用恢复最佳且保持领域特化** —— 验证 CaMOPD 在不完整覆盖下能同时达成 recovery + preservation。
+- **⚠️ 局限**: "解耦交替"的 schedule 需调；gap-based 选择的阈值需设；只验证了 role-play 和 medical 两个领域；不适用"通用教师数据完全不可得"的极端情况。
+- **价值**: 把"**多教师 OPD 鲁棒性**"从"**假设完美 prompt 覆盖**"变成"**现实不完整覆盖**" —— 对实际部署（教师后训练数据通常不公开）是关键实用化进展。
 
 

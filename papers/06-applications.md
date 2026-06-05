@@ -578,50 +578,114 @@
 - **📊 数字**: 多个多模态 benchmark 上视觉 grounding 显著优 + 训练开销极小。
 
 
-#### 📄 [FA-OPD: Adversarial Dual OPD for Embodied Control](https://arxiv.org/abs/2605.27095)
-- **arXiv**: [2605.27095](https://arxiv.org/abs/2605.27095)
-- **🎯 动机**: 行为克隆 + 扩散/流匹配策略仍然是**离线监督学习** — 策略只在专家状态训练，对实际访问的状态没纠正信号。
-- **💡 方法**: FA-OPD 是**对抗式双 OPD** — Flow Matching 教师从演示学习，与 MLP 学生共同训练。教师提供两个信号：(1) **奖励通道**学专家相似度；(2) **动作通道**给学生访问状态提供密集局部目标。
-- **📊 数字**: 6 个机器人 navigation/manipulation/locomotion benchmark 都超基线，**对噪声/有限演示鲁棒性显著**。
+#### 📄 [VGS: Decomposed OPD for Vision-Language Reasoning — Steering Gradients for Visual Grounding](https://arxiv.org/abs/2606.00564) | Hee Suk Yoon, ICML 2026 Spotlight
+- **🎯 问题**: 多模态 OPD 的**优化动态没研究透** —— 标准 monolithic 视角把"语言先验"和"视觉 grounding"当作一锅炖，**掩盖了两个独立目标**。结果：标准 OPD 走的是次优妥协轨迹。
+- **💡 思路**: **数学分解损失**为两个独立成分，分析梯度结构。**问题从"如何做 multimodal OPD"变成"语言/视觉梯度的几何关系是什么"**。
+- **🔧 方法**:
+  1. 数学分解 VLM OPD 损失为**语言先验**和**视觉 grounding**两部分；
+  2. **梯度分析**：发现**两个梯度向量近乎正交** → 两个目标在几何上**独立**；
+  3. 假设"**视觉 grounding 是 VLM reasoning 的主要瓶颈**"；
+  4. **VGS (Visual Gradient Steering)**：**动态重定向更新向量优先视觉子空间**（不平均两个目标，**专攻瓶颈**）；
+  5. 训练开销极小（steering 是几何变换，不引入新参数）。
+- **📊 效果**: 多个 VLM 蒸馏设置 + 复杂多模态 benchmark 上，**显著超标准 monolithic OPD**，**superior grounding + 极小训练开销**。ICML 2026 Spotlight。
+- **⚠️ 局限**: "视觉是瓶颈"假设需任务验证（对 language-heavy 任务可能不成立）；正交性是否对所有 VLM 普遍；steering 强度是新的隐式超参。
+- **价值**: 把"**多模态 OPD 优化**"从"**一锅炖**"变成"**梯度空间几何分析 + 针对性 steering**" —— 几何视角是 VLM 优化的新方法论，对其他多目标多模态训练场景有外推价值。
 
 
-#### 📄 [CollectionLoRA: 50 Effects in 1 LoRA via Multi-Teacher OPD](https://arxiv.org/abs/2605.25378)
-- **arXiv**: [2605.25378](https://arxiv.org/abs/2605.25378)
-- **🎯 动机**: 定制图像编辑要给扩散模型加多个视觉效果，每个效果存一个 LoRA → 部署成本暴涨。和加速模块级联还有参数干扰。
-- **💡 方法**: CollectionLoRA 用**多教师 OPD** 把 50 个效果塞进 1 个 LoRA。
-- **📊 数字**: abstract 截断，详细结果待全文。
-#### 📄 [TOPD: Trajectory-aware OPD via Near-Future Guidance](https://arxiv.org/abs/2606.00305)
-- **arXiv**: [2606.00305](https://arxiv.org/abs/2606.00305)
-- **🎯 动机**: OPD 学习信号是 token-level 的，但推理失败常是**短程分布漂移** — 孤立 token 级监督修不好。
-- **💡 方法**: TOPD 用**近未来 trajectory 信息**识别真正发散的状态，把指导分布到多个未来 token 上。
-- **📊 数字**: 屏蔽非发散高 loss token → 标准 OPD **47.8%→48.2%**；TOPD 再 → **52.2%**。**AIME24 60%→63.3%**，**AIME25 46.7%→53.3%**。
+#### 📄 [FA-OPD: Adversarial Dual On-Policy Distillation from Expressive Teacher](https://arxiv.org/abs/2605.27095) | Zhenglin Wan, 2026-05-26 v1 / 06-01 v2
+- **🎯 问题**: Embodied control 的"**演示学习**"（BC + 扩散/流匹配策略）仍是**离线监督学习** —— 策略只在专家状态训练，对**实际访问的状态没纠正信号**。标准 OPD 假设**强固定教师** —— 但 embodied 场景通常**只有演示**，没教师。问题：能不能用演示训出"教师"再做 OPD？
+- **💡 思路**: **不要"训完教师再做 OPD"的两阶段**，**"教师-学生"共训，对抗式双 OPD**。**教师从演示学** + **学生学教师**，**教师还提供"学生访问状态"的密集局部目标**。问题从"如何获取教师"变成"**如何让师生相互促进**"。
+- **🔧 方法**:
+  1. **FA-OPD (Adversarial Dual OPD)**：**Flow Matching 教师**从演示学习 + **轻量 MLP 学生**共训；
+  2. 教师提供**两个互补信号**：
+     - **奖励通道** —— 学 state-action 对的 expert-likeness 目标，驱动**长 horizon 在线探索**；
+     - **动作通道** —— 给**学生访问状态**提供**密集局部目标**，稳定 exploit；
+  3. **Reward distillation** 让泛化超出 point-wise demonstrations，**action distillation** 保持 explore 锚定 expert-like behavior。
+- **📊 效果**: 6 个机器人 navigation / manipulation / locomotion benchmark **超强基线**；**对噪声/有限演示鲁棒性显著**。代码 [vanzll/FA-OPD](https://github.com/vanzll/FA-OPD)。
+- **⚠️ 局限**: 教师 + 学生共训的不稳定性；FM 教师代价大；reward/action 两通道的平衡需调；演示质量仍是上限。
+- **价值**: 把"**embodied control 的 OPD**"从"**先 BC 再 OPD**"变成"**师生对抗共训**" —— 是 RL/IL 与 OPD 融合的代表性工作，对演示质量敏感场景有直接价值。
 
 
-#### 📄 [GAPD: Gold-Action Policy Distillation for KBQA](https://arxiv.org/abs/2605.29584)
-- **arXiv**: [2605.29584](https://arxiv.org/abs/2605.29584)
-- **🎯 动机**: 知识库问答（KBQA）的 RL 只优化稀疏的最终答案奖励，中间 action 错误弱监督。
-- **💡 方法**: GAPD 把 gold action 序列做成**在线 policy 蒸馏的教师信号**。
-- **📊 数字**: gold logical form 不只是数据增强，更是**在线 PD 教师**。
+#### 📄 [CollectionLoRA: Collecting 50 Effects in 1 LoRA via Multi-Teacher OPD](https://arxiv.org/abs/2605.25378) | Fangtai Wu, 2026-05
+- **🎯 问题**: 定制图像编辑需要给扩散模型加多个视觉效果（艺术风格、相机、...），每个效果存一个 LoRA → **部署成本暴涨**。和加速模块级联还触发**严重参数干扰**（concept bleeding + style degradation）。问题：**怎么把 50 个效果塞进 1 个 LoRA**？
+- **💡 思路**: 不用"加更多 LoRA"，**用一个 LoRA 蒸馏所有效果**。多教师 OPD 形式化"**多源知识到单 LoRA**"的蒸馏。问题从"如何避免 LoRA 干扰"变成"**如何让单 LoRA 表达多效果**"。
+- **🔧 方法**:
+  1. **CollectionLoRA = multi-teacher on-policy distillation 框架**；
+  2. 蒸馏 **50 个 effect LoRAs + 少步生成能力**到**单 LoRA**；
+  3. 三个组件：
+     - **Probabilistic Dual-Stream Routing** —— 训练时随机切换数据源，增强 unseen 场景泛化；
+     - **Asymmetric Orthogonal Prompting** —— prompt 空间的概念隔离；
+     - **Coarse-to-Fine Distillation Objective** —— 缓解师生分布 gap；
+  4. 一次性解决**特征干扰**问题 + **减少部署成本**。
+- **📊 效果**: 50 个效果 + 少步生成都进 1 个 LoRA，**concept fidelity 与单 LoRA 相当或更好**，**部署开销大幅降低**。代码 [Qwen-Applications/CollectionLoRA](https://github.com/Qwen-Applications/CollectionLoRA)。
+- **⚠️ 局限**: 50 个效果是否可继续扩展到 100/500；prompt 空间概念隔离是否完全消除 bleeding；少步生成质量损失程度；训练多教师代价高（虽然推理快）。
+- **价值**: 把"**多 LoRA 部署成本**"从"**线性增长**"变成"**单 LoRA**"，对**AIGC 产品的存储/计算成本**有直接商业价值；和"多教师 OPD"系列工作一脉相承。
 
 
-#### 📄 [GDSD: Guided Denoiser Self-Distillation for Diffusion LLMs](https://arxiv.org/abs/2605.29398)
-- **arXiv**: [2605.29398](https://arxiv.org/abs/2605.29398)
-- **🎯 动机**: 扩散 LLM（dLLM）的 RL 受困于**似然不可处理**。主流方案用 ELBO 作似然代理 → 训练-推理失配。
-- **💡 方法**: GDSD 直接**自蒸馏 denoiser** — 教师是 reverse-KL 正则 RL 闭式最优解导出的 advantage-guided self-teacher，**匹配 dLLM denoiser logits**。
-- **📊 数字**: LLaDA-8B、Dream-7B **比 SOTA ELBO 方法最多 +19.6%**。
+#### 📄 [TOPD: Bridging Reasoning Trajectories in On-Policy Distillation via Near-Future Guidance](https://arxiv.org/abs/2606.00305) | Yuxuan Jiang, 2026-05-29
+- **🎯 问题**: OPD 学习信号是 **token-level** 的，但**推理失败常是短程分布漂移** —— 孤立 token 级监督**修不好**。实证：~30% high-loss tokens 处于 low-divergence regime，**很多是 surface-form mismatches 而非真实推理分叉**。
+- **💡 思路**: 重新设计 OPD 的"loss 来源" —— **别用"孤立高 loss token"作信号，用"近未来 trajectory 是否发散"作信号**。问题从"token-level 监督怎么改进"变成"**如何用 trajectory-level 信息定位真正发散**"。
+- **🔧 方法**:
+  1. **TOPD (Trajectory-aware OPD)**：用**近未来 trajectory 信息**识别真正发散的状态；
+  2. 把指导**分布到多个未来 token**（不是单点 token 监督）；
+  3. **屏蔽非发散 high-loss tokens**（避免 surface-form 误导）；
+  4. 把监督聚焦在"**真正发散且可修复**"的 trajectory 段。
+- **📊 效果**: **屏蔽非发散高 loss token → 标准 OPD 47.8%→48.2%**（**+0.4**）；**TOPD 再 → 52.2%**（**+3.6**）；**AIME24 60.0%→63.3%**（**+3.3**）；**AIME25 46.7%→53.3%**（**+6.6**）。**TOPD 增益最大的正是 reasoning 难任务**。
+- **⚠️ 局限**: "近未来 trajectory"长度是超参；如何识别"真正发散"需任务特定设计；对超长 reasoning chain 算力代价。
+- **价值**: 把"**OPD 监督粒度**"从"**单 token loss**"提升到"**trajectory-aware 分布监督**" —— 是"短程分布漂移"问题的精准修复，对 reasoning 任务直接收益。
 
 
-#### 📄 [Canonical-Context OPD for Multi-Turn Language Models](https://arxiv.org/abs/2605.30251)
-- **arXiv**: [2605.30251](https://arxiv.org/abs/2605.30251)
-- **🎯 动机**: 多轮对话中**同一完整证据**渐进揭示，模型却会答不同（"lost-in-conversation gap"）。原因 — **self-anchored drift**。
-- **💡 方法**: Canonical-Context OPD — 用 clean FULL prompt 和 RAW-SHARDED 对话训练对齐。
-- **📊 数字**: abstract 截断，详细结果待全文。
+#### 📄 [GAPD: Gold-Action Policy Distillation for Agentic RL in KBQA](https://arxiv.org/abs/2605.29584) | Xin Sun, 2026-05-28 v1 / 06-03 v2
+- **🎯 问题**: 知识库问答 (KBQA) 的 RL 是 agentic 任务 —— 模型需发 executable actions、观察 KB feedback、给最终答案。**当前 RL-based KBQA 只优化稀疏的最终答案奖励**，**中间 action 错误弱监督**。Gold logical forms 可转 executable action sequences，但**现有 pipeline 只用作 warm-start 数据增强**，**不用于 on-policy RL 更新**。
+- **💡 思路**: 重新定位 gold logical forms —— **不只是"数据增强"**，**是"on-line PD 教师"**。**对齐 gold actions 和 on-policy student rollouts** 后，把 current policy (conditioned on aligned gold action) 作 stop-gradient teacher。问题从"如何用 gold 数据"变成"**如何用 gold 数据作 on-policy 监督**"。
+- **🔧 方法**:
+  1. **GAPD (Gold-Action PD)**：训练时给 outcome-based RL 加 **dense token-level guidance**；
+  2. **MID-ANCHOR MATCHING**：把 student exploration 到达的中间 entities 和 gold execution 到达的 entities 作 **state anchors**，通过这些 entities 匹配 student state 到 gold state；
+  3. Current policy (conditioned on aligned gold action) 作 **stop-gradient teacher**；
+  4. Teacher 的 token 分布**蒸馏回 ordinary student policy** over generated action-token spans。
+- **📊 效果**: **WebQSP / GrailQA / GraphQ** 一致超 SOTA，**KBQA 任务的有效 on-policy gold-action 利用**。
+- **⚠️ 局限**: 依赖 gold logical form 标注（KBQA 任务的强假设）；mid-anchor matching 在 entity 集不重叠时可能 fail；on-policy gold action 的对齐代价。
+- **价值**: 把"**gold logical forms 在 KBQA RL 中的角色**"从"**warm-start 数据**"提升到"**on-policy 教师信号**"，是 gold-action 利用的范式升级，对所有"有 gold 结构化标注"的 agentic RL 任务可推广。
 
 
-#### 📄 [Interpretable Policy Distillation for Power Grid Topology Control](https://arxiv.org/abs/2606.00561)
-- **arXiv**: [2606.00561](https://arxiv.org/abs/2606.00561)
-- **🎯 动机**: 深度 RL 用于电网实时运行，但大神经网络策略评估贵、难部署、对运维人员不透明。
-- **💡 方法**: 把 PPO 教师（Grid2Op 14-bus、稳定导向奖励、stress-focused 数据采集）蒸馏到**决策树和随机森林**。
-- **📊 数字**: 决策树和 PPO argmax 高精确动作一致。PPO 依赖线路负载信号，蒸馏树主要由母线拓扑变量驱动。
+#### 📄 [GDSD: Reinforcement Learning as Guided Denoiser Self-Distillation for Diffusion LLMs](https://arxiv.org/abs/2605.29398) | Xiaohang Tang, 2026-05-28
+- **🎯 问题**: 扩散 LLM (dLLM) 的 RL 受困于 **policy likelihood 不可处理**。主流方案用 **ELBO 作 likelihood 代理**（从随机 mask 序列估计）→ **训练-推理 mismatch**（用 ELBO 作 surrogate），性能退化。
+- **💡 思路**: 重新概念化 —— **别管"likelihood 不可处理"问题，直接 self-distill denoiser**。教师是 reverse-KL regularized RL 的 **closed-form optimum** 导出的 advantage-guided self-teacher。**问题从"如何估计 likelihood"变成"如何直接蒸馏 denoiser"**。
+- **🔧 方法**:
+  1. **GDSD (Guided Denoiser Self-Distillation)**：直接蒸馏 dLLM denoiser；
+  2. Teacher 是 **advantage-guided self-teacher**（从 reverse-KL regularized RL closed-form optimum 导出）；
+  3. **Normalization-free objective**：把 dLLM denoiser logits 对齐到 teacher logits；
+  4. **RL 简化为 likelihood-free self-distillation** —— **bypass ELBO bias**；
+  5. 分析：近期 ELBO-based 方法是不同 distillation divergence 的实例，**GDSD 避免其可诊断的病态**。
+- **📊 效果**: LLaDA-8B、Dream-7B 在 planning/math/coding 上**比 SOTA ELBO 方法最多 +19.6%**；**训练 reward dynamics 更稳定**。代码 [GaryBall/GDSD](https://github.com/GaryBall/GDSD)。
+- **⚠️ 局限**: Advantage-guided self-teacher 的 closed-form 推导是否在所有 RL setting 都成立；normalization-free objective 与其他 KL/JSD 选择未充分对比；只验证了 8B/7B。
+- **价值**: 把"**dLLM 的 RL**"从"**用 ELBO 凑合**"变成"**直接 denoiser 自蒸馏**" —— 是 dLLM 后训练的范式转变，+19.6% 是大差距，对 dLLM 社区意义重大。
+
+
+#### 📄 [CCOPD: Same Evidence, Different Answers — Canonical-Context On-Policy Distillation for Multi-Turn LLMs](https://arxiv.org/abs/2605.30251) | Zizhuo Lin, 2026-05-28
+- **🎯 问题**: LLM **完整 prompt 能解，但同一信息**渐进揭示在多轮里**答不同**（lost-in-conversation gap）。同一完整证据在 clean FULL prompt 和 RAW-SHARDED 对话中应得相同答案。归因：**self-anchored drift** —— 部分信息下的回复**引入未支持假设**，**假设扭曲最终答案**。
+- **💡 思路**: **用 clean FULL prompt 作 canonical reference**。同一基座模型**双角色**：frozen teacher (clean FULL) + trainable student (incremental multi-turn)。**对齐 student 在自己 trajectory 上的行为和 teacher's canonical full-context 行为**。问题从"如何让多轮鲁棒"变成"**如何让 multi-turn student 对齐 full-context teacher**"。
+- **🔧 方法**:
+  1. **CCOPD (Canonical-Context OPD)**：训练时**同基座模型双角色**；
+  2. **Frozen teacher** 看 **clean FULL prompt**（canonical context）；
+  3. **Trainable student** 通过 **multi-turn conversation** 接收**同一证据渐进**；
+  4. **对齐 student 在自己 trajectory 上的行为**与 teacher's **canonical full-context 行为**；
+  5. 仅在数学问题对话训练，评估**数学 + 5 个 zero-shot OOD 任务**。
+- **📊 效果**: **RAW-SHARDED 性能 32% 平均相对提升**（数学 + 5 OOD 任务），**full-context 性能大致保留**。分析显示 CCOPD **强化 user evidence grounding + 减少早期 assistant turn 的污染敏感性**。
+- **⚠️ 局限**: 仅在数学问题训练（其他领域迁移性未验证）；需要 same-evidence 的 full/sharded 配对数据；推理时仍用 multi-turn（canonical teacher 仅在训练时）。
+- **价值**: 与 MAIGO 思路互补（**MAIGO 改 student 的 reference 来源，CCOPD 改 student 的 teacher 形态**）—— 都是对"lost-in-conversation"的 on-policy 修复，代表 multi-turn LLM 鲁棒性训练的新方向。
+
+
+#### 📄 [Interpretable Policy Distillation for Power Grid Topology Control](https://arxiv.org/abs/2606.00561) | Karlis Freivalds, 2026-05-30
+- **🎯 问题**: 深度 RL 用于电网实时运行有"**实用三难**"：① 大神经网络策略**评估贵**；② **难部署**在受限硬件；③ **对运维人员不透明**。问：能否把 PPO agent 压缩到**可审计的 tree-based 代理**而不丢性能？
+- **💡 思路**: **PPO 教师 + 决策树/随机森林学生**，**stress-focused data collection**（聚焦 critical 高负载状态）作为蒸馏集。问题从"如何压缩"变成"**如何在 stress 状态下还能压缩**"。
+- **🔧 方法**:
+  1. PPO 教师：Grid2Op 14-bus 环境，**stability-oriented reward**；
+  2. **Stress-focused data collection** —— 聚焦 critical, high-loading states；
+  3. 蒸馏到 **decision tree** 和 **random forest**；
+  4. **Feature importance 分析**揭示 representational shift（PPO 依赖线路负载信号，蒸馏树主要由母线拓扑变量驱动）。
+- **📊 效果**: held-out 验证集上**两个代理超教师**（mean reward + survival length），**推理代价是 PPO 一小部分**；**决策树和 PPO argmax 高度一致**（top-ranked 动作 near-complete 一致）；决策树**小到可直接检查**。
+- **⚠️ 局限**: 仅 14-bus 环境（更复杂电网需验证）；stress-focused data 偏态可能限制泛化；deterministic action 风险（论文明确指出）；**representational shift** 提示**蒸馏可能改变行为模式**（不只是压缩）。
+- **价值**: 把"**电网 DRL 黑盒**"变成"**可审计 tree-based surrogate**"，是**critical infrastructure RL 部署**的实用化方向 —— "representational shift" 的发现对所有 RL-to-tree 蒸馏场景都值得警惕。
 
 

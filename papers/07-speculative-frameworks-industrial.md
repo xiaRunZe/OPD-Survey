@@ -375,10 +375,17 @@ trl/experimental/
 
 ## 📅 2026-06 月新论文（1 篇）
 
-#### 📄 [Draft-OPD: OPD for Speculative Draft Models](https://arxiv.org/abs/2605.29343)
-- **arXiv**: [2605.29343](https://arxiv.org/abs/2605.29343)
-- **🎯 动机**: 推测解码用 SFT 训练 draft 模型（EAGLE3 / DFlash）很快 plateau — SFT 学的是 target-generated 固定轨迹，推理时被 draft 自己提出 block 评估 → **offline-inference 失配**。
-- **💡 方法**: Draft-OPD — 用 OPD 训练 draft 模型。
-- **📊 数字**: 推测解码草稿模型是 OPD 的新战场。
+#### 📄 [Draft-OPD: On-Policy Distillation for Speculative Draft Models](https://arxiv.org/abs/2605.29343) | Haodi Lei et al., 2026-05 v2
+- **🎯 问题**: Speculative decoding 加速 LLM 推理 —— target model + 轻量 draft model，draft 提出 tokens 目标模型并行验证。**EAGLE3 / DFLASH** 之类 draft model 主流是 **SFT on target-generated trajectories**。但 SFT 很快 plateau —— draft 在测试数据上的 **acceptance length 不再涨**。原因：**offline-inference mismatch** —— SFT 学固定 target-generated 轨迹，但**推理时被 draft 自己提出 block 评估**。
+- **💡 思路**: 既然 SFT 失败因**离线-推理 mismatch**，**OPD 训练 draft** 是自然解 —— target 在 **draft-induced states** 上监督 draft。但**直接 OPD 对 draft 难**：① draft **不能独立 roll out 完整序列**（能力不够）；② target-assisted generation 让序列 follow target 分布，**消除 on-policy 信号**（draft 不是被监督者而是"被引导者"）。问题从"如何 SFT draft"变成"**如何让 OPD 在 draft 训练上可工作**"。
+- **🔧 方法**:
+  1. **Draft-OPD**：
+     1. **Target-assisted rollout for stable continuations** —— 用 target 帮 draft 续写，避免 draft 早早崩；
+     2. **Replay drafting from verification-exposed error positions** —— 在 target verification 暴露 draft 错误的**精确位置**重新 draft，让 draft 从**自己的错误**学；
+  2. 让 draft 从**target feedback on both accepted and rejected proposals**学；
+  3. 训练聚焦在**限制 speculative decoding 加速比的 draft-induced errors**。
+- **📊 效果**: Speculative decoding 草稿模型是 OPD 的新战场 —— 证明 OPD 比 SFT 更适合 draft model 训练。Haodi Lei 等来自复旦/上海 AI Lab，作者列表包括 Ning Ding、Yu Cheng 等。
+- **⚠️ 局限**: 验证暴露错误位置的设计需工程实现；target-assisted rollout 的"协助程度"是超参；与其他 draft 训练方案（对比学习、自博弈）的对比未充分讨论；accelerator 实际收益（wall-clock speedup）需详尽实验。
+- **价值**: 把"**speculative decoding 的 draft 训练**"从"**SFT plateau**"变成"**OPD 持续提升**" —— 是 draft model 训练的新范式，对所有想加速 LLM 推理的团队有直接实用价值；同时是 OPD 应用场景的**新拓展**（speculative decoding 此前不在 OPD 主流应用范围内）。
 
 
