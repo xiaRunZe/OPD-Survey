@@ -233,6 +233,57 @@ def _parse_html_search(html: str) -> list[Paper]:
     return papers
 
 
+def _fetch_abs_page(arxiv_id: str, retries: int = 2) -> str:
+    """Fetch full abstract from arXiv /abs/{ID} page. Returns empty string on failure."""
+    url = f"https://arxiv.org/abs/{arxiv_id}"
+    for i in range(retries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                html = r.read().decode("utf-8", errors="ignore")
+            # arXiv abs page 完整 abstract 在 <blockquote class="abstract mathjax"> 内
+            m = re.search(
+                r'<blockquote class="abstract[^"]*">\s*<span[^>]*>Abstract:</span>\s*(.*?)</blockquote>',
+                html, re.DOTALL,
+            )
+            if not m:
+                m = re.search(
+                    r'<blockquote class="abstract[^"]*">\s*(.*?)</blockquote>',
+                    html, re.DOTALL,
+                )
+            if m:
+                return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", m.group(1))).strip()
+            return ""
+        except Exception:
+            if i < retries - 1:
+                time.sleep(2.0 * (i + 1))
+    return ""
+
+
+def enrich_abstracts(papers: list[Paper], sleep_seconds: float = 2.0, verbose: bool = True) -> None:
+    """
+    For each paper, fetch the full abstract from /abs/{ID} if the current
+    abstract is suspiciously short (search-page truncation).
+
+    Mutates papers in place. Sleeps sleep_seconds between requests to
+    respect arXiv rate limit (~3 req/min sustained).
+    """
+    enriched = 0
+    for i, p in enumerate(papers):
+        if len(p.abstract) >= 200:  # already looks complete
+            continue
+        full = _fetch_abs_page(p.arxiv_id)
+        if full and len(full) > len(p.abstract):
+            p.abstract = full
+            enriched += 1
+        if verbose and (i + 1) % 5 == 0:
+            print(f"      enrich: {i + 1}/{len(papers)} (added {enriched} full abstracts)")
+        if i < len(papers) - 1:
+            time.sleep(sleep_seconds)
+    if verbose:
+        print(f"      enrich done: +{enriched} full abstracts of {len(papers)} papers")
+
+
 def filter_papers(papers: list[Paper], keywords: list[str]) -> list[Paper]:
     """Filter by keywords + assign category."""
     out = []
@@ -283,6 +334,8 @@ def main() -> int:
     ap.add_argument("--out", default="daily-updates/auto-latest.md", help="输出文件")
     ap.add_argument("--verbose", action="store_true")
     ap.add_argument("--api", action="store_true", help="用 arxiv API 而非 HTML search（更稳但限流严）")
+    ap.add_argument("--no-enrich", action="store_true", help="跳过拉取完整 abstract（快但 abstract 可能截断）")
+    ap.add_argument("--enrich-sleep", type=float, default=2.0, help="拉 abs 页间隔秒数（默认 2）")
     args = ap.parse_args()
 
     print(f"[1/3] searching arXiv: query={args.query!r}, max={args.max}, mode={'API' if args.api else 'HTML'}")
@@ -292,6 +345,10 @@ def main() -> int:
     print(f"[2/3] keyword filter: {len(args.keywords)} keywords")
     filtered = filter_papers(papers, args.keywords)
     print(f"      matched {len(filtered)} papers")
+
+    if filtered and not args.no_enrich:
+        print(f"[2.5/3] enrich full abstracts: {len(filtered)} papers, sleep={args.enrich_sleep}s")
+        enrich_abstracts(filtered, sleep_seconds=args.enrich_sleep, verbose=args.verbose)
 
     print(f"[3/3] writing markdown: {args.out}")
     out_path = Path(args.out)
