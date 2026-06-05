@@ -328,24 +328,42 @@ $$
 
 ## 📅 2026-06 月新论文（3 篇）
 
-#### 📄 [OPD+: Rethinking the Advantage Design for On-Policy Distillation](https://arxiv.org/abs/2606.01039)
-- **arXiv**: [2606.01039](https://arxiv.org/abs/2606.01039)
-- **🎯 动机**: 现有 OPD 用 stop-gradient（为稳定），但 advantage 估计**可能有偏**。
-- **💡 方法**: 通用 f-散度优化框架，**数学证明** stop-gradient 对一般散度函数导致**有偏**奖励目标。OPD+ = 修正版，支持各种 f-散度。
-- **📊 数字**: 数学推理、工具调用 benchmark 比 baseline KL 更优。
+#### 📄 [OPD+: Rethinking the Advantage Design for On-Policy Distillation](https://arxiv.org/abs/2606.01039) | Hanyang Zhao, 2026-05-31
+- **🎯 问题**: OPD 几乎所有实现都在**教师 logit 上加 stop-gradient**（避免教师随学生一起被更新导致不稳定）。这个操作是**经验工程技巧**，没人从数学上验证它对**各种 f-散度**（不只 KL）是否成立。一旦改成 JSD、χ²、reverse-KL，stop-gradient 是否还给出**正确的 advantage 估计**？不确定。
+- **💡 思路**: 把 OPD 写成**通用 f-散度最小化**的统一目标，反过来**严格推导**在 stop-gradient 下梯度的偏差表达式 —— 用数学证明代替经验假设。问题变成"stop-gradient 对哪些散度类有偏、如何修正"。
+- **🔧 方法**: 
+  1. 在统一 f-散度框架下重新表述 OPD 的 advantage 估计；
+  2. 数学证明：**对一般散度函数**，stop-gradient 会导致 advantage 估计**有偏**，且这个偏差会通过梯度累积污染最终目标；
+  3. 提出 **OPD+**：去掉 stop-gradient 但加**正确的策略梯度修正项**（数学上让梯度无偏）；
+  4. 框架支持任意 f-散度（KL、JSD、χ²、TV 等），用户按需选。
+- **📊 效果**: 数学推理和工具调用 benchmark 上，OPD+ **比 stop-gradient 的 baseline KL 一致提升**，并且不同 f-散度选型带来额外的可调自由度。
+- **⚠️ 局限**: 论文给出**理论修正项**，但实际实现代价（多算一份教师梯度、或维护一个 detached 副本）未详细讨论；对超大教师/学生模型的**显存与吞吐**影响需要工程验证。
+- **价值**: 把"OPD 实现细节"从"经验技巧"变成"可证伪的数学对象"，是后续 OPD 理论工作（如 RKLOPD、F-divergence survey）的基础。
 
 
-#### 📄 [A Predictive Law for On-Policy Self-Distillation From World Feedback](https://arxiv.org/abs/2605.30070)
-- **arXiv**: [2605.30070](https://arxiv.org/abs/2605.30070)
-- **🎯 动机**: OPSD 用任意反馈作学习信号，相对 GRPO 等成熟方法的可靠性**不清楚**。
-- **💡 方法**: 发现**惊人的线性相关** — 初始学生-自教师性能 gap vs 最终性能提升，在上下文类型和模型族上**一致**。是个**预测定律**。
-- **📊 数字**: 模型规模放大也保持，可能成新**经验 scaling law**。
+#### 📄 [A Predictive Law for On-Policy Self-Distillation From World Feedback](https://arxiv.org/abs/2605.30070) | Tommy He, 2026-05-28
+- **🎯 问题**: 业界正从"标量奖励"走向"**丰富世界反馈**"（自然语言、verifier、模拟器）。OPSD 是这条路最自然的载体 —— 用任意反馈作 token 级学习信号。但问题是：**和 GRPO 等成熟方法相比，OPSD 到底什么时候有效、能不能预测它的结果？** 没人知道。你不知道该不该上 OPSD，也不知道该用哪种反馈、训练多久。
+- **💡 思路**: 转换问题 —— **不要"事后解释 OPSD 结果"，而要"事前预测 OPSD 结果"**。从经验数据中找 OPSD 训练前后性能的**可量化关系**。如果发现一个简单物理量（初始 gap）就能预测最终提升，那 OPSD 就有"设计参数"可调。
+- **🔧 方法**: 
+  1. 收集大量 OPSD 实验数据，涵盖**多种上下文类型**（代码、数学、对话）和**多种模型族**（不同规模 + 不同基座）；
+  2. 测量两个数：训练前**学生 vs 自教师**的性能 gap，训练后学生 vs ground-truth 的提升；
+  3. 散点图 → 发现**惊人的线性关系**：gap 越大、最终提升越大（且 R² 极高）；
+  4. 验证：换 context、换模型族、换模型规模，**线性关系稳定**；
+  5. 推论：模型越大，关系越紧 → **OPSD 可能有自己的经验 scaling law**。
+- **📊 效果**: 给出一条**直尺**：拿一个 OPSD 配置，先跑几百步小实验估 gap，就能预测完整训练的最终效果，**避免跑废**。也意味着 OPSD 反馈信号的选择可以用 gap 大小作为**统一度量**。
+- **⚠️ 局限**: 线性关系是**经验发现**而非理论证明；gap 本身的定义依赖"自教师"在 OPSD 中的特化形式，换非 OPSD 设置是否还有类似关系**未知**；是否能外推到 GPT-4 级模型需要更贵实验验证。
+- **价值**: 让 OPSD 从"试一下"变成"**可预测的设计参数**"，对实际工程选型（投入多大教师、选哪个反馈信号）有直接指导价值。
 
 
-#### 📄 [Post-Training is About States, Not Tokens: A State Distribution View of SFT, RL, and OPD](https://arxiv.org/abs/2605.22731)
-- **arXiv**: [2605.22731](https://arxiv.org/abs/2605.22731)
-- **🎯 动机**: SFT/RL/蒸馏常通过损失函数分析，**监督应用的状态分布**少有人研究。
-- **💡 方法**: post-training = state-distribution shaping。控制实验三现象：(1) 温和 SFT 提 GSM8K 少遗忘，stress SFT 大幅保留损失；(2) 退化 SFT 教师的 OPD 在 GSM8K/TruthfulQA/MMLU 上**反超**教师；(3) 轻量级 on-policy RL 提 GSM8K 保留。
-- **📊 数字**: Qwen3-0.6B-Base + GSM8K 验证。
+#### 📄 [Post-Training is About States, Not Tokens: A State Distribution View of SFT, RL, and OPD](https://arxiv.org/abs/2605.22731) | 2026-05
+- **🎯 问题**: SFT/RL/OPD 总是从**损失函数**视角分析（MLE、PG、forward KL、reverse KL...）。但有个常被忽略的问题：**这些监督到底作用在哪些状态上？** 一个 state = prompt + 已生成 prefix。SFT 作用在"数据集状态"，RL/OPD 作用在"学生自己 roll 出来的状态"。**这俩分布差得远**。如果不看状态分布只看 loss 函数，会漏掉 post-training 大量现象。
+- **💡 思路**: 把 post-training 重新定义为 **state-distribution shaping**（塑形训练状态分布）。提问："温和的 SFT 为什么不灾难性遗忘？degraded 教师 OPD 怎么能反超教师？轻量级 RL 怎么能保留能力？"如果都从 state 分布的角度看，答案可能很统一。
+- **🔧 方法**: **控制变量小规模实验** —— Qwen3-0.6B-Base 在 GSM8K 训练，TruthfulQA/MMLU 作 retention 评估。三组对比：
+  1. **温和 SFT vs stress SFT**：温和几乎不遗忘，stress 灾难性遗忘 → 状态分布**偏移**和遗忘强相关；
+  2. **degraded SFT 教师 → OPD 学生**：教师自己答得烂，但**OPD 学生反超教师**（GSM8K/TruthfulQA/MMLU 三个全涨）→ 学生用 on-policy 状态"**逃出**"教师状态分布的死角；
+  3. **轻量级 on-policy RL**：GSM8K 涨 + 几乎不遗忘 → on-policy 状态分布天然和原任务契合。
+- **📊 效果**: 三个现象强支持"**state-distribution shaping**"视角：状态分布的来源（dataset vs student rollout）和它的偏移幅度，比 loss 函数形式更决定 post-training 的取舍（精度 vs 保留）。
+- **⚠️ 局限**: 小规模实验（0.6B + GSM8K），三个数字"现象性"而非"机制性" —— 论文没回答 "**为什么**温和 SFT 状态偏移小"；推广到大规模 + 复杂任务需要进一步实验。
+- **价值**: 改变 post-training 社区的**提问方式** —— 从"用什么 loss"到"在什么 state 上训练"。和"训练数据分布"在传统 ML 里的地位类似，这篇是 LLM post-training 领域呼唤"state 视角"的代表。
 
 
