@@ -15,7 +15,8 @@ on:
   workflow_dispatch:
   # 定时任务：每天 UTC 12:00 = 北京时间 20:00
   schedule:
-    - cron: "0 12 * * *"
+    # 每天 UTC 13:00 = 北京时间 21:00（晚上 9 点）
+    - cron: "0 13 * * *"
 
 permissions:
   contents: write
