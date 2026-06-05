@@ -64,13 +64,11 @@
 | 🎭 [三、黑盒 OPD（API 教师）](papers/03-black-box-opd.md) | 4 | `papers/03-black-box-opd.md` |
 | ♻️ [四、OPSD（特权上下文自蒸馏）](papers/04-opd-self-distillation.md) | 15 | `papers/04-opd-self-distillation.md` |
 | 🔁🤝 [五、迭代自举 + OPD-RL 混合方法](papers/05-iterative-and-opdrl.md) | 19 | `papers/05-iterative-and-opdrl.md` |
-| 🧠🖼️🤖 [六、推理 / 多模态 / Agent OPD（应用）](papers/06-applications.md) | 18 | `papers/06-applications.md` |
-| ⚡🛠️🏭 [七、投机解码 / 框架 / 工业界](papers/07-speculative-frameworks-industrial.md) | 37 | `papers/07-speculative-frameworks-industrial.md` |
-| 📅 [八、2026-06 月新论文速读（43 篇）](papers/09-2026-06-new-papers.md) | 43 | `papers/09-2026-06-new-papers.md` |
-| 📖 [每日更新指南（如何维护）](docs/每日更新指南.md) | — | `docs/每日更新指南.md` |
-| 📅 [更新日志](daily-updates/) | — | `daily-updates/` |
+| 🧠🖼️🤖 [六、推理 / 多模态 / Agent OPD（应用）](papers/06-applications.md) | 18+9 | `papers/06-applications.md` |
+| ⚡🛠️🏭 [七、投机解码 / 框架 / 工业界](papers/07-speculative-frameworks-industrial.md) | 37+1 | `papers/07-speculative-frameworks-industrial.md` |
 
-> 📊 **总计**：约 150+ 篇论文 / 仓库 / 框架
+> 📊 **总计**：约 150+ 篇论文 / 仓库 / 框架。每章末尾的 **「📅 2026-06 月新论文」** 区块展示本月新拉取的 arXiv 论文速读（已按主题归位到对应章）。
+> 📖 维护工作流见 [docs/每日更新指南.md](docs/每日更新指南.md)；每日新增记录在 [daily-updates/](daily-updates/)。
 
 ---
 
@@ -86,8 +84,7 @@ OPD-Survey/
 │   ├── 04-opd-self-distillation.md          ← 四、OPSD 自蒸馏
 │   ├── 05-iterative-and-opdrl.md            ← 五、迭代自举 + OPD-RL 混合
 │   ├── 06-applications.md                   ← 六、推理 / 多模态 / Agent OPD
-│   ├── 07-speculative-frameworks-industrial.md  ← 七、投机 / 框架 / 工业
-│   └── 09-2026-06-new-papers.md               ← 八、2026-06 月 43 篇新论文速读
+│   └── 07-speculative-frameworks-industrial.md  ← 七、投机 / 框架 / 工业
 ├── docs/
 │   └── 每日更新指南.md                       ← 维护工作流
 └── daily-updates/
@@ -140,7 +137,7 @@ OPD-Survey/
 | 日期 | 新增内容 | 来源 |
 |------|---------|------|
 | 2026-06-05 | 仓库初始化，导入 thinkwee/AwesomeOPD 全部 111 项 | AwesomeOPD + arXiv + 小红书/知乎 |
-| 2026-06-05 | 新增 **2026-05-22 ~ 2026-06-05 期间 43 篇最新论文**中文速读（动机+方法+关键数字）| 自动拉取 `auto-latest.md` 后逐篇消化 |
+| 2026-06-05 | 新增 **2026-05-22 ~ 2026-06-05 期间 43 篇最新论文**中文速读（动机+方法+关键数字） | 自动拉取 `auto-latest.md` 后按主题归位到 1-7 章末尾 |
 | 持续更新 | 每日新增论文 | 参见 [`daily-updates/`](daily-updates/) |
 
 ---

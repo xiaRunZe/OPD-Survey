@@ -626,18 +626,6 @@ $$
 ### ⚠️ 局限
 - 需多 checkpoint 存储
 - 调度策略复杂
-
----
-
-## 18. ROSD — 反思式自蒸馏
-
-| 项目 | 内容 |
-|------|------|
-| **机构** | PolyU / Baidu |
-| **时间** | 2026.05 |
-| **arXiv** | [2605.28014](https://arxiv.org/abs/2605.28014) |
-| **类型** | 📄 paper-only |
-
 ### 🎯 动机
 - 现有自蒸馏在**错误位置**也会蒸馏
 - 想要"定位错误 + 局部蒸馏"
@@ -682,3 +670,34 @@ $$
 - **SDPO 后期崩溃的场景下保持稳定**
 
 **局限**：互信息估计需额外前向；仅在 ScienceQA 验证。
+
+---
+
+#### 📄 [TRB: Trust-Region Behavior Blending for OPD](https://arxiv.org/abs/2605.31159)
+- **arXiv**: [2605.31159](https://arxiv.org/abs/2605.31159)
+- **🎯 动机**: OPD 学生早期 rollout 差，教师监督落在弱/低质量 prefix 上。
+- **💡 方法**: TRB = warmup 方法 — 在 KL 信任域内用"最接近教师"的行为策略**替换**早期 rollout 策略，保留 per-prefix reverse-KL OPD loss。KL 预算退火到 0，warmup 后回到纯学生 rollout。
+- **📊 数字**: 两个数学蒸馏设置中**平均最强**。
+
+
+#### 📄 [LGR: Lookahead Group Reward (Combating Supervision Fidelity Decay)](https://arxiv.org/abs/2605.30833)
+- **arXiv**: [2605.30833](https://arxiv.org/abs/2605.30833)
+- **🎯 动机**: **SFD（监督保真度衰减）** — 学生前缀越长，教师 next-token 分布越不 confident/discriminative → reverse-KL 纠正信号越弱。
+- **💡 方法**: Lookahead Group Reward — 用教师在**下一步**的 confidence 评估学生 top-K 候选 token，给 group-normalized 奖励。配合熵触发的 tree-attention 保效率。
+- **📊 数字**: 6 个数学/代码 benchmark，**mean@8 比 OPD +2.57**；长生成 +4.92（**AIME-26, 39k tokens**）。
+
+
+#### 📄 [ADWIN: Adaptive Windows for Horizon-Aware OPD](https://arxiv.org/abs/2605.28396)
+- **arXiv**: [2605.28396](https://arxiv.org/abs/2605.28396)
+- **🎯 动机**: 标准 full-rollout OPD 把每次更新绑到一次贵完成，且可能把监督过度分配到对当前学生**边际价值低**的后段。
+- **💡 方法**: ADWIN = **自适应窗口框架** — rollout 长度是**在线可接受性决策**：短教师锚定 prefix 训练，延迟 full-rollout probe 审计 prefix-full 对齐。
+- **📊 数字**: 数学/代码推理单任务/多任务/强对弱设置，**端到端训练成本最多 -4.1 倍**且精度相当或更好。
+
+
+#### 📄 [CaMOPD: Counteraction-Aware Multi-Teacher OPD](https://arxiv.org/abs/2605.27115)
+- **arXiv**: [2605.27115](https://arxiv.org/abs/2605.27115)
+- **🎯 动机**: 领域特化常削弱通用能力。MOPD 恢复能力，但**假设教师对齐的 prompt 覆盖** — 开源通用教师后训练数据未知时这假设难满足。
+- **💡 方法**: 用易得 proxy 通用 prompt。两个失败模式 — (1) recovery-preservation **counteraction**；(2) weak-signal flattening。CaMOPD = **解耦交替训练** + **gap-based 样本选择**。
+- **📊 数字**: 角色扮演对话、医疗推理 QA — 通用恢复最佳且保持领域特化。
+
+

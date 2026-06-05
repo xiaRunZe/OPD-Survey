@@ -639,3 +639,66 @@ $$
 - Miner（多教师）：+18.81
 
 **局限**：过滤阈值/软权函数为新超参。
+#### 📄 [TS-OPSD: Internalize the Temperature (Policy Reheater)](https://arxiv.org/abs/2606.00755)
+- **arXiv**: [2606.00755](https://arxiv.org/abs/2606.00755)
+- **🎯 动机**: RL 训练中模型熵会崩溃，传统补救（熵正则 / 调采样温度）都是**外部干预**，不写入参数。
+- **💡 方法**: 把高温度采样得到的"平滑分布"作为 self-teacher，**蒸馏回学生** → 温度的探索性被"内化"到参数里。**零外部教师、零特权数据、零额外推理成本**。
+- **📊 数字**: Qwen3-4B/8B-Base 上比标准 RL 和 rollout-level 温度修复都更强初始化。
+
+
+#### 📄 [StepOPSD: Step-Aware Online Preference Distillation for Agent RL](https://arxiv.org/abs/2605.27140)
+- **arXiv**: [2605.27140](https://arxiv.org/abs/2605.27140)
+- **🎯 动机**: 多轮 Agent RL 奖励稀疏且在 trajectory 级，但成功往往取决于**几个关键的局部决策**。
+- **💡 方法**: 把 trajectory 切分为**以 step 为中心的段**，用 hindsight-enriched teacher 上下文重打分，转成**符号保持**的 advantage shaping + 归一化 step 信用预算。
+- **📊 数字**: **ALFWorld Heat 79.1%**，**PickTwo 95.0%**，**TriviaQA 61.6%**。发现"两旋钮定律"。
+
+
+#### 📄 [EchoDistill: Noisy-to-Clean Self-Distillation for Robust Audio LLMs](https://arxiv.org/abs/2605.23954)
+- **arXiv**: [2605.23954](https://arxiv.org/abs/2605.23954)
+- **🎯 动机**: 音频 LLM 遇噪声就语义漂移，主流方案（波形增强 / 答案级监督 / 内部抑制）各有缺陷。
+- **💡 方法**: **对齐式 noisy-to-clean 自蒸馏** — 用干净输入的自身输出作为 teacher，去教噪声输入的输出对齐。
+- **📊 数字**: 把"对齐"和"去噪"结合，是音频 LLM 鲁棒性的新范式。
+
+
+#### 📄 [TrOPD: Trust Region On-Policy Distillation](https://arxiv.org/abs/2606.01249)
+- **arXiv**: [2606.01249](https://arxiv.org/abs/2606.01249)
+- **🎯 动机**: 师生分布差异大时 OPD 不稳定 — 教师对学生的 token 监督产生不可靠策略梯度，甚至优化失败。
+- **💡 方法**: 三组件：(1) **Trust-Region On-Policy Learning** 只在可靠区域做 OPD；(2) **Outlier Estimation** 离群区域梯度裁剪/mask/forward-KL；(3) **Off-Policy Guidance** 学生从教师 prefix 续写。
+- **📊 数字**: 数学推理、代码、通用 benchmark 一致超 OPD/EOPD/REOPOLD。
+
+
+#### 📄 [ESR: Early Stopping Rollout (Less is More)](https://arxiv.org/abs/2605.27028)
+- **arXiv**: [2605.27028](https://arxiv.org/abs/2605.27028)
+- **🎯 动机**: 后续 token 时，学生早期轨迹作上下文（off-policy 相对教师），**教师纠错能力衰减**（Off-policy Teacher Decay）。
+- **💡 方法**: ESR 简单有效 — **限制 rollout 生成到 response 前几个 token**。发现 **Cascading Alignment** 和 **Sub-mode Commitment** 效应。
+- **📊 数字**: ESR **全胜过 full rollout OPD**，**GPU 效率和训练稳定性更高**（特别跨模型族）。KL 散度和熵信号**无法完全解释**。
+
+
+#### 📄 [POPD / Truncated OPD: Are Full Rollouts Necessary?](https://arxiv.org/abs/2605.31490)
+- **arXiv**: [2605.31490](https://arxiv.org/abs/2605.31490)
+- **🎯 动机**: 标准 OPD 生成完整 rollout，**计算贵**且早期训练时后段教师反馈不可靠。
+- **💡 方法**: rollout horizon 是关键瓶颈。两个简单策略 — **POPD** 渐进扩展；**Truncated OPD** 永久用截断。
+- **📊 数字**: POPD 训练效率 **+3 倍**；Truncated OPD **只用 10% rollout 长度**就匹配 OPD 性能。
+
+
+#### 📄 [TA-OPD: Token Teachability in On-Policy Distillation](https://arxiv.org/abs/2605.26844)
+- **arXiv**: [2605.26844](https://arxiv.org/abs/2605.26844)
+- **🎯 动机**: 选择性 OPD 优先高熵/高分歧 token — 但 raw KL 分歧是**学习价值的粗糙代理**。
+- **💡 方法**: 把局部兼容性形式化为 **token teachability**。TA-OPD = 轻量级 token 位置选择，把 OPD loss 应用到高 teachability 位置。
+- **📊 数字**: Qwen2.5/Qwen3 设置上，**5% 保留 token 常超全 token OPD**。
+
+
+#### 📄 [ERPD: Extreme Region Policy Distillation](https://arxiv.org/abs/2605.25582)
+- **arXiv**: [2605.25582](https://arxiv.org/abs/2605.25582)
+- **🎯 动机**: 严格 on-policy 单次更新后丢弃轨迹，off-policy 复用有分布失配。aggressive 多步优化 → 快速初增益 + 后期 trajectory 概率偏离 + 熵崩溃。
+- **💡 方法**: ERPD 两阶段 — (1) **弱约束 off-policy 优化**最大提取训练信号；(2) 在信任域约束下**蒸馏**这些信号到基础策略。
+- **📊 数字**: 强基础模型和弱教师都受益 — 即使 aggressive 优化没产生更强策略，degenerate 教师也能用替代信号构造策略。
+
+
+#### 📄 [Data-Efficient OPD for Automatic Speech Recognition](https://arxiv.org/abs/2605.28139)
+- **arXiv**: [2605.28139](https://arxiv.org/abs/2605.28139)
+- **🎯 动机**: 强 ASR 要大规模音频监督，复现和特化贵。
+- **💡 方法**: Ark-ASR（0.6B 参数音频条件 LM，100k 小时语音训练） + 研究强 Qwen-ASR 教师能否通过 OPD 转移识别能力。
+- **📊 数字**: abstract 截断，详细结果待全文。
+
+

@@ -323,3 +323,29 @@ $$
 | **Lightning OPD** | 离线优化变体 |
 | **OPSD Survey** | OPSD 子方向综述 |
 | **Self-Distilled Reasoner** | OPSD 奠基论文 |
+
+---
+
+## 📅 2026-06 月新论文（3 篇）
+
+#### 📄 [OPD+: Rethinking the Advantage Design for On-Policy Distillation](https://arxiv.org/abs/2606.01039)
+- **arXiv**: [2606.01039](https://arxiv.org/abs/2606.01039)
+- **🎯 动机**: 现有 OPD 用 stop-gradient（为稳定），但 advantage 估计**可能有偏**。
+- **💡 方法**: 通用 f-散度优化框架，**数学证明** stop-gradient 对一般散度函数导致**有偏**奖励目标。OPD+ = 修正版，支持各种 f-散度。
+- **📊 数字**: 数学推理、工具调用 benchmark 比 baseline KL 更优。
+
+
+#### 📄 [A Predictive Law for On-Policy Self-Distillation From World Feedback](https://arxiv.org/abs/2605.30070)
+- **arXiv**: [2605.30070](https://arxiv.org/abs/2605.30070)
+- **🎯 动机**: OPSD 用任意反馈作学习信号，相对 GRPO 等成熟方法的可靠性**不清楚**。
+- **💡 方法**: 发现**惊人的线性相关** — 初始学生-自教师性能 gap vs 最终性能提升，在上下文类型和模型族上**一致**。是个**预测定律**。
+- **📊 数字**: 模型规模放大也保持，可能成新**经验 scaling law**。
+
+
+#### 📄 [Post-Training is About States, Not Tokens: A State Distribution View of SFT, RL, and OPD](https://arxiv.org/abs/2605.22731)
+- **arXiv**: [2605.22731](https://arxiv.org/abs/2605.22731)
+- **🎯 动机**: SFT/RL/蒸馏常通过损失函数分析，**监督应用的状态分布**少有人研究。
+- **💡 方法**: post-training = state-distribution shaping。控制实验三现象：(1) 温和 SFT 提 GSM8K 少遗忘，stress SFT 大幅保留损失；(2) 退化 SFT 教师的 OPD 在 GSM8K/TruthfulQA/MMLU 上**反超**教师；(3) 轻量级 on-policy RL 提 GSM8K 保留。
+- **📊 数字**: Qwen3-0.6B-Base + GSM8K 验证。
+
+

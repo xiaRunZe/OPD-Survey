@@ -643,3 +643,69 @@ $$
 **效果**：long-horizon、持续学习、知识并入、few-shot 泛化均显著。
 
 **局限**：训练流程复杂；RL 阶段计算量大。
+
+---
+
+#### 📄 [CAST: Non-Privileged Clipped Asymmetric Self-Teaching](https://arxiv.org/abs/2606.00172)
+- **arXiv**: [2606.00172](https://arxiv.org/abs/2606.00172)
+- **🎯 动机**: GRPO 给的是稀疏 outcome reward，全对/全错组优势为零 → 浪费；OPSD 的 token 偏好不一定对齐 trajectory 正确性。
+- **💡 方法**: CAST 是**无答案自教学**：用 stop-gradient self-teacher 沿 trajectory 正确性塑形 token 优势。**双向局部 advantage 翻转** — 正确 trajectory 中 teacher-negative token 拿负优势，错误 trajectory 中 teacher-positive token 拿正优势。
+- **📊 数字**: 数学推理上比 RLVR 更优，保留轻量级 verifier-grounded 目标。
+
+
+#### 📄 [SGSD: Skill-Conditioned Gated Self-Distillation](https://arxiv.org/abs/2605.28791)
+- **arXiv**: [2605.28791](https://arxiv.org/abs/2605.28791)
+- **🎯 动机**: OPSD 用"特权信息"（参考答案/成功轨迹）作教师信号。但 PI 能否来自**经验派生的技能库**（紧凑可复用但可能不相关/误导）？
+- **💡 方法**: SGSD 把基于技能的自蒸馏公式化为**教师假设验证** — 检索技能-错误对，构造多教师池，让所有技能条件教师对同一 plain-prompt 学生 rollout 评分。verifier 验证每个教师极性，鲁棒门控目标蒸馏有信息师生分歧。
+- **📊 数字**: Qwen3-1.7B **AIME24/25/HMMT25 平均比 GRPO +6.2%**，**比 OPSD +1.7%**。
+
+
+#### 📄 [ROSD: Reflective On-Policy Self-Distillation](https://arxiv.org/abs/2605.28014)
+- **arXiv**: [2605.28014](https://arxiv.org/abs/2605.28014)
+- **🎯 动机**: OPSD 域内增益有限、域外泛化差。两原因 — (1) self-teacher 条件在已验证解上鼓励**模仿训练域参考轨迹**；(2) 在完整 response 上蒸馏**覆盖有效推理 prefix** + 强化过拟合。
+- **💡 方法**: ROSD 把参考解模仿转为**针对性推理纠正**。self-reflector 提取**纠正想法** + 定位**首个错误 span**。
+- **📊 数字**: 多个域内/域外推理 benchmark — 域内推理整体更强，**域外泛化显著优于标准 OPSD**。
+
+
+#### 📄 [SC-SDPO: Pass-Rate Weighted Self-Distillation](https://arxiv.org/abs/2605.27765)
+- **arXiv**: [2605.27765](https://arxiv.org/abs/2605.27765)
+- **🎯 动机**: GRPO 的 group-relative advantage 自然聚焦在**中间难度"甜点"**。SDPO 的 KL-based advantage 缺乏难度感知。
+- **💡 方法**: 扩展 learnability 框架到归一化奖励 → 处方：按 **[p̂(1-p̂)]^(1/2)** 加权每个 question 的 SDPO loss → SC-SDPO。
+- **📊 数字**: Qwen3-8B **+3.2/+4.3**（mean@16/maj@16），OLMo-3-7B **+1.8/+3.0**。权重零成本从 batch 自适应归一化 rollout 拿。
+
+
+#### 📄 [MAIGO: History-Cleaned OPSD for Multi-Turn (Lost-in-Conversation)](https://arxiv.org/abs/2605.27186)
+- **arXiv**: [2605.27186](https://arxiv.org/abs/2605.27186)
+- **🎯 动机**: LLM 完整 prompt 能解，多轮展开则退化（lost-in-conversation gap）。原因 — **self-contamination**（中间助手回复进后续上下文，把早期偏差带下去）。
+- **💡 方法**: MAIGO = **on-policy 自蒸馏 + 历史清洗**。
+- **📊 数字**: abstract 截断，详细结果待全文。
+
+
+#### 📄 [SPD: Self-Policy Distillation via Capability-Selective Subspace Projection](https://arxiv.org/abs/2605.22675)
+- **arXiv**: [2605.22675](https://arxiv.org/abs/2605.22675)
+- **🎯 动机**: 自蒸馏要么靠外部信号策展自生成输出，要么跳过策展全训。更深弱点 — 自生成输出把**任务相关能力**和**风格/格式/模型特定错误**纠缠。
+- **💡 方法**: SPD = **能力选择性自蒸馏无需外部信号**。从模型自己在正确性定义 token 上的梯度**提取低秩能力子空间**，自生成时把 KV activation 投到这个子空间。
+- **📊 数字**: 代码/数学/MCQ QA **比 SOTA 自蒸馏最多 +13%**，**比预训练基线 +16%**。**OOD 泛化 +15%**。
+
+
+#### 📄 [CODE: Causal On-Policy Self-Distillation Editing (Knowledge Evolution)](https://arxiv.org/abs/2605.28303)
+- **arXiv**: [2605.28303](https://arxiv.org/abs/2605.28303)
+- **🎯 动机**: 知识编辑的 Static Fact Overwriting 把 LLM 当离散数据库 → **Epistemic Dissonance**。零失真代理下 **95.6% self-refutation**。
+- **💡 方法**: 把更新基础从孤立事实改为**显式因果叙事** → 冲突率降至 **6.6%**。CODE 内化这种进化。
+- **📊 数字**: 知识编辑从"事实覆盖"转向"知识进化"是**范式转变**。
+
+
+#### 📄 [EDGE-OPD: Internalizing Privileged Context with Evidence Guidance](https://arxiv.org/abs/2605.23493)
+- **arXiv**: [2605.23493](https://arxiv.org/abs/2605.23493)
+- **🎯 动机**: OPSD 中特权信息（persona/私密事实/解题过程）**会改模型行为到超出预期** — 改推理、降低通用能力、改响应长度/风格/token 偏好。
+- **💡 方法**: EDGE-OPD 两特征：(1) **guided rollouts** 让学生在采样时就注入特权上下文行为；(2) **evidence mask** 只在特权上下文**支持**采样 token 的位置更新学生。
+- **📊 数字**: rare-token/identity 设置，OPSD/RLSD（有/无 verifier）**完全失败**学不到目标 identity；EDGE-OPD 成功。
+
+
+#### 📄 [OISD: On-Policy Internal Self-Distillation](https://arxiv.org/abs/2605.29089)
+- **arXiv**: [2605.29089](https://arxiv.org/abs/2605.29089)
+- **🎯 动机**: 现有 RL 后训练主要优化最终输出策略的**稀疏 outcome reward**，几乎忽略**中间表征**中的预测信号。
+- **💡 方法**: OISD = 新范式 — 在 rollout 和 GRPO 优化中，**最终层同时作 policy 和 detached 内部教师**，向选定的**中间层**传输：(1) **logit 对齐**；(2) **attention 对齐**。
+- **📊 数字**: 4 个数学推理任务上一致超强 reasoning RL 基线。
+
+

@@ -152,3 +152,15 @@ $$
 ### ⚠️ 局限
 - 半 on-policy 仍非真正 on-policy
 - 静态负样本可能在训练后期过时
+
+---
+
+## 📅 2026-06 月新论文（1 篇）
+
+#### 📄 [OmniOPD: Logit-Free On-Policy Distillation via Speculative Verification](https://arxiv.org/abs/2606.01476)
+- **arXiv**: [2606.01476](https://arxiv.org/abs/2606.01476)
+- **🎯 动机**: 标准 OPD 两个耦合限制 — (1) 要教师 token-level logits（专有模型做不了教师）；(2) token 信号脆，依赖师生候选 token 重叠，会放大重复 loop。
+- **💡 方法**: **chunk-level 监督** — Monte Carlo rollout 在多 token chunk 上用连续语义相似度近似教师偏好；**peak-entropy scheduler** 只在学生高不确定推理分支审计；Dirichlet-Multinomial 贝叶斯先验 + base-model KL anchor。
+- **📊 数字**: 数学 **+28.64%**；配 Claude-4.5-Haiku / Gemini-2.5-Flash 黑盒教师再 +9.54%。
+
+

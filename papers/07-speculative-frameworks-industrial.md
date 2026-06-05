@@ -370,3 +370,15 @@ trl/experimental/
 
 - 类似 RLSD 配方
 - 工业代码 Agent
+
+---
+
+## 📅 2026-06 月新论文（1 篇）
+
+#### 📄 [Draft-OPD: OPD for Speculative Draft Models](https://arxiv.org/abs/2605.29343)
+- **arXiv**: [2605.29343](https://arxiv.org/abs/2605.29343)
+- **🎯 动机**: 推测解码用 SFT 训练 draft 模型（EAGLE3 / DFlash）很快 plateau — SFT 学的是 target-generated 固定轨迹，推理时被 draft 自己提出 block 评估 → **offline-inference 失配**。
+- **💡 方法**: Draft-OPD — 用 OPD 训练 draft 模型。
+- **📊 数字**: 推测解码草稿模型是 OPD 的新战场。
+
+

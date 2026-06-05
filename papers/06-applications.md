@@ -568,3 +568,60 @@
 - 仅用 **100 个 harmful 样本**（不到基线 1%）
 
 **局限**：依赖 token 分类器质量；RKL 仍可能 mode-seeking。
+
+---
+
+#### 📄 [VGS: Decomposed OPD for Vision-Language Reasoning (Steering Gradients)](https://arxiv.org/abs/2606.00564)
+- **arXiv**: [2606.00564](https://arxiv.org/abs/2606.00564)
+- **🎯 动机**: 多模态 OPD 的优化动态**没研究透** — 标准 monolithic 视角掩盖了语言先验和视觉 grounding 的独立目标。
+- **💡 方法**: 数学分解损失为"语言先验"和"视觉 grounding"两部分，发现**梯度向量近乎正交** → 标准优化走的是次优妥协轨迹。VGS 动态重定向更新向量**优先视觉子空间**。
+- **📊 数字**: 多个多模态 benchmark 上视觉 grounding 显著优 + 训练开销极小。
+
+
+#### 📄 [FA-OPD: Adversarial Dual OPD for Embodied Control](https://arxiv.org/abs/2605.27095)
+- **arXiv**: [2605.27095](https://arxiv.org/abs/2605.27095)
+- **🎯 动机**: 行为克隆 + 扩散/流匹配策略仍然是**离线监督学习** — 策略只在专家状态训练，对实际访问的状态没纠正信号。
+- **💡 方法**: FA-OPD 是**对抗式双 OPD** — Flow Matching 教师从演示学习，与 MLP 学生共同训练。教师提供两个信号：(1) **奖励通道**学专家相似度；(2) **动作通道**给学生访问状态提供密集局部目标。
+- **📊 数字**: 6 个机器人 navigation/manipulation/locomotion benchmark 都超基线，**对噪声/有限演示鲁棒性显著**。
+
+
+#### 📄 [CollectionLoRA: 50 Effects in 1 LoRA via Multi-Teacher OPD](https://arxiv.org/abs/2605.25378)
+- **arXiv**: [2605.25378](https://arxiv.org/abs/2605.25378)
+- **🎯 动机**: 定制图像编辑要给扩散模型加多个视觉效果，每个效果存一个 LoRA → 部署成本暴涨。和加速模块级联还有参数干扰。
+- **💡 方法**: CollectionLoRA 用**多教师 OPD** 把 50 个效果塞进 1 个 LoRA。
+- **📊 数字**: abstract 截断，详细结果待全文。
+#### 📄 [TOPD: Trajectory-aware OPD via Near-Future Guidance](https://arxiv.org/abs/2606.00305)
+- **arXiv**: [2606.00305](https://arxiv.org/abs/2606.00305)
+- **🎯 动机**: OPD 学习信号是 token-level 的，但推理失败常是**短程分布漂移** — 孤立 token 级监督修不好。
+- **💡 方法**: TOPD 用**近未来 trajectory 信息**识别真正发散的状态，把指导分布到多个未来 token 上。
+- **📊 数字**: 屏蔽非发散高 loss token → 标准 OPD **47.8%→48.2%**；TOPD 再 → **52.2%**。**AIME24 60%→63.3%**，**AIME25 46.7%→53.3%**。
+
+
+#### 📄 [GAPD: Gold-Action Policy Distillation for KBQA](https://arxiv.org/abs/2605.29584)
+- **arXiv**: [2605.29584](https://arxiv.org/abs/2605.29584)
+- **🎯 动机**: 知识库问答（KBQA）的 RL 只优化稀疏的最终答案奖励，中间 action 错误弱监督。
+- **💡 方法**: GAPD 把 gold action 序列做成**在线 policy 蒸馏的教师信号**。
+- **📊 数字**: gold logical form 不只是数据增强，更是**在线 PD 教师**。
+
+
+#### 📄 [GDSD: Guided Denoiser Self-Distillation for Diffusion LLMs](https://arxiv.org/abs/2605.29398)
+- **arXiv**: [2605.29398](https://arxiv.org/abs/2605.29398)
+- **🎯 动机**: 扩散 LLM（dLLM）的 RL 受困于**似然不可处理**。主流方案用 ELBO 作似然代理 → 训练-推理失配。
+- **💡 方法**: GDSD 直接**自蒸馏 denoiser** — 教师是 reverse-KL 正则 RL 闭式最优解导出的 advantage-guided self-teacher，**匹配 dLLM denoiser logits**。
+- **📊 数字**: LLaDA-8B、Dream-7B **比 SOTA ELBO 方法最多 +19.6%**。
+
+
+#### 📄 [Canonical-Context OPD for Multi-Turn Language Models](https://arxiv.org/abs/2605.30251)
+- **arXiv**: [2605.30251](https://arxiv.org/abs/2605.30251)
+- **🎯 动机**: 多轮对话中**同一完整证据**渐进揭示，模型却会答不同（"lost-in-conversation gap"）。原因 — **self-anchored drift**。
+- **💡 方法**: Canonical-Context OPD — 用 clean FULL prompt 和 RAW-SHARDED 对话训练对齐。
+- **📊 数字**: abstract 截断，详细结果待全文。
+
+
+#### 📄 [Interpretable Policy Distillation for Power Grid Topology Control](https://arxiv.org/abs/2606.00561)
+- **arXiv**: [2606.00561](https://arxiv.org/abs/2606.00561)
+- **🎯 动机**: 深度 RL 用于电网实时运行，但大神经网络策略评估贵、难部署、对运维人员不透明。
+- **💡 方法**: 把 PPO 教师（Grid2Op 14-bus、稳定导向奖励、stress-focused 数据采集）蒸馏到**决策树和随机森林**。
+- **📊 数字**: 决策树和 PPO argmax 高精确动作一致。PPO 依赖线路负载信号，蒸馏树主要由母线拓扑变量驱动。
+
+
