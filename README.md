@@ -4,9 +4,9 @@
 
 **中文版 On-Policy Distillation / On-Policy Self-Distillation 论文调研与解读**
 
-[![Papers](https://img.shields.io/badge/已收录-100+-blueviolet?style=for-the-badge)](#)
-[![Update](https://img.shields.io/badge/每日更新-daily-brightgreen?style=for-the-badge)](#)
-[![Chinese](https://img.shields.io/badge/中文解读-100%25-red?style=for-the-badge)](#)
+[![Papers](https://img.shields.io/badge/已收录-110+-blueviolet?style=for-the-badge)](papers/)
+[![Update](https://img.shields.io/badge/每日更新-daily-brightgreen?style=for-the-badge)](daily-updates/)
+[![Chinese](https://img.shields.io/badge/中文解读-100%25-red?style=for-the-badge)](papers/)
 
 </div>
 
@@ -29,10 +29,8 @@
 
 **On-Policy Distillation（在线策略蒸馏）** 是一种 LLM 后训练方法，核心是：
 
-```
-学生模型在自己的数据分布上（On-Policy），
-接收来自教师模型的密集 token 级监督信号（Distillation）。
-```
+> 学生模型在自己的数据分布上（On-Policy），
+> 接收来自教师模型的密集 token 级监督信号（Distillation）。
 
 > 🎯 一句话：**学生一边自己开车（生成），教练一边对每一步动作打分**（KL 散度对齐）。
 
@@ -49,32 +47,50 @@
 **OPSD 是 OPD 的特例**：教师 = 学生（同模型），但教师在**特权上下文**（privileged context）下工作。
 
 例如：
-- 学生：只看问题
-- 教师：看问题 + 验证过的推理轨迹（特权信息）
+- **学生**：只看问题
+- **教师**：看问题 + 验证过的推理轨迹（特权信息）
 - 学生自己生成答案 → 教师在每一步提供"正确答案的概率分布"作为监督
 
 > 🎯 优势：**无需独立教师模型**，单一 LLM 通过不同上下文实现自进化。
 
 ---
 
-## 🗂️ 目录结构
+## 🗂️ 目录结构（按论文类别）
 
-| 章节 | 论文数 | 链接 |
-|------|-------|------|
-| 📚 **综述、基础与立场论文** | 8 | [查看](#-一综述基础与立场论文) |
-| 🔬 **白盒 OPD（外教师）** | 17 | [查看](#-二白盒-opd外部教师模型) |
-| 🎭 **黑盒 OPD（API 教师）** | 4 | [查看](#-三黑盒-opdapi教师) |
-| ♻️ **OPSD（特权上下文自蒸馏）** | 15 | [查看](#-四opd-自蒸馏特权上下文) |
-| 🔁 **迭代自举** | 2 | [查看](#-五迭代自举) |
-| 🤝 **OPD-RL 混合方法** | 17 | [查看](#-六opd-rl-混合方法) |
-| 🧠 **推理 OPD（应用）** | 3 | [查看](#-七推理-opd应用) |
-| 🖼️ **多模态 OPD** | 6 | [查看](#-八多模态-opd) |
-| 🤖 **Agent & 具身 OPD** | 9 | [查看](#-九agent--具身-opd) |
-| ⚡ **投机解码蒸馏** | 11 | [查看](#-十投机解码蒸馏) |
-| 🛠️ **框架与工具包** | 11 | [查看](#-十一框架与工具包) |
-| 🏭 **工业界 / 量产模型** | 13 | [查看](#-十二工业界--量产模型) |
+| 章节 | 论文数 | 文件 |
+|------|------:|------|
+| 📚 [一、综述、基础与立场论文](papers/01-surveys-foundations.md) | 8 | `papers/01-surveys-foundations.md` |
+| 🔬 [二、白盒 OPD（外部教师）](papers/02-white-box-opd.md) | 17 | `papers/02-white-box-opd.md` |
+| 🎭 [三、黑盒 OPD（API 教师）](papers/03-black-box-opd.md) | 4 | `papers/03-black-box-opd.md` |
+| ♻️ [四、OPSD（特权上下文自蒸馏）](papers/04-opd-self-distillation.md) | 15 | `papers/04-opd-self-distillation.md` |
+| 🔁🤝 [五、迭代自举 + OPD-RL 混合方法](papers/05-iterative-and-opdrl.md) | 19 | `papers/05-iterative-and-opdrl.md` |
+| 🧠🖼️🤖 [六、推理 / 多模态 / Agent OPD（应用）](papers/06-applications.md) | 18 | `papers/06-applications.md` |
+| ⚡🛠️🏭 [七、投机解码 / 框架 / 工业界](papers/07-speculative-frameworks-industrial.md) | 37 | `papers/07-speculative-frameworks-industrial.md` |
+| 📖 [每日更新指南（如何维护）](docs/每日更新指南.md) | — | `docs/每日更新指南.md` |
+| 📅 [更新日志](daily-updates/) | — | `daily-updates/` |
 
 > 📊 **总计**：约 110+ 篇论文 / 仓库 / 框架
+
+---
+
+## 📂 仓库根目录
+
+```
+OPD-Survey/
+├── README.md                                ← 本文件
+├── papers/                                  ← 论文中文解读
+│   ├── 01-surveys-foundations.md            ← 一、综述、基础与立场论文
+│   ├── 02-white-box-opd.md                  ← 二、白盒 OPD
+│   ├── 03-black-box-opd.md                  ← 三、黑盒 OPD
+│   ├── 04-opd-self-distillation.md          ← 四、OPSD 自蒸馏
+│   ├── 05-iterative-and-opdrl.md            ← 五、迭代自举 + OPD-RL 混合
+│   ├── 06-applications.md                   ← 六、推理 / 多模态 / Agent OPD
+│   └── 07-speculative-frameworks-industrial.md  ← 七、投机 / 框架 / 工业
+├── docs/
+│   └── 每日更新指南.md                       ← 维护工作流
+└── daily-updates/
+    └── YYYY-MM-DD.md                        ← 每日新增记录
+```
 
 ---
 
@@ -96,6 +112,24 @@
 | **RLVR** | RL with Verifiable Rewards | 可验证奖励强化学习 |
 | **MCTS** | Monte Carlo Tree Search | 蒙特卡洛树搜索 |
 | **MLLM** | Multimodal LLM | 多模态 LLM |
+| **OPSD** | On-Policy Self-Distillation | 在线策略自蒸馏 |
+| **OPD** | On-Policy Distillation | 在线策略蒸馏 |
+| **EMA** | Exponential Moving Average | 指数移动平均 |
+
+---
+
+## 🏷️ 严格度标签
+
+为方便读者快速识别"真 OPD"和"边缘方法"，本仓库使用以下标签：
+
+| 标签 | 含义 |
+|------|------|
+| ✅ **严格 OPD** | 满足 C1（学生 rollout）+ C2（教师 per-token 监督） |
+| ⚠️ **序列级 OPD** | C1 满足，C2 是序列级（如 DPO/BOND）非 per-token |
+| ⚠️ **Offline OPD** | 不严格满足 C1（如 Lightning OPD 用历史数据） |
+| ⚠️ **混合 OPD** | on-policy 与 off-policy 混合（如 LUFFY） |
+| ⚠️ **退化为自举** | 无真实 KL 信号（如 Apple SSD） |
+| ℹ️ **理论分析** | 论文自身不提出新算法（如 DDT、Why-SD-Degrade） |
 
 ---
 
@@ -104,7 +138,7 @@
 | 日期 | 新增内容 | 来源 |
 |------|---------|------|
 | 2026-06-05 | 仓库初始化，导入 thinkwee/AwesomeOPD 全部 111 项 | AwesomeOPD + arXiv + 小红书/知乎 |
-| 持续更新 | 每日新增论文 | 参见 `daily-updates/` |
+| 持续更新 | 每日新增论文 | 参见 [`daily-updates/`](daily-updates/) |
 
 ---
 
