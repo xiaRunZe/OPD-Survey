@@ -479,3 +479,92 @@
 
 ### ⚠️ 局限
 - 实现复杂
+
+---
+
+## 📅 2026-06 月新论文速览（增量附录）
+
+> 完整中文解读见 [daily-updates/2026-06-05.md](../daily-updates/2026-06-05.md)。
+
+### ViCuR — Visual Cues as Recoverable Privilege for Multimodal OPD
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Kanghui Tian 等 |
+| **时间** | 2026-06-04 |
+| **arXiv** | [2606.05718](https://arxiv.org/abs/2606.05718) |
+| **类别** | 🖼️ 多模态 OPD / 视觉线索特权 |
+
+**核心创新**：用**视觉线索（query-related evidence）替代答案特权**——这些线索来自同一视觉输入，学生**推理时可恢复**。实现上加轻量 cue recovery module（sink-token cross-attention prefill），不改推理接口。
+
+**效果**：
+- 7 个 benchmark，Qwen3-VL-2B/8B
+- 相对"答案特权自蒸馏"+1.19/+1.24 平均分
+- 相对"更强教师 OPD"+0.64/+1.08
+
+**局限**：需设计有效视觉线索；cue recovery 模块加少量预填充开销。
+
+**意义**：证明"教师特权的设计"和"教师强度"同样重要。
+
+---
+
+### MGSD — Modality-Gap-aware Self-Distillation（视觉规划）
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Jiahui Liu 等 |
+| **时间** | 2026-06-04 |
+| **arXiv** | [2606.06076](https://arxiv.org/abs/2606.06076) |
+| **代码** | [Oranger-l/MGSD](https://github.com/Oranger-l/MGSD) |
+| **类别** | 🖼️ 多模态 OPSD / 视觉空间规划 |
+
+**核心创新**：把视觉规划差归因于"感知-推理模态差距"。两阶段：
+1. cold-start 视觉学生有可靠 state 表征
+2. **特权教师**用**显式符号状态**监督学生**自己的视觉 rollout 前缀**
+
+推理时纯视觉，符号数据仅训练用。
+
+**效果**：4B/8B backbone macro avg 提升 19.3% / 18.4%。
+
+**局限**：需符号化训练数据；泛化到非规划任务待验证。
+
+---
+
+### DuDi — Dual-Signal Distillation（多语言）
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Patomporn Payoungkhamdee 等 |
+| **时间** | 2026-06-03 |
+| **arXiv** | [2606.04694](https://arxiv.org/abs/2606.04694) |
+| **类别** | 🖼️ 多模态 / 多语言 |
+
+**核心创新**：**双信号** = 序列级（在线 LM 损失）+ token 级（off-policy + on-policy KL）。**跨语言 verbalizer** 提升师生传递性。
+
+**效果**：SEA-HELM 上**全面超越**蒸馏基线；三种信号**互补**。
+
+**局限**：跨语言 verbalizer 构造较复杂。
+
+---
+
+### SafeSteer — Localized OPD for Safety Alignment
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Hao Li, Jingkun An 等 11 人 |
+| **时间** | 2026-06-01 |
+| **会议** | EMNLP 2026 投稿 |
+| **arXiv** | [2606.02530](https://arxiv.org/abs/2606.02530) |
+| **项目页** | [anjingkun.github.io/SafeSteer](https://anjingkun.github.io/SafeSteer) |
+| **类别** | 🖼️ 安全应用 / 白盒 OPD 细粒度 |
+
+**核心创新**：安全特性在输出分布中本就稀疏——应该**局部修改**而非全局权衡。三件套：
+1. **激活引导构造 safety teacher**
+2. **safety token 选择算法**
+3. 仅对这些 token 计算 RKL
+
+**效果**：
+- 7 个 safety + 5 个通用 benchmark，**最强 trade-off**
+- 仅用 **100 个 harmful 样本**（不到基线 1%）
+
+**局限**：依赖 token 分类器质量；RKL 仍可能 mode-seeking。

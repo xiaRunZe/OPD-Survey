@@ -539,3 +539,107 @@ $$
 ### ⚠️ 局限
 - 需要英语参考解
 - 仅适合有英语基础的低资源语言
+
+---
+
+## 📅 2026-06 月新论文速览（增量附录）
+
+> 完整中文解读见 [daily-updates/2026-06-05.md](../daily-updates/2026-06-05.md)。
+
+### CGTR — When Should the Teacher Move?（Self-OPD 时序耦合）
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Haowei Guo 等 |
+| **时间** | 2026-06-02 |
+| **arXiv** | [2606.03532](https://arxiv.org/abs/2606.03532) |
+| **类别** | ♻️ OPSD / 教师调度 |
+
+**核心创新**：发现 Self-OPD 失败模式 **state-oblivious collapse**——短时最优的固定刷新在长程训练中**灾难性失败**。提出 **Consolidation-Gated Teacher Refresh (CGTR)**，仅在"奖励改善 + length-tail 安全"双重证据下更新教师。
+
+**关键发现**：
+- "隔离期"（教师两次更新间完全冻结）才是关键，非教师年龄
+- 诊断框架：temporal KL structure / refresh shock / length-tail risk
+- 4 任务（Chem/Bio/Phys/ToolUse）**零崩溃 + 最高最终分**
+- **自调节**刷新频率，无需 per-dataset 调参
+
+**局限**：需可靠 reward；调度策略对超参敏感。
+
+---
+
+### COPSD — Constitutional On-Policy Safe Distillation
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Ming Wen 等 |
+| **时间** | 2026-06-02 |
+| **arXiv** | [2606.03089](https://arxiv.org/abs/2606.03089) |
+| **类别** | ♻️ OPSD / 安全对齐 |
+
+**核心创新**：把 OPSD 失败形式化为"**非正交语义空间的几何泄漏**"——安全压力泄漏到表达性维度。提出 COPSD = Cross-SFT cold-start 校准教师 + 宪法条件化 OPSD。
+- 12 个 benchmark 上更强 safety-helpfulness 权衡
+- 对通用推理的 **safety tax 显著降低**
+
+**局限**：Cross-SFT 需额外数据；几何泄漏理论待形式化。
+
+---
+
+### DistIL — Distributional DAgger（理论）
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Rishabh Agrawal, Jacob Fein-Ashley, Paria Rashidinejad |
+| **时间** | 2026-06-03 |
+| **arXiv** | [2606.05152](https://arxiv.org/abs/2606.05152) |
+| **类别** | ♻️ OPSD / 理论 + 实践 |
+
+**核心创新 / 理论贡献**：
+- **理论证明**：基于 RKL 或 JSD 的自蒸馏目标**不能保证**单调策略改进（即使专家奖励更高，更新仍可能增加差动作概率）
+- **FKL（前向交叉熵）能保证**单调改进 + regret bound
+- 序列级梯度做 dense credit assignment
+
+**实践**：DistIL 在科学推理、编程、难数学题上**稳定超越** RLVR 和 RL+自蒸馏基线，Pass@N 提升。
+
+**局限**：FKL 是 mode-covering，可能过度泛化。
+
+**意义**：从理论上解释了为何 RKL/JSD 自蒸馏常不稳定。
+
+---
+
+### SDPG — Self-Distilled Policy Gradient
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Yifeng Liu 等 |
+| **时间** | 2026-06-02 |
+| **arXiv** | [2606.04036](https://arxiv.org/abs/2606.04036) |
+| **代码** | [lauyikfung/SDPG](https://github.com/lauyikfung/SDPG) |
+| **类别** | ♻️ OPSD + RL 混合 |
+
+**核心机制**：
+- GRPO group-relative verifier advantage + 标准化 std
+- **全词表 on-policy 自蒸馏 KL** 辅助损失
+- 参考策略 KL 正则
+
+**效果**：比 RLVR 和自蒸馏基线**更稳定、更高分**。
+
+**局限**：全词表蒸馏显存贵；组合损失权重敏感。
+
+---
+
+### Sleep — LMs Need Sleep（持续学习 OPSD）
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Ali Behrouz 等 |
+| **时间** | 2026-06-02 |
+| **arXiv** | [2606.03979](https://arxiv.org/abs/2606.03979) |
+| **类别** | ♻️ OPSD / 持续学习循环 |
+
+**核心范式**（仿人脑"睡眠"）：
+1. **Memory Consolidation**（向上蒸馏）：小模型记忆 → 大模型容量扩张，**on-policy distillation + RL 模仿学习**（Generalized Distillation）
+2. **Dreaming**（自我改进）：用 RL 生成合成数据 curriculum
+
+**效果**：long-horizon、持续学习、知识并入、few-shot 泛化均显著。
+
+**局限**：训练流程复杂；RL 阶段计算量大。

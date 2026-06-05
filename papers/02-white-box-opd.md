@@ -598,3 +598,44 @@ $$
 ### ⚠️ 局限
 - 权重设计需调
 - 实际收益因任务而异
+
+---
+
+## 📅 2026-06 月新论文速览（增量附录）
+
+> 完整中文解读见 [daily-updates/2026-06-05.md](../daily-updates/2026-06-05.md)。
+
+### OPRD — On-Policy Representation Distillation
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Shenzhi Yang 等 |
+| **时间** | 2026-06-04 |
+| **arXiv** | [2606.06021](https://arxiv.org/abs/2606.06021) |
+| **代码** | [ShenzhiYang2000/OPRD](https://github.com/ShenzhiYang2000/OPRD) |
+| **类别** | 🔬 白盒 OPD / 隐藏层空间 |
+
+**核心创新**：把 OPD 从"输出空间"提到"隐藏层空间"——学生-教师在同一 rollout 上对若干层 hidden state 直接对齐 MSE，**完全绕开 LM head**。
+- 消除大词表（Qwen ~150k）的 MC-KL 采样方差
+- 1.44× 训练加速、54% 显存节省
+- AIME 2024/2025、AIMO 上**闭合师生 gap**（传统 OPD 困在教师以下）
+
+**局限**：需学生-教师同构；选层策略待研究。
+
+---
+
+### FiRe-OPD — Filter, Then Reweight
+
+| 项目 | 内容 |
+|------|------|
+| **作者** | Yuying Li 等 |
+| **时间** | 2026-06-01 v1 / 06-04 v2 |
+| **arXiv** | [2606.02684](https://arxiv.org/abs/2606.02684) |
+| **代码** | [YuYingLi0/FiRe-OPD](https://github.com/YuYingLi0/FiRe-OPD) |
+| **类别** | 🔬 白盒 OPD / 轨迹 + token 粒度 |
+
+**核心创新**：**Filter + Reweight** 双层粒度优化——先过滤低质量 rollout，再在保留轨迹上对 token 软重加权。软加权保留更多信号。
+- AIME 2024（强-弱）：+6.25
+- Miner（多教师）：+18.81
+
+**局限**：过滤阈值/软权函数为新超参。
