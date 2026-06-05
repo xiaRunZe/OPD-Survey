@@ -157,10 +157,16 @@ $$
 
 ## 📅 2026-06 月新论文（1 篇）
 
-#### 📄 [OmniOPD: Logit-Free On-Policy Distillation via Speculative Verification](https://arxiv.org/abs/2606.01476)
-- **arXiv**: [2606.01476](https://arxiv.org/abs/2606.01476)
-- **🎯 动机**: 标准 OPD 两个耦合限制 — (1) 要教师 token-level logits（专有模型做不了教师）；(2) token 信号脆，依赖师生候选 token 重叠，会放大重复 loop。
-- **💡 方法**: **chunk-level 监督** — Monte Carlo rollout 在多 token chunk 上用连续语义相似度近似教师偏好；**peak-entropy scheduler** 只在学生高不确定推理分支审计；Dirichlet-Multinomial 贝叶斯先验 + base-model KL anchor。
-- **📊 数字**: 数学 **+28.64%**；配 Claude-4.5-Haiku / Gemini-2.5-Flash 黑盒教师再 +9.54%。
+#### 📄 [OmniOPD: Logit-Free On-Policy Distillation via Speculative Verification](https://arxiv.org/abs/2606.01476) | 2026-06-01
+- **🎯 问题**: 标准 OPD 有**两个耦合限制**。① **要教师 token-level logits** → 专有模型（Claude/Gemini/...）做不了教师（黑盒无 logits）。② **token-level logit 信号本身脆**：依赖师生候选 token 的**窄重叠**，**放大 repetition loop 等退化模式**。两个限制把"最强专有模型当教师"和"鲁棒学习信号"两个理想都关在门外。
+- **💡 思路**: 重新设计监督信号 —— **别再对 token logits，改为对 chunk 的语义相似度**。"Logit-free" + "chunk-level" 两个关键词同时开门。监督变成"这个多 token 块在语义上更像教师的哪个块"，是**连续相似度**而非**离散 token 匹配**。
+- **🔧 方法**:
+  1. **Logit-free 监督**: Monte Carlo rollouts **在多 token chunk 上**用**连续语义相似度**近似教师偏好（而非确定性 token logit matching）；
+  2. **Peak-entropy scheduler**: **只在学生高不确定推理分支**审计（不浪费监督在确定位置）；
+  3. **Dirichlet-Multinomial 贝叶斯先验**: 控制离散采样方差；
+  4. **Base-model KL anchor**: 防 policy collapse（未审计 token 不漂移）。
+- **📊 效果**: 数学上比 standard OPD 最多 **+28.64%**；配 **Claude-4.5-Haiku / Gemini-2.5-Flash 黑盒教师 +9.54%** → **学生反超 self-exploratory RL**。证明 **chunk-level semantic verification** 比 token-level logit matching **信号更鲁棒**（高信息密度换高噪声脆性）。
+- **⚠️ 局限**: **Chunk size 是新超参**；语义相似度度量选择需适配任务；Monte Carlo 采样多步代价。是否适用长 chain-of-thought（chunk 越长计算越重）需进一步验证。
+- **价值**: 打开"**专有黑盒模型当 OPD 教师**"的大门 —— 比"开源教师"性能强 9.54% 的实证对实际部署有直接意义；同时把监督从"token"上升到"chunk"，与"semantic KD"系列工作一脉相承。
 
 
