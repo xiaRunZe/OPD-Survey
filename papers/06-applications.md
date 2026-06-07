@@ -486,88 +486,92 @@
 
 > 本月新拉取的 9 篇推理/多模态/Agent OPD 论文。每篇采用 5 段结构（问题-思路-方法-效果-局限）。
 
-### ViCuR — Visual Cues as Recoverable Privilege for Multimodal OPD
-
-| 项目 | 内容 |
-|------|------|
-| **作者** | Kanghui Tian 等 |
-| **时间** | 2026-06-04 |
-| **arXiv** | [2606.05718](https://arxiv.org/abs/2606.05718) |
-| **类别** | 🖼️ 多模态 OPD / 视觉线索特权 |
-
-**核心创新**：用**视觉线索（query-related evidence）替代答案特权**——这些线索来自同一视觉输入，学生**推理时可恢复**。实现上加轻量 cue recovery module（sink-token cross-attention prefill），不改推理接口。
-
-**效果**：
-- 7 个 benchmark，Qwen3-VL-2B/8B
-- 相对"答案特权自蒸馏"+1.19/+1.24 平均分
-- 相对"更强教师 OPD"+0.64/+1.08
-
-**局限**：需设计有效视觉线索；cue recovery 模块加少量预填充开销。
-
-**意义**：证明"教师特权的设计"和"教师强度"同样重要。
-
----
-
-### MGSD — Modality-Gap-aware Self-Distillation（视觉规划）
-
-| 项目 | 内容 |
-|------|------|
-| **作者** | Jiahui Liu 等 |
-| **时间** | 2026-06-04 |
-| **arXiv** | [2606.06076](https://arxiv.org/abs/2606.06076) |
-| **代码** | [Oranger-l/MGSD](https://github.com/Oranger-l/MGSD) |
-| **类别** | 🖼️ 多模态 OPSD / 视觉空间规划 |
-
-**核心创新**：把视觉规划差归因于"感知-推理模态差距"。两阶段：
-1. cold-start 视觉学生有可靠 state 表征
-2. **特权教师**用**显式符号状态**监督学生**自己的视觉 rollout 前缀**
-
-推理时纯视觉，符号数据仅训练用。
-
-**效果**：4B/8B backbone macro avg 提升 19.3% / 18.4%。
-
-**局限**：需符号化训练数据；泛化到非规划任务待验证。
+#### 📄 [ViCuR: Visual Cues as Recoverable Privilege for Multimodal OPD](https://arxiv.org/abs/2606.05718) | Kanghui Tian, 2026-06-04
+- **🎯 问题**: 多模态 OPD 的传统特权信息是**答案 / 文本标注**——但这在**纯视觉推理**任务上**不可用**（推理时只能看图）。问题：能否设计**视觉特权的替代品**？什么样的"**特权**"是**推理时可恢复**的？简单的"更强教师 OPD"在多模态场景并不比"特权设计"有效。
+- **💡 思路**: 转换特权设计——不用**答案特权**，用**视觉线索特权**（query-related evidence）。这些线索**来自同一视觉输入**，学生**推理时通过 recovery module 可恢复**。问题从"**答案信息**"变成"**视觉证据的重新组织**"。关键是：恢复模块**不改推理接口**（推理时仅是正常 forward）。
+- **🔧 方法**:
+  1. **ViCuR (Visual Cues as Recoverable Privilege)**：用**视觉线索**作为特权信息；
+  2. **视觉线索** = query-related evidence（与问题相关的视觉证据）—— 从同一图像的**分割/检测/区域特征**提取；
+  3. **Cue Recovery Module**：轻量 **sink-token cross-attention prefill**——在推理时把视觉线索**重新恢复**为学生可用的状态；
+  4. **不改推理接口**——推理时**正常 forward**，prefill 阶段**预先注入**线索。
+- **📊 效果**:
+  - **7 个 benchmark**（Qwen3-VL-2B/8B）；
+  - 相对"**答案特权自蒸馏**"基线 **+1.19 / +1.24 平均分**；
+  - 相对"**更强教师 OPD**"基线 **+0.64 / +1.08**——**比换更强教师还有效**；
+  - 证明"**特权设计**"和"**教师强度**"**同样重要**。
+- **⚠️ 局限**:
+  - **需设计有效视觉线索**——线索选择/构造有工程门槛；
+  - **Cue Recovery 模块**加**少量预填充开销**（虽然轻量但非零）；
+  - 线索质量**依赖视觉感知能力**——感知差时线索本身不可靠；
+  - 在**非 Qwen3-VL 模型**上泛化性**待验证**。
+- **价值**: 把 "**多模态 OPD 特权设计**" 从"**换更强教师**" 推到 "**重新设计特权形式**"——**视觉线索特权**是**新设计维度**。是**多模态 OPSD 范式**的**重要扩展**。
 
 ---
 
-### DuDi — Dual-Signal Distillation（多语言）
-
-| 项目 | 内容 |
-|------|------|
-| **作者** | Patomporn Payoungkhamdee 等 |
-| **时间** | 2026-06-03 |
-| **arXiv** | [2606.04694](https://arxiv.org/abs/2606.04694) |
-| **类别** | 🖼️ 多模态 / 多语言 |
-
-**核心创新**：**双信号** = 序列级（在线 LM 损失）+ token 级（off-policy + on-policy KL）。**跨语言 verbalizer** 提升师生传递性。
-
-**效果**：SEA-HELM 上**全面超越**蒸馏基线；三种信号**互补**。
-
-**局限**：跨语言 verbalizer 构造较复杂。
+#### 📄 [MGSD: Modality-Gap-aware Self-Distillation (Visual Planning with Symbolic Privileged Teacher)](https://arxiv.org/abs/2606.06076) | Jiahui Liu, 2026-06-04
+- **🎯 问题**: 视觉规划（visual planning）任务上，MLLM 表现差——为什么？传统解释是"**视觉感知弱**"或"**规划能力不足**"，但**没形式化**。问题：能否把"**感知-推理模态差距**"形式化，并设计**显式弥补**的蒸馏方法？纯视觉学生能否学得"**符号级别的状态推理**"？
+- **💡 思路**: 把视觉规划失败归因于"**感知-推理模态差距**"——学生看到的是**像素**，但要推理的是**符号状态**。问题从"**如何学视觉**"变成"**如何弥补符号到像素的差距**"。两阶段：(1) 冷启动**可靠的视觉 state 表征**；(2) **特权教师**用**显式符号状态**监督学生**自己生成的视觉 rollout 前缀**。推理时**纯视觉**，符号数据**仅训练用**。
+- **🔧 方法**:
+  1. **MGSD (Modality-Gap-aware Self-Distillation)**：两阶段模态弥补自蒸馏；
+  2. **Stage 1 - Cold-Start**：视觉学生有**可靠的 state 表征**（通过符号监督预训练）；
+  3. **Stage 2 - 特权教师蒸馏**：用**显式符号状态**作为特权信息，监督学生的**视觉 rollout 前缀**；
+  4. **推理时纯视觉**——符号数据**不参与推理**（保持推理效率）；
+  5. 代码 [Oranger-l/MGSD](https://github.com/Oranger-l/MGSD)。
+- **📊 效果**:
+  - **4B backbone** macro avg 提升 **19.3%**；
+  - **8B backbone** macro avg 提升 **18.4%**；
+  - **视觉规划**任务上一致有效，**大模型增益仍显著**。
+- **⚠️ 局限**:
+  - **需符号化训练数据**——某些任务**符号标注稀缺**（数据成本）；
+  - 泛化到**非规划任务**（如 VQA、Captioning）**待验证**——目前仅在规划任务验证；
+  - **两阶段**训练流程复杂，符号预训练 + 视觉蒸馏需协调；
+  - 冷启动视觉 state 表征**质量**直接决定**最终效果**。
+- **价值**: 把 "**视觉规划失败**" 推到 "**模态差距**" 的**形式化视角**。**显式符号特权** + **两阶段弥补** 是**多模态 OPSD 范式**的**重要新设计**。
 
 ---
 
-### SafeSteer — Localized OPD for Safety Alignment
+#### 📄 [DuDi: Dual-Signal Distillation for Multilingual LLMs](https://arxiv.org/abs/2606.04694) | Patomporn Payoungkhamdee, 2026-06-03
+- **🎯 问题**: 多语言 LLM 蒸馏中，**单语言蒸馏**直接搬到**多语言**往往效果差——**跨语言**语义传递困难。传统方案只用**单一信号**（纯 on-policy KL 或纯 LM 损失），但**多语言场景需要哪些信号组合**？问题：如何让**师生**在**多语言**间**有效传递**？直接跨语言蒸馏为什么常常**负迁移**？
+- **💡 思路**: **双信号互补** = **序列级**（在线 LM 损失）+ **token 级**（off-policy + on-policy KL）。**双信号各自负责不同维度**——序列级保全局语义、token 级保局部对齐。同时引入**跨语言 verbalizer**——把不同语言的"**判断词**"映射到**共享语义空间**——提升**师生跨语言传递性**。问题从"**单信号**"变成"**多信号互补 + 跨语言桥梁**"。
+- **🔧 方法**:
+  1. **DuDi (Dual-Signal Distillation)**：双信号 + 跨语言 verbalizer；
+  2. **序列级信号**：在线 **LM 损失**（next-token prediction，**全局语义**）；
+  3. **Token 级信号**：**off-policy + on-policy KL**（**局部对齐**，双蒸馏）；
+  4. **跨语言 verbalizer**：把多语言"**判断词 / 推理词**"映射到**共享语义空间**——**师生传递桥梁**；
+  5. **三种信号互补**——缺一不可。
+- **📊 效果**:
+  - **SEA-HELM**（东南亚多语言 benchmark）上**全面超越**蒸馏基线；
+  - **三种信号互补**——单独使用**任一种**效果都更差；
+  - **跨语言传递性**显著提升——避免**负迁移**。
+- **⚠️ 局限**:
+  - **跨语言 verbalizer 构造较复杂**——需要语义对齐的共享词表；
+  - **双语/多语语种差距大**时（中文 vs 低资源东南亚语）verbalizer 效果可能受限；
+  - 训练**多任务 + 多信号**——**计算开销**较大；
+  - **verbalizer 设计**是**新超参**——跨任务/跨语族**迁移**需调。
+- **价值**: 把 "**多语言蒸馏**" 推到 "**双信号互补 + 跨语言 verbalizer**" 的**结构化设计**。**SEA-HELM** 全面超越是**多语言 LLM 训练**的**重要进展**。
 
-| 项目 | 内容 |
-|------|------|
-| **作者** | Hao Li, Jingkun An 等 11 人 |
-| **时间** | 2026-06-01 |
-| **会议** | EMNLP 2026 投稿 |
-| **arXiv** | [2606.02530](https://arxiv.org/abs/2606.02530) |
-| **项目页** | [anjingkun.github.io/SafeSteer](https://anjingkun.github.io/SafeSteer) |
-| **类别** | 🖼️ 安全应用 / 白盒 OPD 细粒度 |
+---
 
-**核心创新**：安全特性在输出分布中本就稀疏——应该**局部修改**而非全局权衡。三件套：
-1. **激活引导构造 safety teacher**
-2. **safety token 选择算法**
-3. 仅对这些 token 计算 RKL
-
-**效果**：
-- 7 个 safety + 5 个通用 benchmark，**最强 trade-off**
-- 仅用 **100 个 harmful 样本**（不到基线 1%）
-
-**局限**：依赖 token 分类器质量；RKL 仍可能 mode-seeking。
+#### 📄 [SafeSteer: Localized OPD for Safety Alignment](https://arxiv.org/abs/2606.02530) | Hao Li, Jingkun An, et al. (11 authors), 2026-06-01 | EMNLP 2026 投稿
+- **🎯 问题**: 安全对齐传统用**全参数 SFT/DPO**——**全局修改**整个模型的输出分布。但安全特性在输出分布中**本就稀疏**——绝大多数 token 与"安全/不安全"无关。问题：能否**只改少量 token**而不**全局权衡 safety/helpfulness**？需要**局部**、**细粒度**、**少样本**的安全对齐方案。
+- **💡 思路**: 转换范式——**别全局改，只局部改**。把安全对齐**局部化到**与"**harmful 输出**"**直接相关的 token**，对这些 token 做**密集 RKL 监督**。问题从"**全参数 SFT**"变成"**token 级别局部 OPD**"。三件套：(1) **激活引导构造 safety teacher**；(2) **safety token 选择算法**；(3) 仅对这些 token **计算 RKL**。
+- **🔧 方法**:
+  1. **SafeSteer**：**局部化 OPD** 做安全对齐；
+  2. **激活引导构造 safety teacher**：从模型内部激活构造"**safety 信号**"——不依赖外部大模型；
+  3. **Safety token 选择算法**：识别输出中**真正承担 safety 风险的 token**（稀疏）；
+  4. **RKL on selected tokens**：仅对**safety token** 计算 **RKL**——**局部**而非**全局**对齐；
+  5. 项目页 [anjingkun.github.io/SafeSteer](https://anjingkun.github.io/SafeSteer)。
+- **📊 效果**:
+  - **7 safety + 5 通用 benchmark**——**最强 safety-helpfulness trade-off**；
+  - 仅用 **100 个 harmful 样本**（不到基线 1%）——**极低数据成本**；
+  - **不破坏通用能力**——局部化对齐避免全局干扰；
+  - **EMNLP 2026 投稿**。
+- **⚠️ 局限**:
+  - **依赖 token 分类器质量**——safety token 选择算法的**准确性**决定效果；
+  - **RKL 仍可能 mode-seeking**——理论层面与标准 RKL 自蒸馏一样有稳定性问题（参考 DistIL）；
+  - **safety teacher 构造**是"**从模型激活**"还是"**从外部模型**"？论文聚焦前者——**黑盒/异构教师场景不直接适用**；
+  - 100 个 harmful 样本虽少但**质量**决定**安全边界覆盖度**。
+- **价值**: 把 "**安全对齐**" 从 "**全参数 SFT/DPO**" 推到 "**token 级别局部 OPD**"——**少样本 + 局部 + 强 trade-off** 三件套。是**安全对齐**与**OPD**的**重要交叉工作**。
 
 ---
 

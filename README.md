@@ -62,9 +62,9 @@
 | 📚 [一、综述、基础与立场论文](papers/01-surveys-foundations.md) | 11 | `papers/01-surveys-foundations.md` |
 | 🔬 [二、白盒 OPD（外部教师）](papers/02-white-box-opd.md) | 28 | `papers/02-white-box-opd.md` |
 | 🎭 [三、黑盒 OPD（API 教师）](papers/03-black-box-opd.md) | 5 | `papers/03-black-box-opd.md` |
-| ♻️ [四、OPSD（特权上下文自蒸馏）](papers/04-opd-self-distillation.md) | 24 | `papers/04-opd-self-distillation.md` |
-| 🔁🤝 [五、迭代自举 + OPD-RL 混合方法](papers/05-iterative-and-opdrl.md) | 23 | `papers/05-iterative-and-opdrl.md` |
-| 🧠🖼️🤖 [六、推理 / 多模态 / Agent OPD（应用）](papers/06-applications.md) | 27 | `papers/06-applications.md` |
+| ♻️ [四、OPSD（特权上下文自蒸馏）](papers/04-opd-self-distillation.md) | 29 | `papers/04-opd-self-distillation.md` |
+| 🔁🤝 [五、迭代自举 + OPD-RL 混合方法](papers/05-iterative-and-opdrl.md) | 24 | `papers/05-iterative-and-opdrl.md` |
+| 🧠🖼️🤖 [六、推理 / 多模态 / Agent OPD（应用）](papers/06-applications.md) | 32 | `papers/06-applications.md` |
 | ⚡🛠️🏭 [七、投机解码 / 框架 / 工业界](papers/07-speculative-frameworks-industrial.md) | 38 | `papers/07-speculative-frameworks-industrial.md` |
 
 > 📊 **总计**：约 150+ 篇论文 / 仓库 / 框架。每章末尾的 **「📅 2026-06 月新论文」** 区块展示本月新拉取的 arXiv 论文速读（已按主题归位到对应章）。
@@ -139,6 +139,7 @@ OPD-Survey/
 | 2026-06-05 | 仓库初始化，导入 thinkwee/AwesomeOPD 全部 111 项 | AwesomeOPD + arXiv + 小红书/知乎 |
 | 2026-06-05 | 新增 **2026-05-22 ~ 2026-06-05 期间 43 篇最新论文**中文解读（5 段结构：问题-思路-方法-效果-局限） | 自动拉取 `auto-latest.md` 后按主题归位到 1-7 章末尾 |
 | 2026-06-07 | 重构 02 章 OPRD/FiRe-OPD 长格式 → 5 段结构；统一 1-7 章「2026-06」章节标题为「N 篇」格式 | 仓库内一致性 |
+| 2026-06-07 | 重构 04/05/06 章 10 篇长格式论文（CGTR/COPSD/DistIL/SDPG/Sleep/PGPO/ViCuR/MGSD/DuDi/SafeSteer）→ 5 段结构 | 仓库内一致性 |
 | 持续更新 | 每日新增论文 | 参见 [`daily-updates/`](daily-updates/) |
 
 ---

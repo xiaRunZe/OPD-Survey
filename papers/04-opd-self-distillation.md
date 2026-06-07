@@ -546,103 +546,109 @@ $$
 
 > 本月新拉取的 9 篇 OPSD 论文，按主题归位到本章。每篇采用 5 段结构（问题-思路-方法-效果-局限）。
 
-### CGTR — When Should the Teacher Move?（Self-OPD 时序耦合）
-
-| 项目 | 内容 |
-|------|------|
-| **作者** | Haowei Guo 等 |
-| **时间** | 2026-06-02 |
-| **arXiv** | [2606.03532](https://arxiv.org/abs/2606.03532) |
-| **类别** | ♻️ OPSD / 教师调度 |
-
-**核心创新**：发现 Self-OPD 失败模式 **state-oblivious collapse**——短时最优的固定刷新在长程训练中**灾难性失败**。提出 **Consolidation-Gated Teacher Refresh (CGTR)**，仅在"奖励改善 + length-tail 安全"双重证据下更新教师。
-
-**关键发现**：
-- "隔离期"（教师两次更新间完全冻结）才是关键，非教师年龄
-- 诊断框架：temporal KL structure / refresh shock / length-tail risk
-- 4 任务（Chem/Bio/Phys/ToolUse）**零崩溃 + 最高最终分**
-- **自调节**刷新频率，无需 per-dataset 调参
-
-**局限**：需可靠 reward；调度策略对超参敏感。
-
----
-
-### COPSD — Constitutional On-Policy Safe Distillation
-
-| 项目 | 内容 |
-|------|------|
-| **作者** | Ming Wen 等 |
-| **时间** | 2026-06-02 |
-| **arXiv** | [2606.03089](https://arxiv.org/abs/2606.03089) |
-| **类别** | ♻️ OPSD / 安全对齐 |
-
-**核心创新**：把 OPSD 失败形式化为"**非正交语义空间的几何泄漏**"——安全压力泄漏到表达性维度。提出 COPSD = Cross-SFT cold-start 校准教师 + 宪法条件化 OPSD。
-- 12 个 benchmark 上更强 safety-helpfulness 权衡
-- 对通用推理的 **safety tax 显著降低**
-
-**局限**：Cross-SFT 需额外数据；几何泄漏理论待形式化。
+#### 📄 [CGTR: When Should the Teacher Move? (Consolidation-Gated Teacher Refresh)](https://arxiv.org/abs/2606.03532) | Haowei Guo, 2026-06-02
+- **🎯 问题**: Self-OPD 失败模式 **state-oblivious collapse**——短时最优的固定教师刷新（每 N 步更新一次）在**长程训练中灾难性失败**。看似合理的调度其实让**教师-学生时序耦合失效**，积累状态崩溃。问题：Self-OPD 训练中**教师该何时刷新**？固定间隔不对，per-dataset 调参又不可扩展。
+- **💡 思路**: 转换问题视角——不是"**每多少步刷一次**"，而是"**什么信号证明教师该刷新**"。让教师刷新变成**状态门控的 consolidation**——只有当**奖励改善 + length-tail 安全**双重证据成立才放行。问题从"调度频率"变成"**调度信号**"。
+- **🔧 方法**:
+  1. **CGTR (Consolidation-Gated Teacher Refresh)**：**状态门控**的自适应教师刷新；
+  2. **门控信号**：(a) **奖励改善**——验证集 reward 在刷新后**单调不减**；(b) **length-tail 安全**——响应长度分布**不出现长尾爆炸**；
+  3. **隔离期 (isolation period)**：教师两次更新之间**完全冻结**，学生独立 rollout——发现"**隔离期长度**"才是关键，**不是**教师年龄；
+  4. **诊断三件套**：temporal KL structure / refresh shock / length-tail risk；
+  5. **自调节**刷新频率——**无需 per-dataset 调参**。
+- **📊 效果**:
+  - **4 任务** (Chem/Bio/Phys/ToolUse) **零崩溃** + **最高最终分**；
+  - **自调节刷新频率**——同套超参跨任务稳定工作；
+  - **诊断框架**首次让 Self-OPD 训练**可观察、可干预**。
+- **⚠️ 局限**:
+  - **需可靠 reward 信号**——稀疏/有噪声 reward 时门控可能失效；
+  - 调度策略对**超参仍敏感**（门控阈值、隔离期下界）；
+  - 在**非 on-policy RLVR** 任务（如纯生成）上的有效性**未验证**。
+- **价值**: 把"**Self-OPD 教师刷新**"从**调参玄学**变成**状态门控的工程问题**。**隔离期是关键**这一发现是该领域**反直觉的 insight**——值得后续工作直接接入。
 
 ---
 
-### DistIL — Distributional DAgger（理论）
-
-| 项目 | 内容 |
-|------|------|
-| **作者** | Rishabh Agrawal, Jacob Fein-Ashley, Paria Rashidinejad |
-| **时间** | 2026-06-03 |
-| **arXiv** | [2606.05152](https://arxiv.org/abs/2606.05152) |
-| **类别** | ♻️ OPSD / 理论 + 实践 |
-
-**核心创新 / 理论贡献**：
-- **理论证明**：基于 RKL 或 JSD 的自蒸馏目标**不能保证**单调策略改进（即使专家奖励更高，更新仍可能增加差动作概率）
-- **FKL（前向交叉熵）能保证**单调改进 + regret bound
-- 序列级梯度做 dense credit assignment
-
-**实践**：DistIL 在科学推理、编程、难数学题上**稳定超越** RLVR 和 RL+自蒸馏基线，Pass@N 提升。
-
-**局限**：FKL 是 mode-covering，可能过度泛化。
-
-**意义**：从理论上解释了为何 RKL/JSD 自蒸馏常不稳定。
-
----
-
-### SDPG — Self-Distilled Policy Gradient
-
-| 项目 | 内容 |
-|------|------|
-| **作者** | Yifeng Liu 等 |
-| **时间** | 2026-06-02 |
-| **arXiv** | [2606.04036](https://arxiv.org/abs/2606.04036) |
-| **代码** | [lauyikfung/SDPG](https://github.com/lauyikfung/SDPG) |
-| **类别** | ♻️ OPSD + RL 混合 |
-
-**核心机制**：
-- GRPO group-relative verifier advantage + 标准化 std
-- **全词表 on-policy 自蒸馏 KL** 辅助损失
-- 参考策略 KL 正则
-
-**效果**：比 RLVR 和自蒸馏基线**更稳定、更高分**。
-
-**局限**：全词表蒸馏显存贵；组合损失权重敏感。
+#### 📄 [COPSD: Constitutional On-Policy Safe Distillation](https://arxiv.org/abs/2606.03089) | Ming Wen, 2026-06-02
+- **🎯 问题**: OPSD 在**安全对齐**任务上经常失败——安全信号和表达性信号**互相干扰**。为什么？传统解释是"权重共享"或"数据冲突"，但**几何层面**没解释清楚。问题：OPSD 在**安全-通用能力**权衡上**safety tax 过高**——一旦提升 safety，通用推理能力**显著下降**。
+- **💡 思路**: 形式化失败为"**非正交语义空间的几何泄漏**"——安全维度和表达性维度**不正交** → 安全压力会**泄漏**到表达性维度。问题从"如何加约束"变成"**如何让安全维度正交化**"。需要：先**校准教师**让安全/表达维度**正交化**，再**宪法条件化**蒸馏。
+- **🔧 方法**:
+  1. **COPSD = Cross-SFT cold-start 校准教师 + 宪法条件化 OPSD**；
+  2. **Cross-SFT cold-start**：先用**交叉监督微调**把教师的安全维度/表达性维度**正交化**；
+  3. **宪法条件化 OPSD**：蒸馏时把"**宪法**"（规则集）作为条件 → 学生学会**条件化安全行为**；
+  4. **几何泄漏**理论形式化（非正交空间 → 安全压力传播）。
+- **📊 效果**:
+  - **12 个 benchmark** 上**更强 safety-helpfulness 权衡**；
+  - 对通用推理的 **safety tax 显著降低**——保留推理能力同时提升安全；
+  - **Cross-SFT 校准**是效果的关键来源。
+- **⚠️ 局限**:
+  - **Cross-SFT 需额外数据**（除标准 SFT 外还要构造正交化数据）；
+  - **几何泄漏理论**目前是经验观察，**严格形式化待补**；
+  - "宪法"设计**需领域知识**——通用 vs 专业宪法差异大；
+  - 训练**流程复杂**（两阶段 + 校准数据集）。
+- **价值**: 把 "**OPSD safety 失败**" 推到 "**语义空间几何问题**"——为**安全/能力**权衡的**结构性解决方案**提供思路。**几何泄漏** 是**值得后续深入**的新视角。
 
 ---
 
-### Sleep — LMs Need Sleep（持续学习 OPSD）
+#### 📄 [DistIL: Distributional DAgger (Theoretical Foundations for Self-Distillation)](https://arxiv.org/abs/2606.05152) | Rishabh Agrawal, Jacob Fein-Ashley, Paria Rashidinejad, 2026-06-03
+- **🎯 问题**: 自蒸馏/OPD 的训练**常不稳定**——同样超参在同任务上不同种子结果差异大。经验上发现 RKL/JSD 目标**时而提升、时而崩溃**，但**理论层面没有解释**：为什么 RKL/JSD 自蒸馏**不能保证**单调策略改进？即使专家奖励更高，**为什么更新仍可能增加差动作概率**？
+- **💡 思路**: 用理论工具**严格分析自蒸馏目标的单调性**——证明哪些散度**能**保证单调改进（regret bound），哪些**不能**。问题从"经验调参"变成"**理论选择散度**"。关键 insight：**FKL（前向交叉熵）才是合适目标**，RKL/JSD 是 mode-seeking 在理论层面**不保证**稳定。
+- **🔧 方法**:
+  1. **理论分析**：证明基于 RKL 或 JSD 的自蒸馏目标**不能保证**单调策略改进（**反例构造**）；
+  2. **FKL（前向交叉熵）能保证**：单调改进 + **regret bound**；
+  3. **序列级梯度**：dense credit assignment（区分不同 token 贡献）；
+  4. **DistIL 算法**：理论指导的实践实现。
+- **📊 效果**:
+  - **科学推理、编程、难数学题**上**稳定超越** RLVR 和 RL+自蒸馏基线；
+  - **Pass@N** 提升——**多次采样时质量分布更好**；
+  - **跨任务稳定性**显著优于 RKL/JSD 基线。
+- **⚠️ 局限**:
+  - **FKL 是 mode-covering**，可能**过度泛化**——某些场景生成**质量**反而下降（多样性换质量）；
+  - 理论假设在**大模型 + 复杂任务**上**未必严格成立**；
+  - 实践**计算开销**：FKL 仍需**前向传播**计算概率分布。
+- **价值**: 首次**理论层面**解释为何 RKL/JSD 自蒸馏常不稳定——为**散度选择**提供**理论指导**而非**经验调参**。**FKL > RKL/JSD** 在自蒸馏场景是该领域**重要的理论 insight**。
 
-| 项目 | 内容 |
-|------|------|
-| **作者** | Ali Behrouz 等 |
-| **时间** | 2026-06-02 |
-| **arXiv** | [2606.03979](https://arxiv.org/abs/2606.03979) |
-| **类别** | ♻️ OPSD / 持续学习循环 |
+---
 
-**核心范式**（仿人脑"睡眠"）：
-1. **Memory Consolidation**（向上蒸馏）：小模型记忆 → 大模型容量扩张，**on-policy distillation + RL 模仿学习**（Generalized Distillation）
-2. **Dreaming**（自我改进）：用 RL 生成合成数据 curriculum
+#### 📄 [SDPG: Self-Distilled Policy Gradient (GRPO + On-Policy KL Auxiliary)](https://arxiv.org/abs/2606.04036) | Yifeng Liu, 2026-06-02
+- **🎯 问题**: GRPO (Group Relative Policy Optimization) 训练时**全对/全错组**提供**零梯度**（group-relative advantage 为零），**浪费样本**。RLVR 的 outcome-level reward 稀疏，token 级监督**信号弱**。问题：如何把**全词表 on-policy 蒸馏**和 **GRPO 优势估计**结合，在不增加显著显存下提升稳定性？
+- **💡 思路**: 把 **on-policy 自蒸馏 KL 作为辅助损失**叠加在 GRPO 上——不替换 GRPO，而是**补充**。同时用**全词表**（不是 top-k）保证**密集监督**。问题从"**选 GRPO 还是 OPD**"变成"**GRPO + OPD 组合**"。
+- **🔧 方法**:
+  1. **SDPG (Self-Distilled Policy Gradient)**：GRPO + on-policy 自蒸馏 KL 辅助损失；
+  2. **GRPO group-relative verifier advantage** + **标准化 std**（沿用 GRPO 优势估计）；
+  3. **全词表 on-policy 自蒸馏 KL** 辅助损失（**密集** token 级监督）；
+  4. **参考策略 KL 正则**（防止策略漂移）；
+  5. 代码 [lauyikfung/SDPG](https://github.com/lauyikfung/SDPG)。
+- **📊 效果**:
+  - 比 **RLVR 基线** 和 **自蒸馏基线**都**更稳定、更高分**；
+  - **全对/全错组**样本被自蒸馏损失**有效利用**（零梯度浪费问题缓解）；
+  - **组合损失**在多种任务上一致有效。
+- **⚠️ 局限**:
+  - **全词表蒸馏显存贵**（OPRD 同款问题）——大模型训练成本高；
+  - **组合损失权重敏感**（GRPO loss × α + KL loss × β，α/β 需调）；
+  - 与 **GRPO 强耦合**——**不适用** 非 GRPO RL 算法（PPO/REINFORCE）；
+  - 全词表 KL 计算的**数值稳定性**需注意。
+- **价值**: 提供 "**RL 优势 + 自蒸馏监督**" 的**可复用混合范式**。代码开源是重要贡献——可作为后续 OPD-RL 混合方法的**基线参考**。
 
-**效果**：long-horizon、持续学习、知识并入、few-shot 泛化均显著。
+---
 
-**局限**：训练流程复杂；RL 阶段计算量大。
+#### 📄 [Sleep: LMs Need Sleep (Memory Consolidation + Dreaming for Continual Learning)](https://arxiv.org/abs/2606.03979) | Ali Behrouz, 2026-06-02
+- **🎯 问题**: 持续学习（continual learning）中，LLM 学新任务会**灾难性遗忘**旧任务。传统方案（replay/EWC/PEFT）只能**部分缓解**。问题：能否仿人脑"睡眠"机制——**巩固记忆 + 梦中学习**——让 LLM **持续学习**而不遗忘？
+- **💡 思路**: 仿人脑睡眠的两阶段——(1) **Memory Consolidation（记忆巩固）**：从"小模型记忆"到"大模型容量扩张"，**on-policy distillation + RL 模仿学习**（Generalized Distillation）；(2) **Dreaming（做梦）**：用 RL 生成**合成数据 curriculum**，让模型在"睡眠"中自我改进。问题从"如何不遗忘"变成"**如何用睡眠机制同时学新不忘旧**"。
+- **🔧 方法**:
+  1. **Memory Consolidation (向上蒸馏)**：小模型记忆 → 大模型容量扩张；
+  2. **Generalized Distillation** = **on-policy distillation + RL 模仿学习**（双管齐下保留旧能力 + 学新能力）；
+  3. **Dreaming (自我改进)**：用 RL 生成**合成数据 curriculum**——**梦中训练**；
+  4. 整个范式叫 **"Sleep"**——类比人脑睡眠机制。
+- **📊 效果**:
+  - **long-horizon** 持续学习任务上**显著降低遗忘**；
+  - **知识并入**——新知识学入旧模型不破坏；
+  - **few-shot 泛化**能力提升——合成 curriculum 增强泛化；
+  - 在**多个持续学习 benchmark** 一致有效。
+- **⚠️ 局限**:
+  - **训练流程复杂**——两阶段 + 多个组件（distillation、RL、curriculum）；
+  - **RL 阶段计算量大**（Dreaming 的合成数据生成）；
+  - **Memory Consolidation** 的"小→大"扩张**需精心设计**——容量跳跃大小需调；
+  - 整体**超参空间大**——实操门槛较高。
+- **价值**: 把 "**人脑睡眠机制**" 引入 LLM 持续学习——是非常有想象力的**跨学科类比**。**Memory Consolidation + Dreaming** 框架对**长生命周期 LLM 训练**有**长期价值**。
 
 ---
 
