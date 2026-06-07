@@ -648,9 +648,9 @@ $$
 
 ---
 
-## 📅 2026-06 月新论文速览（增量附录）
+## 📅 2026-06 月新论文（4 篇）
 
-> 完整中文解读见 [daily-updates/2026-06-05.md](../daily-updates/2026-06-05.md)。
+> 本月新拉取的 4 篇迭代/OPD-RL 混合方法论文。每篇采用 5 段结构（问题-思路-方法-效果-局限）。
 
 ### PGPO — Physics-Guided Policy Optimization with Self-Distillation
 
