@@ -326,7 +326,7 @@ $$
 
 ---
 
-## 📅 2026-06 月新论文（3 篇）
+## 📚 2026 年 6 月论文（3 篇）
 
 #### 📄 [OPD+: Rethinking the Advantage Design for On-Policy Distillation](https://arxiv.org/abs/2606.01039) | Hanyang Zhao, 2026-05-31
 - **🎯 问题**: OPD 几乎所有实现都在**教师 logit 上加 stop-gradient**（避免教师随学生一起被更新导致不稳定）。这个操作是**经验工程技巧**，没人从数学上验证它对**各种 f-散度**（不只 KL）是否成立。一旦改成 JSD、χ²、reverse-KL，stop-gradient 是否还给出**正确的 advantage 估计**？不确定。

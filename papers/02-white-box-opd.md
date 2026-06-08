@@ -601,9 +601,7 @@ $$
 
 ---
 
-## 📅 2026-06 月新论文（11 篇）
-
-> 本月新拉取的 11 篇 OPD/OPSD 论文，按主题归位到本章。每篇采用 5 段结构（问题-思路-方法-效果-局限）。
+## 📚 2026 年 6 月论文（11 篇）
 
 #### 📄 [OPRD: On-Policy Representation Distillation](https://arxiv.org/abs/2606.06021) | Shenzhi Yang, 2026-06-04
 - **🎯 问题**: 传统 OPD 在**输出空间**（LM head 之后的 logits）做 per-token KL 监督—— 1.5× 词表 150k 的 LLM（如 Qwen）需**蒙特卡洛采样**大词表分布（要么限制 top-k，要么 full-vocab 高方差）。**采样方差 + 采样偏倚** 是 LLM 上 OPD 难超过教师的关键瓶颈。同时 LM head 的 per-token KL 计算 + 反向传播是显存与计算的双重开销（54% 显存被 logits 占用）。

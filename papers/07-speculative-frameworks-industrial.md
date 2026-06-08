@@ -373,7 +373,7 @@ trl/experimental/
 
 ---
 
-## 📅 2026-06 月新论文（1 篇）
+## 📚 2026 年 6 月论文（1 篇）
 
 #### 📄 [Draft-OPD: On-Policy Distillation for Speculative Draft Models](https://arxiv.org/abs/2605.29343) | Haodi Lei et al., 2026-05 v2
 - **🎯 问题**: Speculative decoding 加速 LLM 推理 —— target model + 轻量 draft model，draft 提出 tokens 目标模型并行验证。**EAGLE3 / DFLASH** 之类 draft model 主流是 **SFT on target-generated trajectories**。但 SFT 很快 plateau —— draft 在测试数据上的 **acceptance length 不再涨**。原因：**offline-inference mismatch** —— SFT 学固定 target-generated 轨迹，但**推理时被 draft 自己提出 block 评估**。

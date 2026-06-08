@@ -5,8 +5,8 @@
 **中文版 On-Policy Distillation / On-Policy Self-Distillation 论文调研与解读**
 
 [![Papers](https://img.shields.io/badge/已收录-150+-blueviolet?style=for-the-badge)](papers/)
-[![Update](https://img.shields.io/badge/每日更新-daily-brightgreen?style=for-the-badge)](daily-updates/)
 [![Chinese](https://img.shields.io/badge/中文解读-100%25-red?style=for-the-badge)](papers/)
+[![Source](https://img.shields.io/badge/参考-thinkwee%2FAwesomeOPD-orange?style=for-the-badge)](https://github.com/thinkwee/AwesomeOPD)
 
 </div>
 
@@ -18,8 +18,6 @@
 
 - ✅ **每个方法都配讲动机（Motivation）** —— 为什么提出这个方法？解决什么痛点？
 - ✅ **每个方法都配讲方法思路（Method）** —— 核心公式、算法流程、白话解释
-- ✅ **每日更新** —— 持续追踪 arXiv、小红书、知乎、微信公众号上的最新论文
-- ✅ **持续完善** —— 欢迎 PR，共同完善中文社区的 OPD 文献库
 
 ---
 
@@ -67,8 +65,7 @@
 | 🧠🖼️🤖 [六、推理 / 多模态 / Agent OPD（应用）](papers/06-applications.md) | 32 | `papers/06-applications.md` |
 | ⚡🛠️🏭 [七、投机解码 / 框架 / 工业界](papers/07-speculative-frameworks-industrial.md) | 38 | `papers/07-speculative-frameworks-industrial.md` |
 
-> 📊 **总计**：约 150+ 篇论文 / 仓库 / 框架。每章末尾的 **「📅 2026-06 月新论文」** 区块展示本月新拉取的 arXiv 论文速读（已按主题归位到对应章）。
-> 📖 维护工作流见 [docs/每日更新指南.md](docs/每日更新指南.md)；每日新增记录在 [daily-updates/](daily-updates/)。
+> 📊 **总计**：约 150+ 篇论文 / 仓库 / 框架。每章末尾的 **「📚 2026 年 6 月论文」** 区块按主题归位到对应章。
 
 ---
 
@@ -77,18 +74,14 @@
 ```
 OPD-Survey/
 ├── README.md                                ← 本文件
-├── papers/                                  ← 论文中文解读
-│   ├── 01-surveys-foundations.md            ← 一、综述、基础与立场论文
-│   ├── 02-white-box-opd.md                  ← 二、白盒 OPD
-│   ├── 03-black-box-opd.md                  ← 三、黑盒 OPD
-│   ├── 04-opd-self-distillation.md          ← 四、OPSD 自蒸馏
-│   ├── 05-iterative-and-opdrl.md            ← 五、迭代自举 + OPD-RL 混合
-│   ├── 06-applications.md                   ← 六、推理 / 多模态 / Agent OPD
-│   └── 07-speculative-frameworks-industrial.md  ← 七、投机 / 框架 / 工业
-├── docs/
-│   └── 每日更新指南.md                       ← 维护工作流
-└── daily-updates/
-    └── YYYY-MM-DD.md                        ← 每日新增记录
+└── papers/                                  ← 论文中文解读
+    ├── 01-surveys-foundations.md            ← 一、综述、基础与立场论文
+    ├── 02-white-box-opd.md                  ← 二、白盒 OPD
+    ├── 03-black-box-opd.md                  ← 三、黑盒 OPD
+    ├── 04-opd-self-distillation.md          ← 四、OPSD 自蒸馏
+    ├── 05-iterative-and-opdrl.md            ← 五、迭代自举 + OPD-RL 混合
+    ├── 06-applications.md                   ← 六、推理 / 多模态 / Agent OPD
+    └── 07-speculative-frameworks-industrial.md  ← 七、投机 / 框架 / 工业
 ```
 
 ---
@@ -129,37 +122,6 @@ OPD-Survey/
 | ⚠️ **混合 OPD** | on-policy 与 off-policy 混合（如 LUFFY） |
 | ⚠️ **退化为自举** | 无真实 KL 信号（如 Apple SSD） |
 | ℹ️ **理论分析** | 论文自身不提出新算法（如 DDT、Why-SD-Degrade） |
-
----
-
-## 📅 更新日志
-
-| 日期 | 新增内容 | 来源 |
-|------|---------|------|
-| 2026-06-05 | 仓库初始化，导入 thinkwee/AwesomeOPD 全部 111 项 | AwesomeOPD + arXiv + 小红书/知乎 |
-| 2026-06-05 | 新增 **2026-05-22 ~ 2026-06-05 期间 43 篇最新论文**中文解读（5 段结构：问题-思路-方法-效果-局限） | 自动拉取 `auto-latest.md` 后按主题归位到 1-7 章末尾 |
-| 2026-06-07 | 重构 02 章 OPRD/FiRe-OPD 长格式 → 5 段结构；统一 1-7 章「2026-06」章节标题为「N 篇」格式 | 仓库内一致性 |
-| 2026-06-07 | 重构 04/05/06 章 10 篇长格式论文（CGTR/COPSD/DistIL/SDPG/Sleep/PGPO/ViCuR/MGSD/DuDi/SafeSteer）→ 5 段结构 | 仓库内一致性 |
-| 持续更新 | 每日新增论文 | 参见 [`daily-updates/`](daily-updates/) |
-
----
-
-## 🤝 贡献指南
-
-欢迎 PR！新增论文时，请按以下格式：
-
-```markdown
-#### 📄 [论文标题](arXiv链接)
-- **作者/机构**: XXX
-- **时间**: YYYY-MM
-- **会议/期刊**: XXX
-- **arXiv**: [XXXX.XXXXX](link)
-- **代码**: [链接](URL)（如有）
-- **🎯 动机**: 用 2-3 句话说清楚这个方法要解决什么问题，现有方法的不足是什么
-- **💡 方法思路**: 用 3-5 句话说清楚核心方法、关键公式（用 LaTeX）、算法流程
-- **📊 实验效果**: 关键 benchmark 上的效果
-- **⚠️ 局限**: 方法的不足之处
-```
 
 ---
 

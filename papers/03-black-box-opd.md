@@ -155,7 +155,7 @@ $$
 
 ---
 
-## 📅 2026-06 月新论文（1 篇）
+## 📚 2026 年 6 月论文（1 篇）
 
 #### 📄 [OmniOPD: Logit-Free On-Policy Distillation via Speculative Verification](https://arxiv.org/abs/2606.01476) | 2026-06-01
 - **🎯 问题**: 标准 OPD 有**两个耦合限制**。① **要教师 token-level logits** → 专有模型（Claude/Gemini/...）做不了教师（黑盒无 logits）。② **token-level logit 信号本身脆**：依赖师生候选 token 的**窄重叠**，**放大 repetition loop 等退化模式**。两个限制把"最强专有模型当教师"和"鲁棒学习信号"两个理想都关在门外。

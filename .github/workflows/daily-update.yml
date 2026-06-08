@@ -2,11 +2,18 @@
 # 方案参考：知乎 Realcat "arXiv API + Github Actions 实现每天自动获取arXiv论文摘要"
 # 原文：https://zhuanlan.zhihu.com/p/425670267
 #
+# 维护策略（2026-06-08 立）：
+#   - 本 workflow 默默运行，产物仅写入 daily-updates/ 目录
+#   - 不修改 README.md（仓库永远保持静态归档外观）
+#   - 不在 README 链接 daily-updates/ 目录
+#   - 新论文解读由维护者手动 commit 到对应 papers/0X-{topic}.md 章节末尾
+#
 # 流程：
-#   1. 每天 UTC 12:00（北京时间 20:00）触发
+#   1. 每天 UTC 13:00（北京时间 21:00）触发
 #   2. 安装 arxiv 库
 #   3. 运行 auto_update.py → 生成 daily-updates/auto-latest.md
-#   4. 自动 commit + push
+#   4. 追加当天的 daily-updates/{YYYY-MM-DD}.md
+#   5. 自动 commit + push（仅修改 daily-updates/，不触碰 README 与 papers/）
 
 name: Daily arXiv OPD/OPSD Update
 
