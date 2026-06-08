@@ -542,7 +542,7 @@ $$
 
 ---
 
-## 📚 2026 年 6 月论文（9 篇）
+## 📚 2026 年 6 月论文（14 篇）
 
 #### 📄 [CGTR: When Should the Teacher Move? (Consolidation-Gated Teacher Refresh)](https://arxiv.org/abs/2606.03532) | Haowei Guo, 2026-06-02
 - **🎯 问题**: Self-OPD 失败模式 **state-oblivious collapse**——短时最优的固定教师刷新（每 N 步更新一次）在**长程训练中灾难性失败**。看似合理的调度其实让**教师-学生时序耦合失效**，积累状态崩溃。问题：Self-OPD 训练中**教师该何时刷新**？固定间隔不对，per-dataset 调参又不可扩展。

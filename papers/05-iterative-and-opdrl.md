@@ -648,7 +648,7 @@ $$
 
 ---
 
-## 📚 2026 年 6 月论文（4 篇）
+## 📚 2026 年 6 月论文（5 篇）
 
 #### 📄 [PGPO: Physics-Guided Policy Optimization with Self-Distillation](https://arxiv.org/abs/2606.03620) | Ke Wang, 2026-06-02
 - **🎯 问题**: SDPO（Self-Distilled Policy Optimization）等 RL 范式在**长程训练中后期崩溃**——loss/gradient 震荡、最终分数下降。传统 fix 是衰减学习率或加 KL 正则，但**为什么**这样有效**没理论解释**。问题：能否从**跨学科类比**找到**结构化步长调度**，并给出**理论保证**？
