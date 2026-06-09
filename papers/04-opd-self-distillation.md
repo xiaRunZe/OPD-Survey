@@ -542,7 +542,7 @@ $$
 
 ---
 
-## 📚 2026 年 6 月论文（14 篇）
+## 📚 2026 年 6 月论文（15 篇）
 
 #### 📄 [CGTR: When Should the Teacher Move? (Consolidation-Gated Teacher Refresh)](https://arxiv.org/abs/2606.03532) | Haowei Guo, 2026-06-02
 - **🎯 问题**: Self-OPD 失败模式 **state-oblivious collapse**——短时最优的固定教师刷新（每 N 步更新一次）在**长程训练中灾难性失败**。看似合理的调度其实让**教师-学生时序耦合失效**，积累状态崩溃。问题：Self-OPD 训练中**教师该何时刷新**？固定间隔不对，per-dataset 调参又不可扩展。
@@ -773,4 +773,12 @@ $$
 - **⚠️ 局限**: 选定**哪些中间层**是新设计选择（全部？每隔一层？哪些维度？）；JSD 对齐强度需调；attention alignment 计算代价（每层 attention map 对齐）；不依赖外部 PI 的代价是内部信号可能不如外部教师强。
 - **价值**: 把 RL 后训练从"**只动最后一层**"变成"**整个网络一起学**" —— 表征级优化是 post-training 的新维度，**不依赖外部 PI** 让其成为 OPSD 家族里独特的"内化"路线。代码 [THE-MALT-LAB/OISD](https://github.com/THE-MALT-LAB/OISD)。
 
+
+
+#### 📄 [PBSD: Privileged Bayesian Self-Distillation for Long-Horizon Credit Assignment](https://arxiv.org/abs/2606.09348) | 2026-06-07
+- **🎯 问题**: Long-horizon agent 任务中，trajectory-level reward 只看最终结果，**难以定位哪一段中间推理/工具调用起了作用**。多轮 search agent 尤为突出 — 成功轨迹可能有误导 action，失败轨迹可能含有价值的证据收集步骤。
+- **💡 思路**: 用 **Bayes 校准的自蒸馏**把"answer-side 后验/先验比"这个难估量转化为"student/answer-conditioned teacher 似然比" — 这个可分解到 turn 级。
+- **🔧 方法**: **PBSD** — 用 verified answer 的**后验/先验概率比**度量 trajectory 质量，Bayes 规则转化为 student vs privileged teacher 的似然比。**Autoregressive 分解 Bayesian evidence score** → turn-level 信号，识别每个中间 turn 是支持还是破坏最终 outcome。
+- **📊 效果**: 对多轮 search agent 提供**原则性、优雅的 turn-level reweighting**，在稀疏 final reward 下也能做细粒度信用分配。
+- **⚠️ 局限**: 依赖 verified answer 标签 — 对开放式长程任务（无 oracle verifier）适用性下降。
 

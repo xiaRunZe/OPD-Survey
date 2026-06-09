@@ -601,7 +601,7 @@ $$
 
 ---
 
-## 📚 2026 年 6 月论文（11 篇）
+## 📚 2026 年 6 月论文（14 篇）
 
 #### 📄 [OPRD: On-Policy Representation Distillation](https://arxiv.org/abs/2606.06021) | Shenzhi Yang, 2026-06-04
 - **🎯 问题**: 传统 OPD 在**输出空间**（LM head 之后的 logits）做 per-token KL 监督—— 1.5× 词表 150k 的 LLM（如 Qwen）需**蒙特卡洛采样**大词表分布（要么限制 top-k，要么 full-vocab 高方差）。**采样方差 + 采样偏倚** 是 LLM 上 OPD 难超过教师的关键瓶颈。同时 LM head 的 per-token KL 计算 + 反向传播是显存与计算的双重开销（54% 显存被 logits 占用）。
@@ -761,3 +761,24 @@ $$
 
 
 
+
+#### 📄 [KAT: Escaping the KL Agreement Trap in On-Policy Distillation](https://arxiv.org/abs/2606.09471) | Haoran Xin et al., 2026-06-08
+- **🎯 问题**: OPD 用 teacher 给 student rollout 打分，**但当 student 漂到不可恢复的 prefix 时，teacher 也会跟着"局部认同"这个烂状态** — 出现低 reverse-KL 但监督信号很弱。这种"低 KL agreement trap"在 trap 期间及其后产生的 token 监督几乎无用。
+- **💡 思路**: 把这些"低 KL agreement trap"识别出来，**终止 rollout 提前进入下一段**。基于一个 training-adaptive 动态阈值检测持续低 KL 同意区间。
+- **🔧 方法**: **KAT** (KL Agreement Trap Termination) — 监控 reverse KL 是否持续低于动态自适应阈值；一旦触发 trap，立即终止这条 rollout 后续 token 的监督信号。
+- **📊 效果**: 4 个数学 benchmark **avg@k +2.66% / pass@k +3.43%**，**平均 rollout 长度 -59.73%**。
+- **⚠️ 局限**: threshold 是动态的，**与训练进度耦合**，迁移到不同 student/teacher 规模可能需要重新调。
+
+#### 📄 [Sign-Gated OPD: Sign-Consistency Gating and Phased Teacher Sampling](https://arxiv.org/abs/2606.09304) | 2026-06-07
+- **🎯 问题**: OPD 有效性的两个**隐式假设**常被打破 — 师生 trajectory 级别对齐 + teacher 在所有 token 上的偏好都可靠。实际中：teacher 的某些 token 偏好可能和 verifier 判定方向相反，强行蒸馏反而误导 student。
+- **💡 思路**: 用一个二值 verifier 当**信任信号**，在 trajectory 级和 token 级两个粒度上"门控"teacher 的贡献。
+- **🔧 方法**: **SG-OPD** (Sign-Gated On-Policy Distillation) — 两件套：(1) **Phased teacher sampling** cold-start 阶段混入 verifier 认可的 teacher rollout；(2) **Sign-consistency gate** 在 token 级：teacher 和 verifier 方向一致时**外推**蒸馏更新，方向不一致时**插值**。
+- **📊 效果**: 竞赛级数学 benchmark，per-sample **+1.98**，per-question **+7.50** 平均提升。
+- **⚠️ 局限**: 依赖 verifier 信号 — 在无 verifier 任务（开放生成/对话）上需替换。
+
+#### 📄 [Breaking the Tokenizer Barrier: OPD across Model Families](https://arxiv.org/abs/2606.09456) | 2026-06-08
+- **🎯 问题**: 主流 OPD 假设师生**共享分词器** — 跨族（Qwen 教师 + Llama 学生）就只能 SFT teacher 的 response，**丢掉了 teacher 概率分布里的丰富信息**。
+- **💡 思路**: 通过一个**精确的 token 映射算法**把 teacher 的 token-level 概率信号**无损地**搬到 student 的 token 空间，让标准 OPD 跨分词器工作。
+- **🔧 方法**: 跨分词器 token 映射 + 完整 OPD 训练流程。**高保真 token-level 信号可跨分词器传播**。
+- **📊 效果**: 跨族 OPD 比 SFT baseline 在多个 benchmark **显著更计算高效**。解锁了更广泛的 teacher-student 配对组合。
+- **⚠️ 局限**: token 映射算法的覆盖率/精度对低资源语言的字词/罕见 token 敏感。

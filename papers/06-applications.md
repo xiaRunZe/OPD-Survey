@@ -482,7 +482,7 @@
 
 ---
 
-## 📚 2026 年 6 月论文（14 篇）
+## 📚 2026 年 6 月论文（16 篇）
 
 #### 📄 [ViCuR: Visual Cues as Recoverable Privilege for Multimodal OPD](https://arxiv.org/abs/2606.05718) | Kanghui Tian, 2026-06-04
 - **🎯 问题**: 多模态 OPD 的传统特权信息是**答案 / 文本标注**--但这在**纯视觉推理**任务上**不可用**(推理时只能看图)。问题:能否设计**视觉特权的替代品**?什么样的"**特权**"是**推理时可恢复**的?简单的"更强教师 OPD"在多模态场景并不比"特权设计"有效。
@@ -706,3 +706,17 @@
 - **价值**: 把"**DLM 转损**"从"**调架构 + 重训**"变成"**一次 self-OPD**" -- 是 "**OPD 不仅仅是训练方法,也是架构转换工具**" 的代表案例。15×-7,000× token 节省对 DLM 社区商业化意义重大。与 GDSD(diffusion LLM RL via self-distill)一脉相承。
 
 
+
+#### 📄 [GNDPO: Stabilizing On-Policy Distillation for MLLM Reasoning with Global Normalization](https://arxiv.org/abs/2606.09091) | 2026-06-06
+- **🎯 问题**: OPD 搬到多模态 LLM (MLLM) 推理上，naive token-level 蒸馏会遇到**梯度不稳定** — 异常状态下的 magnitude misalignment 引起梯度爆炸。RLVR 的 sparse 二元反馈又难以提供 dense token-level 指导。
+- **💡 思路**: 把 raw KL score 归一化为**batch-level relative advantage**，稳定优化但保留 token-level guidance 收益。
+- **🔧 方法**: **GNDPO** (Globally Normalized Distillation Policy Optimization) — 动态归一化把 KL 分数转换为 batch 相对优势。
+- **📊 效果**: 多模态推理任务**训练鲁棒性 + 下游性能显著提升**。
+- **⚠️ 局限**: 归一化策略与 batch size 耦合；超小 batch 场景需要调。
+
+#### 📄 [Imagine-OPD: Thinking Without Images — Internalizing Visual Manipulation with OPSD](https://arxiv.org/abs/2606.08719) | Yishuo Cai, Jiahui Liu et al., 2026-06-05
+- **🎯 问题**: "Thinking with Images" 让 MLLM 显式 crop 局部区域做精细视觉推理很有效，但代价是**冗余工具调用 + 推理轨迹变长**，且 outcome reward 训出来的 crop 可能**噪声大**、抓不到任务相关证据。
+- **💡 思路**: 把"Thinking with Images"的收益**内化**为"Thinking with Imagination" — 内部过程决定"看哪里"、想象"放大看会看到什么"，**不实际调用工具**。用 OPSD 把 teacher 的"think with images"行为蒸馏到 student。
+- **🔧 方法**: **Imagine-OPD** — teacher 扮演"think with images"角色（含实际 crop 推理），student 走"think with imagination"（不调用工具）。两者 OPSD。
+- **📊 效果**: 推理时省掉工具调用，模型更紧凑高效。消除了 crop 噪声问题。
+- **⚠️ 局限**: 教师"想象"的视觉细节质量决定 student 上限；可能对需要极精细空间信息的任务（医学图像）吃力。
