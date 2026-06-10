@@ -9,7 +9,8 @@
 #   - 新论文解读由维护者手动 commit 到对应 papers/0X-{topic}.md 章节末尾
 #
 # 流程：
-#   1. 每天 UTC 13:00（北京时间 21:00）触发
+#   1. 每天 UTC 13:00 / 17:00（北京时间 21:00 / 次日 01:00）触发
+#      - 双时间点：降低 GitHub Actions schedule 偶发延迟/失败的概率
 #   2. 安装 arxiv 库
 #   3. 运行 auto_update.py → 生成 daily-updates/auto-latest.md
 #   4. 追加当天的 daily-updates/{YYYY-MM-DD}.md
@@ -20,10 +21,12 @@ name: Daily arXiv OPD/OPSD Update
 on:
   # 允许手动触发
   workflow_dispatch:
-  # 定时任务：每天 UTC 12:00 = 北京时间 20:00
+  # 定时任务：每天 UTC 13:00 + 17:00（双时间点兜底）
   schedule:
-    # 每天 UTC 13:00 = 北京时间 21:00（晚上 9 点）
+    # UTC 13:00 = 北京 21:00
     - cron: "0 13 * * *"
+    # UTC 17:00 = 北京次日 01:00（兜底，若 13:00 延迟/失败）
+    - cron: "0 17 * * *"
 
 permissions:
   contents: write
