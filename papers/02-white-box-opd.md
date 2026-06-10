@@ -601,7 +601,7 @@ $$
 
 ---
 
-## 📚 2026 年 6 月论文（14 篇）
+## 📚 2026 年 6 月论文（15 篇）
 
 #### 📄 [OPRD: On-Policy Representation Distillation](https://arxiv.org/abs/2606.06021) | Shenzhi Yang, 2026-06-04
 - **🎯 问题**: 传统 OPD 在**输出空间**（LM head 之后的 logits）做 per-token KL 监督—— 1.5× 词表 150k 的 LLM（如 Qwen）需**蒙特卡洛采样**大词表分布（要么限制 top-k，要么 full-vocab 高方差）。**采样方差 + 采样偏倚** 是 LLM 上 OPD 难超过教师的关键瓶颈。同时 LM head 的 per-token KL 计算 + 反向传播是显存与计算的双重开销（54% 显存被 logits 占用）。
@@ -782,3 +782,10 @@ $$
 - **🔧 方法**: 跨分词器 token 映射 + 完整 OPD 训练流程。**高保真 token-level 信号可跨分词器传播**。
 - **📊 效果**: 跨族 OPD 比 SFT baseline 在多个 benchmark **显著更计算高效**。解锁了更广泛的 teacher-student 配对组合。
 - **⚠️ 局限**: token 映射算法的覆盖率/精度对低资源语言的字词/罕见 token 敏感。
+
+#### 📄 [AR-OPD: Beyond Absolute Imitation — Anchored Residual Guidance for Privileged OPD](https://arxiv.org/abs/2606.10385) | 2026-06-09
+- **🎯 问题**: **Privileged OPD** 用 self-teacher 配合 oracle traces 做 OPD，弥补师生能力差距。但现有方法把 privileged info 当作**整体模仿目标**，**没区分**"本地可达的推理步骤"和"未来条件的 oracle 信号"。结果 student 被引导去匹配一个**hindsight-biased 分布**——可能超出它本地的预测支持范围，**激励它跳过有效的中间推理、走局部不支持的捷径**。
+- **💡 思路**: **双重解耦 (dual-view)** 框架，**Anchored Residual** 把 privileged 监督拆成"可达锚点"和"残差"两部分。
+- **🔧 方法**: **AR-OPD** (Anchored Residual On-Policy Distillation) — 在原始 privileged OPD 损失基础上引入**可达性约束**和**残差校正**，避免 student 去模仿远超自己能力的 oracle 分布。
+- **📊 效果**: 缓解 reachability mismatch，student 保持**有效中间推理**不被捷径干扰。
+- **⚠️ 局限**: 双重视角带来额外计算；oracle traces 在无 verifier 领域不适用。

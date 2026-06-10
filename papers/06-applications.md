@@ -482,7 +482,7 @@
 
 ---
 
-## 📚 2026 年 6 月论文（16 篇）
+## 📚 2026 年 6 月论文（17 篇）
 
 #### 📄 [ViCuR: Visual Cues as Recoverable Privilege for Multimodal OPD](https://arxiv.org/abs/2606.05718) | Kanghui Tian, 2026-06-04
 - **🎯 问题**: 多模态 OPD 的传统特权信息是**答案 / 文本标注**--但这在**纯视觉推理**任务上**不可用**(推理时只能看图)。问题:能否设计**视觉特权的替代品**?什么样的"**特权**"是**推理时可恢复**的?简单的"更强教师 OPD"在多模态场景并不比"特权设计"有效。
@@ -720,3 +720,10 @@
 - **🔧 方法**: **Imagine-OPD** — teacher 扮演"think with images"角色（含实际 crop 推理），student 走"think with imagination"（不调用工具）。两者 OPSD。
 - **📊 效果**: 推理时省掉工具调用，模型更紧凑高效。消除了 crop 噪声问题。
 - **⚠️ 局限**: 教师"想象"的视觉细节质量决定 student 上限；可能对需要极精细空间信息的任务（医学图像）吃力。
+
+#### 📄 [Visual-SDPO: Self-Distillation Policy Optimization via Visual Feedback](https://arxiv.org/abs/2606.10334) | 2026-06-09
+- **🎯 问题**: Code-LLM 生成 chart / web page / slide 时**先 commit 代码、再看渲染**，经常出现 overlapping / clipped / broken alignment / low contrast / overflow 等视觉缺陷。常规 outcome reward 学不到细致的"代码-视觉"反馈信号。
+- **💡 思路**: 把**渲染后的视觉反馈当成 privileged context**给 weight-sharing teacher，再用 self-distillation 把这信号蒸馏到 coding student。
+- **🔧 方法**: **Visual-SDPO** + **Visual-Grounded Code Credit Weighting**（把每个检测到的视觉缺陷**追溯到具体代码 statement**，放大对应语句的蒸馏信号）+ sequence-level **GRPO** 项补充 dense token-level 目标。
+- **📊 效果**: 显著提升生成视觉 artifacts 的可用性；token-level + sequence-level 双目标互补。
+- **⚠️ 局限**: 依赖**非可微渲染器**；需要渲染 pipeline；缺陷检测器本身的质量是上限。
