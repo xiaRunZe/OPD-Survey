@@ -1,9 +1,9 @@
 # 📚 arXiv 新论文（自动拉取）
 
-> 拉取时间：2026-08-28 09:16 GMT+8
+> 拉取时间：2026-08-29 06:56 GMT+8
 
 
-**共 38 篇**
+**共 37 篇**
 
 | # | arXiv | 标题 | 类别 | 匹配关键词 |
 |---|-------|------|------|-----------|
@@ -44,7 +44,6 @@
 | 35 | [2608.11698](https://arxiv.org/abs/2608.11698) | REOPD: Reliability-Adaptive Reward Extrapolation for On-Policy Distillation | 📌 其他 | on-policy distillation |
 | 36 | [2608.11191](https://arxiv.org/abs/2608.11191) | Test-Time Self-Evolving GUI Visual Grounding via Reflection-Guided On-Policy Sel… | 🤖 Agent | on-policy self-distillation |
 | 37 | [2608.10905](https://arxiv.org/abs/2608.10905) | ReOrder-OPD:Reliability-Aware Prompt Ordering for On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 38 | [2608.10775](https://arxiv.org/abs/2608.10775) | SkillLens: Visual Skill Cards for Retrieval-Augmented GUI Action Prediction and … | 🖼️ 多模态 | on-policy distillation |
 
 ---
 
@@ -491,15 +490,3 @@ GUI Visual Grounding is a fundamental capability for GUI agents. Existing models
 
 ### Abstract
 On-policy distillation (OPD) applies token-level teacher supervision to student-generated trajectories, but this supervision is not always reliable. Existing methods use local confidence or teacher-student agreement to weight, filter, or truncate the sampled trajectory. These signals do not directly determine whether the teacher can continue a student prefix to a correct answer, and trajectory-level interventions can conflate one rollout&#39;s unreliability with low expected training value of its prompt. We define prompt-level teacher continuation reliability $R$ as the teacher&#39;s probability of reaching a correct answer from a student prefix, averaged over prefixes and trajectories induced by the current student. Oracle experiments show that high-$R$ prompts yield larger OPD gains and that descending-$R$ training outperforms random and ascending orders on a fixed prompt pool. Because estimating $R$ requires many teacher continuations, we use the maximum ROUGE-5 F1 between one independent student rollout and verifier-correct same-prompt teacher trajectories. Across ten equal-frequency bins of this actual score, mean $R$ rises monotonically, showing that the proxy separates coarse reliability levels. ReOrder-OPD sorts prompts by the proxy, then draws independent on-policy training trajectories for vanilla OPD. It improves every matched aggregate comparison across Qwen3 and Gemma4 mathematics settings and Qwen3 code settings. Gains in all six FiRe-OPD and ExOPD settings show that prompt ordering complements within-trajectory supervision.
-
-## SkillLens: Visual Skill Cards for Retrieval-Augmented GUI Action Prediction and On-Policy Distillation
-
-- **arXiv**: [2608.10775](https://arxiv.org/abs/2608.10775)
-- **类别**: 🖼️ 多模态（多模态 OPD）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-Computer-using agents can perceive rich software interfaces, yet their decisions often lack visual procedural memory: they may recognize individual controls without identifying which familiar workflow is active, which control matters next, or what evidence would confirm progress. Raw interaction traces preserve such information but are long and noisy to condition on, whereas text-only skills often omit the visual state that makes a procedure applicable. We introduce Visual Skill Cards (VSCs), a state-conditioned memory representation that binds reusable procedures with applicability cues, visual evidence, and verification signals. SkillLens constructs VSCs from heterogeneous interaction experience through Trace-to-Visual-Skill-Card and, at inference time, retrieves relevant cards and selectively expands only the evidence needed by a fixed visual-language model executor for grounded GUI action prediction. The same representation also supports CardDistill, which uses VSC evidence as privileged teacher context to train a student that acts without runtime card retrieval. Across Multimodal-Mind2Web and WebLINX-BrowserGym, SkillLens improves the frozen GPT-5.4-mini executor by +11.6 points in Step SR and +2.9 points in Overall, respectively; CardDistill further improves the corresponding student-only Qwen3-VL-2B metrics by +12.0 and +3.2 points.
