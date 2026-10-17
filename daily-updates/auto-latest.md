@@ -1,50 +1,160 @@
 # 📚 arXiv 新论文（自动拉取）
 
-> 拉取时间：2026-10-16 04:11 GMT+8
+> 拉取时间：2026-10-18 00:11 GMT+8
 
 
-**共 36 篇**
+**共 38 篇**
 
 | # | arXiv | 标题 | 类别 | 匹配关键词 |
 |---|-------|------|------|-----------|
-| 1 | [2610.20572](https://arxiv.org/abs/2610.20572) | Recovering Reliable Supervision via Critique-Guided On-Policy Distillation | 🤖 Agent | on-policy distillation |
-| 2 | [2610.20516](https://arxiv.org/abs/2610.20516) | VASPO: Self-Distillation with Privileged Value Estimation | 📌 其他 | self-distillation |
-| 3 | [2610.20261](https://arxiv.org/abs/2610.20261) | Harness Policy Distillation: Aligning Agent Policies with Runtime Semantics | 🔬 白盒OPD | policy distillation |
-| 4 | [2610.20174](https://arxiv.org/abs/2610.20174) | RM-OPD: On-Policy Distillation for Generative Reward Models | 📌 其他 | on-policy distillation |
-| 5 | [2610.19758](https://arxiv.org/abs/2610.19758) | Qwen-MT-Lumen at WMT2026: Instruction-Specialized Translation via Quality-Aware … | 🌐 多语言 | on-policy distillation |
-| 6 | [2610.19687](https://arxiv.org/abs/2610.19687) | Function-Space Temporal Self-Distillation for Policy Optimization | ♻️ OPSD | self-distillation |
-| 7 | [2610.19601](https://arxiv.org/abs/2610.19601) | PA1-OPD: One-Step Prefix-Augmented On-Policy Distillation for Language Model Pre… | 📌 其他 | on-policy distillation |
-| 8 | [2610.19572](https://arxiv.org/abs/2610.19572) | Divergence-Routed On-Policy Distillation for Language Models | ♻️ OPSD | on-policy distillation |
-| 9 | [2610.19145](https://arxiv.org/abs/2610.19145) | Demystifying On-Policy Distillation: Where Does the Teacher&#39;s Advantage Live… | 📌 其他 | on-policy distillation |
-| 10 | [2610.18883](https://arxiv.org/abs/2610.18883) | Token Utility for On-Policy Distillation via Local Trust-Region Optimization | 📌 其他 | on-policy distillation |
-| 11 | [2610.18613](https://arxiv.org/abs/2610.18613) | Does self-distillation improve reasoning? | 📌 其他 | self-distillation |
-| 12 | [2610.18472](https://arxiv.org/abs/2610.18472) | Simplifying and Improving On-Policy Distillation for Few-Step Diffusion | 🖼️ 多模态 | on-policy distillation |
-| 13 | [2610.18256](https://arxiv.org/abs/2610.18256) | Teach Me After You Learn It: Lookahead Self-Distillation for RLVR | 📌 其他 | self-distillation |
-| 14 | [2610.18162](https://arxiv.org/abs/2610.18162) | LoOPSD: On-Policy Self-Distillation with Looped Teachers | 📌 其他 | OPSD |
-| 15 | [2610.18011](https://arxiv.org/abs/2610.18011) | Correcting or Continuing? What On-Policy Distillation Learns from Student Errors | 📌 其他 | on-policy distillation |
-| 16 | [2610.17734](https://arxiv.org/abs/2610.17734) | Explore with Memory, Learn without It: In-Context Exploration and Self-Distillat… | ♻️ OPSD+RL | self-distillation |
-| 17 | [2610.17593](https://arxiv.org/abs/2610.17593) | Training Generalist Navigation Policies via Action Self-Distillation | 🤖 Agent | self-distillation |
-| 18 | [2610.17397](https://arxiv.org/abs/2610.17397) | JustOPD: On-Policy Distillation from Autoregressive to Diffusion Language Models | 🖼️ 多模态 | on-policy distillation |
-| 19 | [2610.16354](https://arxiv.org/abs/2610.16354) | Self-Distillation with Verbal Regularization | 📌 其他 | self-distillation |
-| 20 | [2610.14939](https://arxiv.org/abs/2610.14939) | VC-OPD: Visual Counterfactual On-Policy Distillation for Grounded Vision-Languag… | 🖼️ 多模态 | on-policy distillation |
-| 21 | [2610.14763](https://arxiv.org/abs/2610.14763) | CUSE: Fine-Grained Multimodal Unlearning with Counterfactual Guidance and On-Pol… | 🖼️ 多模态 | on-policy self-distillation |
-| 22 | [2610.14001](https://arxiv.org/abs/2610.14001) | PreSO: Privileged Representation Isolation for On-Policy Self-Distillation | 📌 其他 | on-policy self-distillation |
-| 23 | [2610.13744](https://arxiv.org/abs/2610.13744) | A Privileged Teacher That Only Scores Cannot Search: Critique-Conditioned On-Pol… | 📌 其他 | on-policy self-distillation |
-| 24 | [2610.13521](https://arxiv.org/abs/2610.13521) | Beyond Domain-Routed Supervision: Cross-Teacher Guarding for Multi-Teacher On-Po… | 📌 其他 | on-policy distillation |
-| 25 | [2610.13481](https://arxiv.org/abs/2610.13481) | Branching On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 26 | [2610.13453](https://arxiv.org/abs/2610.13453) | Reflect-VLA: Internalizing Reflective Guidance via Dual-Path On-Policy Self-Dist… | 🤖 Agent | on-policy self-distillation |
-| 27 | [2610.13264](https://arxiv.org/abs/2610.13264) | CV-OPD: Contrastive Vision On-policy Distillation | 📌 其他 | on-policy distillation |
-| 28 | [2610.13257](https://arxiv.org/abs/2610.13257) | CAST: Credit Alignment for Cross-Tokenizer On-Policy Distillation | 🔬 白盒OPD | on-policy distillation |
-| 29 | [2610.13238](https://arxiv.org/abs/2610.13238) | State-OPD: State-Grounded On-Policy Distillation for Multi-Turn Agents | 🤖 Agent | on-policy distillation |
-| 30 | [2610.13232](https://arxiv.org/abs/2610.13232) | FPD-Drive: Future Policy Distillation for End-to-End Autonomous Driving | 📌 其他 | policy distillation |
-| 31 | [2610.13205](https://arxiv.org/abs/2610.13205) | Rethinking Relative Policy Differences Transfer of On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 32 | [2610.13113](https://arxiv.org/abs/2610.13113) | Continually Post-training Small Models via Synthetic Self-distillation | ♻️ OPSD | self-distillation |
-| 33 | [2610.11989](https://arxiv.org/abs/2610.11989) | MetaOPD: Meta-Learned Token Weighting for On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 34 | [2610.11659](https://arxiv.org/abs/2610.11659) | DIAL-OPD: Learning More from Fewer Tokens in On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 35 | [2610.11423](https://arxiv.org/abs/2610.11423) | Policy Alignment: New Signals for Membership Auditing in On-Policy Distillation | 🔬 白盒OPD | on-policy distillation |
-| 36 | [2610.11384](https://arxiv.org/abs/2610.11384) | Environmental Feedback Modeling Matters: Rethinking Feedback Treatment in Agenti… | 🤖 Agent | self-distillation |
+| 1 | [2610.22236](https://arxiv.org/abs/2610.22236) | Training-Free On-Policy Distillation | 📌 其他 | on-policy distillation |
+| 2 | [2610.21601](https://arxiv.org/abs/2610.21601) | Waypoint-OPD: Transferring RL-Induced Policy Shifts via Gated On-Policy Distilla… | 📌 其他 | on-policy distillation |
+| 3 | [2610.21522](https://arxiv.org/abs/2610.21522) | Multi-Teacher On-Policy Distillation for Flow-Based Vision-Language-Action Model… | 🖼️ 多模态 | on-policy distillation |
+| 4 | [2610.21337](https://arxiv.org/abs/2610.21337) | Does On-Policy Distillation Need to Complete Every Rollout? | 📌 其他 | on-policy distillation |
+| 5 | [2610.21250](https://arxiv.org/abs/2610.21250) | FocusOPD: Structure-Guided On-Policy Distillation for Diffusion Models | 🤖 Agent | on-policy distillation |
+| 6 | [2610.21234](https://arxiv.org/abs/2610.21234) | Compatibility Matters: A Framework for Token-Level Teacher Selection in On-Polic… | 🔬 白盒OPD | on-policy distillation |
+| 7 | [2610.21195](https://arxiv.org/abs/2610.21195) | Condition-Contrastive Extrapolation for On-Policy Distillation of Language Model… | 📌 其他 | on-policy distillation |
+| 8 | [2610.20989](https://arxiv.org/abs/2610.20989) | Do As I Do, Not As I Say: On-Policy Distillation Inherits the Teacher in Vision-… | 🖼️ 多模态 | on-policy distillation |
+| 9 | [2610.20664](https://arxiv.org/abs/2610.20664) | Information-Gain Calibrated On-Policy Distillation for Deep Search Agents | 🤖 Agent | on-policy distillation |
+| 10 | [2610.20572](https://arxiv.org/abs/2610.20572) | Recovering Reliable Supervision via Critique-Guided On-Policy Distillation | 🤖 Agent | on-policy distillation |
+| 11 | [2610.20516](https://arxiv.org/abs/2610.20516) | VASPO: Self-Distillation with Privileged Value Estimation | 📌 其他 | self-distillation |
+| 12 | [2610.20261](https://arxiv.org/abs/2610.20261) | Harness Policy Distillation: Aligning Agent Policies with Runtime Semantics | 🔬 白盒OPD | policy distillation |
+| 13 | [2610.20174](https://arxiv.org/abs/2610.20174) | RM-OPD: On-Policy Distillation for Generative Reward Models | 📌 其他 | on-policy distillation |
+| 14 | [2610.19758](https://arxiv.org/abs/2610.19758) | Qwen-MT-Lumen at WMT2026: Instruction-Specialized Translation via Quality-Aware … | 🌐 多语言 | on-policy distillation |
+| 15 | [2610.19687](https://arxiv.org/abs/2610.19687) | Function-Space Temporal Self-Distillation for Policy Optimization | ♻️ OPSD | self-distillation |
+| 16 | [2610.19601](https://arxiv.org/abs/2610.19601) | PA1-OPD: One-Step Prefix-Augmented On-Policy Distillation for Language Model Pre… | 📌 其他 | on-policy distillation |
+| 17 | [2610.19572](https://arxiv.org/abs/2610.19572) | Divergence-Routed On-Policy Distillation for Language Models | ♻️ OPSD | on-policy distillation |
+| 18 | [2610.19145](https://arxiv.org/abs/2610.19145) | Demystifying On-Policy Distillation: Where Does the Teacher&#39;s Advantage Live… | 📌 其他 | on-policy distillation |
+| 19 | [2610.18883](https://arxiv.org/abs/2610.18883) | Token Utility for On-Policy Distillation via Local Trust-Region Optimization | 📌 其他 | on-policy distillation |
+| 20 | [2610.18613](https://arxiv.org/abs/2610.18613) | Does self-distillation improve reasoning? | 📌 其他 | self-distillation |
+| 21 | [2610.18472](https://arxiv.org/abs/2610.18472) | Simplifying and Improving On-Policy Distillation for Few-Step Diffusion | 🖼️ 多模态 | on-policy distillation |
+| 22 | [2610.18256](https://arxiv.org/abs/2610.18256) | Teach Me After You Learn It: Lookahead Self-Distillation for RLVR | 📌 其他 | self-distillation |
+| 23 | [2610.18162](https://arxiv.org/abs/2610.18162) | LoOPSD: On-Policy Self-Distillation with Looped Teachers | 📌 其他 | OPSD |
+| 24 | [2610.18011](https://arxiv.org/abs/2610.18011) | Correcting or Continuing? What On-Policy Distillation Learns from Student Errors | 📌 其他 | on-policy distillation |
+| 25 | [2610.17734](https://arxiv.org/abs/2610.17734) | Explore with Memory, Learn without It: In-Context Exploration and Self-Distillat… | ♻️ OPSD+RL | self-distillation |
+| 26 | [2610.17593](https://arxiv.org/abs/2610.17593) | Training Generalist Navigation Policies via Action Self-Distillation | 🤖 Agent | self-distillation |
+| 27 | [2610.17397](https://arxiv.org/abs/2610.17397) | JustOPD: On-Policy Distillation from Autoregressive to Diffusion Language Models | 🖼️ 多模态 | on-policy distillation |
+| 28 | [2610.16354](https://arxiv.org/abs/2610.16354) | Self-Distillation with Verbal Regularization | 📌 其他 | self-distillation |
+| 29 | [2610.14939](https://arxiv.org/abs/2610.14939) | VC-OPD: Visual Counterfactual On-Policy Distillation for Grounded Vision-Languag… | 🖼️ 多模态 | on-policy distillation |
+| 30 | [2610.14763](https://arxiv.org/abs/2610.14763) | CUSE: Fine-Grained Multimodal Unlearning with Counterfactual Guidance and On-Pol… | 🖼️ 多模态 | on-policy self-distillation |
+| 31 | [2610.14001](https://arxiv.org/abs/2610.14001) | PreSO: Privileged Representation Isolation for On-Policy Self-Distillation | 📌 其他 | on-policy self-distillation |
+| 32 | [2610.13744](https://arxiv.org/abs/2610.13744) | A Privileged Teacher That Only Scores Cannot Search: Critique-Conditioned On-Pol… | 📌 其他 | on-policy self-distillation |
+| 33 | [2610.13521](https://arxiv.org/abs/2610.13521) | Beyond Domain-Routed Supervision: Cross-Teacher Guarding for Multi-Teacher On-Po… | 📌 其他 | on-policy distillation |
+| 34 | [2610.13481](https://arxiv.org/abs/2610.13481) | Branching On-Policy Distillation | 📌 其他 | on-policy distillation |
+| 35 | [2610.13453](https://arxiv.org/abs/2610.13453) | Reflect-VLA: Internalizing Reflective Guidance via Dual-Path On-Policy Self-Dist… | 🤖 Agent | on-policy self-distillation |
+| 36 | [2610.13264](https://arxiv.org/abs/2610.13264) | CV-OPD: Contrastive Vision On-policy Distillation | 📌 其他 | on-policy distillation |
+| 37 | [2610.13257](https://arxiv.org/abs/2610.13257) | CAST: Credit Alignment for Cross-Tokenizer On-Policy Distillation | 🔬 白盒OPD | on-policy distillation |
+| 38 | [2610.13238](https://arxiv.org/abs/2610.13238) | State-OPD: State-Grounded On-Policy Distillation for Multi-Turn Agents | 🤖 Agent | on-policy distillation |
 
 ---
+
+## Training-Free On-Policy Distillation
+
+- **arXiv**: [2610.22236](https://arxiv.org/abs/2610.22236)
+- **类别**: 📌 其他（其他 / 待人工分类）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+On-policy distillation consolidates specialist models into one student at the price of rollouts, teacher passes and gradient steps for every teacher. We show that the consolidation does not need training: with forward passes only, the capabilities of separately tuned specialists can be aggregated into one model that is, on average, more accurate than either specialist alone. When specialists share a base model, distillation has an exact layer-wise solution: each linear layer of the fused model must reproduce every specialist&#39;s output on the inputs that specialist receives while reading its own answers, a least-squares problem whose solution needs only the second moments of those inputs. One forward pass over a few hundred rollouts provides them. We call this training-free on-policy distillation (\method). What the rollouts contain matters more than the solver: answers truncated in repetition loops are few among a mathematics specialist&#39;s rollouts but carry a large share of their tokens, and removing them lifts the fused model on AIME25 from task arithmetic&#39;s level to the specialist&#39;s at matched precision. On Olmo~3 7B, a few GPU-hours of forward computation per specialist yield a generalist that keeps most of each specialist&#39;s gain on each of seven mathematics and code benchmarks.
+
+## Waypoint-OPD: Transferring RL-Induced Policy Shifts via Gated On-Policy Distillation
+
+- **arXiv**: [2610.21601](https://arxiv.org/abs/2610.21601)
+- **类别**: 📌 其他（其他 / 待人工分类）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+Policy-shift distillation reuses the difference between a teacher&#39;s log probabilities before and after reinforcement learning (RL) as supervision on student-generated trajectories. However, this endpoint policy shift cannot reveal whether local action preferences evolved consistently during teacher training. The same endpoint shift can result from early and late shifts that reinforce or partially cancel each other. We investigate whether agreement between early and late teacher policy shifts can guide selective transfer. We introduce Waypoint-guided On-Policy Distillation (Waypoint-OPD), which uses an intermediate teacher checkpoint from the same RL run to compare early and late shifts in relative action preferences at student-visited prefixes. We gate the endpoint shift according to the directional agreement between the early and late shifts, suppressing it when they point in opposing directions. Compared with endpoint-only transfer, our method requires only one additional frozen-teacher scoring pass. Using RL-trained Qwen3-4B teachers, we evaluate our method with Qwen3-8B, Qwen3-14B, and Qwen3-30B-A3B as student models in mathematical and code reasoning. In all six domain--student settings, Waypoint-OPD achieves the highest domain-average score among the compared distillation methods. Ablations with the Qwen3-8B student show that removing or shuffling gates reduces mathematical reasoning performance. These results support the use of directional agreement between early and late teacher policy shifts to weight the endpoint shift during student training.
+
+## Multi-Teacher On-Policy Distillation for Flow-Based Vision-Language-Action Models
+
+- **arXiv**: [2610.21522](https://arxiv.org/abs/2610.21522)
+- **类别**: 🖼️ 多模态（多模态 OPD）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+Specialized vision-language-action (VLA) policies acquire strong domain-specific skills, yet consolidating these skills into one shared policy remains challenging. On-policy distillation (OPD) transfers teacher knowledge on inputs induced by the student, addressing the distribution mismatch encountered during deployment. For flow-based VLAs, this mismatch arises at two levels: environment observations and intermediate action-generation states. We propose a two-level on-policy distillation framework that couples student-driven environment interaction with teacher velocity supervision along student-generated action flow trajectories. Frozen domain specialists jointly supervise one student. After each update, the student collects new environment experience and generates fresh action-flow trajectories. Starting from a joint supervised fine-tuning (SFT) initialization, Velocity Loss OPD yields absolute success-rate gains of 22.55% on LIBERO-40, 33.4% on CALVIN five-instruction sequences, and 22.6% on Meta-World MT50. Compared with Action Loss OPD and Teacher-rollout SFT, it achieves absolute success-rate gains of 6.4-9.5% on LIBERO-40, 9.7-18.3% on CALVIN, and 3.2-4.2% on Meta-World MT50. Analysis by sequence length further shows larger success-rate gains on longer CALVIN sequences. These results demonstrate effective multi-domain capability consolidation through two-level on-policy supervision, with a single student deployed across domains.
+
+## Does On-Policy Distillation Need to Complete Every Rollout?
+
+- **arXiv**: [2610.21337](https://arxiv.org/abs/2610.21337)
+- **类别**: 📌 其他（其他 / 待人工分类）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+On-policy distillation (OPD) effectively transfers capabilities from a teacher to a student through feedback on student-generated rollouts. However, generating complete student rollouts and computing teacher feedback for every token make OPD computationally expensive. We introduce Stochastic Truncated On-Policy Distillation (STOPD), which accelerates OPD by randomly truncating student rollouts and correcting the resulting sampling bias with blockwise inverse-probability weighting (IPW). At each training step, we sample a stopping position for each rollout before generation and let the student generate until that position or natural termination. We obtain teacher feedback on every generated token and use blockwise IPW to compensate for the lower probability of retaining later tokens while controlling the weights. We prove that this weighting preserves Vanilla OPD&#39;s gradient sum in expectation and derive one-step update-error bounds for SGD, Adam, and Muon. We evaluate STOPD across multiple teacher-student model pairs, task domains, and optimizers. STOPD reduces generated tokens by 25-48% while maintaining accuracy comparable to Vanilla OPD, achieving 1.3-2.2x training speedups.
+
+## FocusOPD: Structure-Guided On-Policy Distillation for Diffusion Models
+
+- **arXiv**: [2610.21250](https://arxiv.org/abs/2610.21250)
+- **类别**: 🤖 Agent（Agent 应用）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+Multi-teacher on-policy distillation enables rectified-flow models with diffusion-transformer architectures to combine task-specific capabilities within a single student. However, matching model outputs does not guarantee that their internal representations are aligned, and it remains unclear where and when additional feature supervision is most useful. We analyze the teacher-student feature mismatch across Transformer blocks and denoising timesteps, and find that the mismatch is concentrated in deeper Transformer blocks during early denoising and persists after OPD distillation, indicating ineffective distillation. Motivated by this observation, we introduce FocusOPD, which augments the base OPD objective with token-wise directional feature alignment restricted to deep layers and early denoising steps. Across two rectified-flow backbones and multiple OPD objectives, FocusOPD improves capability transfer in compositional generation, text rendering, and preference-based evaluation. On the primary benchmark, it improves over DiffusionOPD from 0.953 to 0.967 on GenEval, from 23.797 to 23.944 on PickScore, and from 6.052 to 6.199 on LAION-Aesthetic. Ablations show that selective deep and early supervision is more effective and efficient than alignment over the full network and trajectory.
+
+## Compatibility Matters: A Framework for Token-Level Teacher Selection in On-Policy Distillation
+
+- **arXiv**: [2610.21234](https://arxiv.org/abs/2610.21234)
+- **类别**: 🔬 白盒OPD（白盒 OPD / 细粒度）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+On-policy distillation (OPD) has recently been introduced as a promising paradigm for continual learning, where a student policy can be supervised at the token-level. Typically, OPD is performed using a single teacher per prompt rollout (or even per training run). However, this ignores a whole other axis of flexibility that is available due to the on-policy nature - token-level teacher selection during rollouts. Building on this insight, we theoretically explore what makes a teacher and a student compatible for OPD, and leverage our findings to derive several empirical heuristics for teacher selection. In particular, our framework captures several desiderata for OPD: compatible teacher-student reasoning patterns, teacher competence, and induced student diversity. Theoretically, we categorize several types of teacher routing schemes, and we prove that under different scenarios, different routing schemes are likely to be beneficial for optimization and student diversity. We back up our findings with extensive experimental results in domains such as math, coding, kernel generation, and visual reasoning, where we find upwards of 10 percentage points of improvement on pass@$k$ when compared to vanilla OPD and the teacher experts on certain tasks, indicating both capability improvement and diversity over high-quality responses.
+
+## Condition-Contrastive Extrapolation for On-Policy Distillation of Language Models
+
+- **arXiv**: [2610.21195](https://arxiv.org/abs/2610.21195)
+- **类别**: 📌 其他（其他 / 待人工分类）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+On-policy distillation (OPD) improves a student language model by training on its own generated trajectories with supervision from a stronger teacher. However, when conditioned on student-generated prefixes, the teacher can favor invalid continuations that violate the question&#39;s premises, causing OPD to encourage erroneous reasoning steps. As a remedy, we introduce Condition-Contrastive Extrapolated On-Policy Distillation (CCE-OPD), which makes teacher supervision sensitive to question conditions. CCE-OPD incorporates (1) a fixed-prefix comparison in which the same frozen teacher evaluates the complete question and a counterpart with a selected condition masked, and (2) a bounded log-probability contrast that reweights the teacher distribution into an auxiliary distillation target. On 200 diagnostic reasoning states, condition contrast reduces the rate of preferring invalid continuations from 27.0% to 16.0%. Extensive experiments across six mathematical benchmarks show that CCE-OPD improves avg@8 over OPD by an average of 1.60 and 1.95 percentage points when distilling Qwen3-8B into 0.6B and 1.7B students, respectively. It also achieves the strongest results on four transfer benchmarks.
+
+## Do As I Do, Not As I Say: On-Policy Distillation Inherits the Teacher in Vision-Language Models
+
+- **arXiv**: [2610.20989](https://arxiv.org/abs/2610.20989)
+- **类别**: 🖼️ 多模态（多模态 OPD）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+Improving the reasoning capabilities of vision-language models (VLMs) often relies on post-training with supervision from stronger models. Two common strategies are supervised fine-tuning (SFT), which trains on teacher-generated demonstrations, and on-
+
+## Information-Gain Calibrated On-Policy Distillation for Deep Search Agents
+
+- **arXiv**: [2610.20664](https://arxiv.org/abs/2610.20664)
+- **类别**: 🤖 Agent（Agent 应用）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+On-policy distillation (OPD) has recently emerged as a promising approach for transferring the capabilities of large agents to compact students. In deep search, where agents iteratively retrieve external evidence, a teacher&#39;s preference among plausible queries before retrieval may not predict which queries will return useful evidence. Standard OPD nevertheless supervises each student query from the preceding context alone, inducing a failure mode we term \textbf{\textit{evidence-blind supervision (EBS)}}. To understand this, we regroup the OPD objective by interaction turns and reveal two implicit priors: a \textit{budget prior} that allocates supervision by token volume, and a \textit{direction prior} that favors tokens preferred by the teacher, neither of which accounts for the evidence returned by the current query. Our empirical analysis shows that both priors contribute to EBS in practice: the first search turn accounts for 51.1\% of total absolute information gain but receives only 18.0\% of the supervision budget, while 43.7\% of search queries have teacher rewards that disagree in sign with post-retrieval information utility. To mitigate this, we propose \ours, which uses post-retrieval information gain (IG) to calibrate both priors: reallocating supervision toward information-critical turns while calibrating query preferences using the utility of retrieved evidence. Experiments on six multimodal search benchmarks show that \ours improves average accuracy by 3.4 and 1.7 percentage points for 2B and 4B students over standard OPD, enabling the 4B student to surpass its 8B teacher on MMSearch and BrowseComp-VL.
 
 ## Recovering Reliable Supervision via Critique-Guided On-Policy Distillation
 
@@ -393,87 +503,3 @@ Cross-tokenizer on-policy distillation (OPD) requires aligning teacher and stude
 
 ### Abstract
 On-Policy Distillation (OPD) has emerged as a powerful paradigm for transferring reasoning capabilities from frontier models to smaller models, while extending its success to multi-turn agentic environments remains challenging. We study agentic OPD through interaction states, distinguishing the objective task and executed action-observation record from the internal semantic trajectory of student reasoning. Through this lens, we identify two roles of student reasoning in multi-turn OPD: prior reasoning distorts teacher supervision, while current reasoning shapes the action alternatives sampled at the same state. Specifically, at matched interaction states, removing prior student reasoning improves teacher continuation success and changes the teacher&#39;s token-level targets, with larger continuation gains at later turns. Meanwhile, resampling complete reasoning-action responses yields greater action diversity at the same state than resampling actions under a fixed reasoning trace. We introduce State-Grounded On-Policy Distillation, a framework that grounds teacher supervision in interaction states and reallocates the sampling budget to generate multiple complete reasoning-action responses at states with high response entropy, while retaining full-history student generation. Comprehensive evaluations across ALFWorld, ScienceWorld and WebShop demonstrate that State-OPD achieves the highest macro-average success rate among the evaluated methods for both Qwen3-1.7B and Qwen3-4B students. Notably, for Qwen3-4B, State-OPD raises macro-average success from 26.07\% with the strongest baseline to 31.74\% and surpasses its Qwen3-32B teacher on ALFWorld Seen. Further analyses reveal that State-OPD achieves higher task success with fewer supervised turn responses and substantially reduces persistent failed-action repetition; qualitative traces illustrate decision revision based on interaction feedback.
-
-## FPD-Drive: Future Policy Distillation for End-to-End Autonomous Driving
-
-- **arXiv**: [2610.13232](https://arxiv.org/abs/2610.13232)
-- **类别**: 📌 其他（其他 / 待人工分类）
-- **匹配关键词**: policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-End-to-end autonomous driving models are typically trained on real-world driving logs, which record only the trajectory actually executed in each scene. This provides limited supervision for learning alternative valid behaviors. Multi-target supervision can mitigate this limitation, but broader trajectory coverage makes safe candidate selection more challenging. We propose FPD-Drive, an end-to-end planner that
-
-## Rethinking Relative Policy Differences Transfer of On-Policy Distillation
-
-- **arXiv**: [2610.13205](https://arxiv.org/abs/2610.13205)
-- **类别**: 📌 其他（其他 / 待人工分类）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-On-policy distillation (OPD) trains a target policy on its own rollouts using token-level supervision from a stronger teacher, but typically relies on the teacher being substantially more capable than the target. Recent work relaxes this requirement by transferring the relative policy difference between an expert and a reference policy rather than the expert&#39;s absolute distribution. Yet it remains unclear which differences provide useful supervision and which targets can benefit from them. We develop a unified view in which the log-probability ratio between a proxy expert and a proxy reference defines an implicit reward for KL-regularized policy optimization. This formulation induces an on-policy update for the target, recovers conventional OPD as a special case, and enables any-to-any transfer across models that differ in scale, training stage or generation. Our systematic experiments yield three findings. First, a stronger expert is not necessarily a better source of supervision: differences induced by task-specific training, including reinforcement learning and supervised fine-tuning, transfer consistently, whereas those arising from model scale alone transfer weakly or not at all. Second, the expert and reference serve complementary roles: the expert provides the capability to be transferred, while the reference filters out shared behavior and isolates the relevant residual. Third, even a useful difference does not transfer to every target: success requires the induced update to move the target toward the expert and generalize beyond sampled rollouts. Raw policy distance does not predict transferability, whereas an appropriate reference can rescue otherwise unsuccessful transfer. These results characterize when relative policy differences provide effective supervision for OPD.
-
-## Continually Post-training Small Models via Synthetic Self-distillation
-
-- **arXiv**: [2610.13113](https://arxiv.org/abs/2610.13113)
-- **类别**: ♻️ OPSD（OPSD / 持续学习）
-- **匹配关键词**: self-distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-Continual post-training faces a dual challenge of acquisition and retention: models must learn new capabilities while preserving prior knowledge. While Self-Distillation Fine-Tuning (SDFT) mitigates this using self-supervision with in-context demonstrations, it relies on strong in-context learning and instruction-following abilities. Consequently, SDFT fails on smaller models critical for low-latency, on-device use. To enable continual learning at smaller scales, we first identify the root cause of failure. We show that poor acquisition and forgetting correlate linearly with the post-trained model&#39;s distribution shift, revealing the necessity of in-distribution learning. We thus introduce Synthetic Self-Distillation (SynthSelf), imitating SDFT&#39;s in-distribution rewrite by outsourcing the task to a minimally larger, same-family aligner. Coupled with off-policy supervision and rejection sampling, this provides the high-quality supervision small models require without breaking their original distribution. Evaluations spanning 4 acquisition datasets (including a mixture) and 14 retention benchmarks show SynthSelf consistently outperforms 6 methods (including off- and on-policy distillation) across 3 small model scales. Extensive further analyses confirm SynthSelf paves the way toward effective small-model continual learning.
-
-## MetaOPD: Meta-Learned Token Weighting for On-Policy Distillation
-
-- **arXiv**: [2610.11989](https://arxiv.org/abs/2610.11989)
-- **类别**: 📌 其他（其他 / 待人工分类）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-On-policy distillation (OPD) trains a student on its own generated responses using token-level teacher supervision. However, uniform weighting overlooks differences in token learning value, while existing weighting methods rely on predefined mappings from prediction signals to token weights. These mappings are not learned from the effectiveness of the resulting student updates, limiting their ability to adapt to evolving learning needs. In this paper, we propose MetaOPD, a bilevel optimization framework that jointly learns the student model and a lightweight token-weighting network. The inner objective updates the student through weighted OPD, while the outer objective optimizes the weighting network using validation loss on reference solutions after a virtual student update. Differentiating through this update connects weighting decisions to their effects on post-update performance, allowing the mapping from prediction signals to token weights to evolve alongside the student. Experiments on six mathematical reasoning and three out-of-domain datasets, covering two student scales and seven baselines, demonstrate the effectiveness of MetaOPD, with Avg@8/Pass@8 gains over OPD of 1.99/5.97 percentage points for the 0.6B student and 2.25/6.41 points for the 1.7B student.
-
-## DIAL-OPD: Learning More from Fewer Tokens in On-Policy Distillation
-
-- **arXiv**: [2610.11659](https://arxiv.org/abs/2610.11659)
-- **类别**: 📌 其他（其他 / 待人工分类）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-On-policy distillation (OPD) supervises student-generated trajectories with token-level teacher signals. Its sampled-token variant avoids the cost of full-vocabulary probabilities. Yet we find that training on fewer tokens can outperform full-token OPD, challenging the intuition that more supervision improves learning. This motivates selecting tokens by learning value. Existing disagreement-based criteria ignore probability scale: tokens assigned negligible probability by both models, termed low-low tokens, can receive large log-ratio rewards and hinder learning. We propose DIAL-OPD, a token-selection method that bridges log-probability and probability spaces by weighting reward magnitude with the logarithmic mean of teacher and student probabilities. A parameter beta controls this weighting, and the highest-scoring tokens are retained. Across 4 teacher-student pairs and 7 mathematical reasoning benchmarks, we compare DIAL-OPD with 9 baselines. Retaining only 40% of tokens, it outperforms Vanilla OPD and its full-token variants, with mean accuracy gains reaching 5.25 percentage points over Vanilla OPD, and doubles AIME25 Pass@16 from 13.33% to 26.67%. It also achieves up to an 18% relative improvement in mean accuracy over the strongest token-selection baseline at matched retention ratios. With a 4B teacher, DIAL-OPD surpasses the strongest full-token baseline using an 8B teacher at both student scales, showing that effective supervision allocation can outweigh teacher scaling. Further analysis shows that moderate beta balances suppressing low-low tokens against preserving useful disagreements. Token-level evidence reveals that DIAL-OPD filters high-reward tokens with limited reasoning value while preserving supervision critical to reasoning correctness.
-
-## Policy Alignment: New Signals for Membership Auditing in On-Policy Distillation
-
-- **arXiv**: [2610.11423](https://arxiv.org/abs/2610.11423)
-- **类别**: 🔬 白盒OPD（白盒 OPD / 安全性）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-On-policy distillation (OPD) trains a student model by aligning its policy with a teacher model on trajectories generated by the student model itself. Through this process, the student policy moves toward the teacher on the prompts used for distillation. However, these prompts are often private and costly, creating a need for prompt-level membership auditing. Existing methods mainly rely on likelihood-based confidence signals or student policy drift between checkpoints, but they do not capture the teacher-induced direction of the student update. In this paper, we propose Policy Alignment Membership Auditing (PAMA), a new auditing framework tailored for OPD. Our key observation is that a member prompt directly contributes to the teacher-guided policy update, while a non-member prompt only experiences indirect effects through cross-prompt generalization. Based on this directional trace, PAMA measures whether the student update moves toward reducing the teacher loss on a candidate prompt. Specifically, we introduce Teacher Alignment Gain (TAG) to estimate the teacher-aligned update direction from model outputs, and further combine it with student drift and uncertainty alignment signals for reliable membership auditing. We evaluate PAMA on six datasets and three teacher-student model families. On MATH, the primary evaluation benchmark, PAMA achieves AUC values of 0.791--0.941, improving AUC by 14.6--20.6% over state-of-the-art baselines.
-
-## Environmental Feedback Modeling Matters: Rethinking Feedback Treatment in Agentic Hindsight Self-Distillation
-
-- **arXiv**: [2610.11384](https://arxiv.org/abs/2610.11384)
-- **类别**: 🤖 Agent（Agent 应用）
-- **匹配关键词**: self-distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-Reinforcement learning is commonly used to train language agents in interactive environments, but cannot be directly applied when rewards are unavailable. Recent methods use environmental feedback as privileged context for hindsight self-
