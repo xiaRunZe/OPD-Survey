@@ -1,9 +1,9 @@
 # 📚 arXiv 新论文（自动拉取）
 
-> 拉取时间：2026-10-26 03:27 GMT+8
+> 拉取时间：2026-10-27 03:04 GMT+8
 
 
-**共 38 篇**
+**共 36 篇**
 
 | # | arXiv | 标题 | 类别 | 匹配关键词 |
 |---|-------|------|------|-----------|
@@ -43,8 +43,6 @@
 | 34 | [2610.22512](https://arxiv.org/abs/2610.22512) | Predicting Privileged Information Effectiveness for On-Policy Self-Distillation | 📌 其他 | on-policy self-distillation |
 | 35 | [2610.22408](https://arxiv.org/abs/2610.22408) | ECHOES: Seeing Beyond the Current Image via Recursive History Compression and Pr… | 🖼️ 多模态 | on-policy distillation |
 | 36 | [2610.22236](https://arxiv.org/abs/2610.22236) | Training-Free On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 37 | [2610.21601](https://arxiv.org/abs/2610.21601) | Waypoint-OPD: Transferring RL-Induced Policy Shifts via Gated On-Policy Distilla… | 📌 其他 | on-policy distillation |
-| 38 | [2610.21522](https://arxiv.org/abs/2610.21522) | Multi-Teacher On-Policy Distillation for Flow-Based Vision-Language-Action Model… | 🖼️ 多模态 | on-policy distillation |
 
 ---
 
@@ -479,27 +477,3 @@ Long-horizon GUI agents rely on visual history to maintain task states, but reta
 
 ### Abstract
 On-policy distillation consolidates specialist models into one student at the price of rollouts, teacher passes and gradient steps for every teacher. We show that the consolidation does not need training: with forward passes only, the capabilities of separately tuned specialists can be aggregated into one model that is, on average, more accurate than either specialist alone. When specialists share a base model, distillation has an exact layer-wise solution: each linear layer of the fused model must reproduce every specialist&#39;s output on the inputs that specialist receives while reading its own answers, a least-squares problem whose solution needs only the second moments of those inputs. One forward pass over a few hundred rollouts provides them. We call this training-free on-policy distillation. What the rollouts contain matters more than the solver: answers truncated in repetition loops are few among a mathematics specialist&#39;s rollouts but carry a large share of their tokens, and removing them lifts the fused model on AIME25 from task arithmetic&#39;s level to the specialist&#39;s at matched precision. On Olmo-3-7B, a few GPU-hours of forward computation per specialist yield a generalist that keeps most of each specialist&#39;s gain on each of seven mathematics and code benchmarks.
-
-## Waypoint-OPD: Transferring RL-Induced Policy Shifts via Gated On-Policy Distillation
-
-- **arXiv**: [2610.21601](https://arxiv.org/abs/2610.21601)
-- **类别**: 📌 其他（其他 / 待人工分类）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-Policy-shift distillation reuses the difference between a teacher&#39;s log probabilities before and after reinforcement learning (RL) as supervision on student-generated trajectories. However, this endpoint policy shift cannot reveal whether local action preferences evolved consistently during teacher training. The same endpoint shift can result from early and late shifts that reinforce or partially cancel each other. We investigate whether agreement between early and late teacher policy shifts can guide selective transfer. We introduce Waypoint-guided On-Policy Distillation (Waypoint-OPD), which uses an intermediate teacher checkpoint from the same RL run to compare early and late shifts in relative action preferences at student-visited prefixes. We gate the endpoint shift according to the directional agreement between the early and late shifts, suppressing it when they point in opposing directions. Compared with endpoint-only transfer, our method requires only one additional frozen-teacher scoring pass. Using RL-trained Qwen3-4B teachers, we evaluate our method with Qwen3-8B, Qwen3-14B, and Qwen3-30B-A3B as student models in mathematical and code reasoning. In all six domain--student settings, Waypoint-OPD achieves the highest domain-average score among the compared distillation methods. Ablations with the Qwen3-8B student show that removing or shuffling gates reduces mathematical reasoning performance. These results support the use of directional agreement between early and late teacher policy shifts to weight the endpoint shift during student training.
-
-## Multi-Teacher On-Policy Distillation for Flow-Based Vision-Language-Action Models
-
-- **arXiv**: [2610.21522](https://arxiv.org/abs/2610.21522)
-- **类别**: 🖼️ 多模态（多模态 OPD）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-Specialized vision-language-action (VLA) policies acquire strong domain-specific skills, yet consolidating these skills into one shared policy remains challenging. On-policy distillation (OPD) transfers teacher knowledge on inputs induced by the student, addressing the distribution mismatch encountered during deployment. For flow-based VLAs, this mismatch arises at two levels: environment observations and intermediate action-generation states. We propose a two-level on-policy distillation framework that couples student-driven environment interaction with teacher velocity supervision along student-generated action flow trajectories. Frozen domain specialists jointly supervise one student. After each update, the student collects new environment experience and generates fresh action-flow trajectories. Starting from a joint supervised fine-tuning (SFT) initialization, Velocity Loss OPD yields absolute success-rate gains of 22.55% on LIBERO-40, 33.4% on CALVIN five-instruction sequences, and 22.6% on Meta-World MT50. Compared with Action Loss OPD and Teacher-rollout SFT, it achieves absolute success-rate gains of 6.4-9.5% on LIBERO-40, 9.7-18.3% on CALVIN, and 3.2-4.2% on Meta-World MT50. Analysis by sequence length further shows larger success-rate gains on longer CALVIN sequences. These results demonstrate effective multi-domain capability consolidation through two-level on-policy supervision, with a single student deployed across domains.
