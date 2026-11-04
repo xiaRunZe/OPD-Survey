@@ -1,53 +1,90 @@
 # 📚 arXiv 新论文（自动拉取）
 
-> 拉取时间：2026-11-04 06:12 GMT+8
+> 拉取时间：2026-11-05 04:19 GMT+8
 
 
-**共 39 篇**
+**共 40 篇**
 
 | # | arXiv | 标题 | 类别 | 匹配关键词 |
 |---|-------|------|------|-----------|
-| 1 | [2611.03272](https://arxiv.org/abs/2611.03272) | Diverse-Teacher On-Policy Distillation for Generative Recommendation | 📌 其他 | on-policy distillation |
-| 2 | [2611.03133](https://arxiv.org/abs/2611.03133) | Meet Students Where They Are: Student-Prefix Teacher Adaptation for On-Policy Di… | 📌 其他 | on-policy distillation |
-| 3 | [2611.02846](https://arxiv.org/abs/2611.02846) | SpecOPD: Branch-Parallel On-Policy Distillation for Speculative Decoding | 📌 其他 | on-policy distillation |
-| 4 | [2611.02803](https://arxiv.org/abs/2611.02803) | OmniOPD: Stable On-Policy Distillation for Joint Audio-Video Generation | 📌 其他 | on-policy distillation |
-| 5 | [2611.02746](https://arxiv.org/abs/2611.02746) | Replay for LLM Continual Learning with Multi-Teacher On-Policy Distillation | ♻️ OPSD | on-policy distillation |
-| 6 | [2611.02112](https://arxiv.org/abs/2611.02112) | Order-Only On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 7 | [2611.02093](https://arxiv.org/abs/2611.02093) | Bernoulli On-Policy Distillation: Don&#39;t Ignore High-Confidence Student Token… | 📌 其他 | on-policy distillation |
-| 8 | [2611.01987](https://arxiv.org/abs/2611.01987) | Same Trajectory, Different Knowledge: Information-State-Aware On-Policy Distilla… | 🤖 Agent | on-policy distillation |
-| 9 | [2611.01967](https://arxiv.org/abs/2611.01967) | Better Answers, Weaker Evidence Control: Evidence Bypass in On-Policy Distillati… | 📌 其他 | on-policy distillation |
-| 10 | [2611.01965](https://arxiv.org/abs/2611.01965) | OC-OPD: Observation-coordinated Supervision for On-Policy Distillation | ♻️ OPSD | on-policy distillation |
-| 11 | [2611.01568](https://arxiv.org/abs/2611.01568) | Search-Aware On-Policy Self-Distillation with Sibling Alignment for Generative R… | 🔬 白盒OPD | on-policy self-distillation |
-| 12 | [2611.00852](https://arxiv.org/abs/2611.00852) | Adaptive-Policy Distillation: Knowledge Injection under Information Asymmetry | 📌 其他 | policy distillation |
-| 13 | [2611.00120](https://arxiv.org/abs/2611.00120) | DTP-OPSD: Reinforcement Learning with Distractor-Aware Temporal-Privilege On-Pol… | ♻️ OPSD | OPSD |
-| 14 | [2610.42128](https://arxiv.org/abs/2610.42128) | DecisionRank: On-Policy Distillation for Decision-Model Rerankers | 📌 其他 | on-policy distillation |
-| 15 | [2610.41307](https://arxiv.org/abs/2610.41307) | Erase the Injected Region: Multimodal Prompt-Injection Defense with On-Policy Se… | 🖼️ 多模态 | on-policy self-distillation |
-| 16 | [2610.41104](https://arxiv.org/abs/2610.41104) | MUON-RT Reusing the Teacher&#39;s Trajectory for Momentum-Free Muon for LLM Self… | 📌 其他 | self-distillation |
-| 17 | [2610.40574](https://arxiv.org/abs/2610.40574) | Every Token Needs Its Own Teacher: Multi-teacher Adaptive On-policy Self-distill… | 📌 其他 | on-policy self-distillation |
-| 18 | [2610.39020](https://arxiv.org/abs/2610.39020) | Distilling the Shape of Uncertainty: What On-Policy Distillation Learns and How … | 📌 其他 | on-policy distillation |
-| 19 | [2610.38732](https://arxiv.org/abs/2610.38732) | Adversarial Self-Distillation | 🔬 白盒OPD | self-distillation |
-| 20 | [2610.38681](https://arxiv.org/abs/2610.38681) | Weaken to Strengthen: Weakening-Induced On-Policy Self-Distillation for Large Re… | 📌 其他 | on-policy self-distillation |
-| 21 | [2610.38637](https://arxiv.org/abs/2610.38637) | On-Policy Self-Distillation with Teacher Evolution | 📌 其他 | on-policy self-distillation |
-| 22 | [2610.38391](https://arxiv.org/abs/2610.38391) | SCOPE: Selective Critical-Step On-Policy Self-Distillation for Agentic Reinforce… | 🔬 白盒OPD | on-policy self-distillation |
-| 23 | [2610.38383](https://arxiv.org/abs/2610.38383) | How Much Do Teacher Bridges Matter in Interleaved On-Policy Distillation? | 📌 其他 | on-policy distillation |
-| 24 | [2610.38160](https://arxiv.org/abs/2610.38160) | ATI-OPD: Adaptive Teacher Intervention for Stable Long-Sequence On-Policy Distil… | 📌 其他 | on-policy distillation |
-| 25 | [2610.38154](https://arxiv.org/abs/2610.38154) | MASS: Multi-mask Selective Self-Distillation for Leakage-Resilient Reasoning | 📌 其他 | self-distillation |
-| 26 | [2610.37778](https://arxiv.org/abs/2610.37778) | Multi-Draft On-Policy Distillation for Diffusion Drafters | 🖼️ 多模态 | on-policy distillation |
-| 27 | [2610.37281](https://arxiv.org/abs/2610.37281) | RPSD: Retrieval-Privileged On-Policy Self-Distillation with Optimal Transport | ♻️ OPSD+RL | on-policy self-distillation |
-| 28 | [2610.36973](https://arxiv.org/abs/2610.36973) | KL-MOPD: Discrepancy-Aware Multi-Objective On-Policy Distillation for Generative… | 🤖 Agent | on-policy distillation |
-| 29 | [2610.36959](https://arxiv.org/abs/2610.36959) | Live-OPSD: On-Policy Self-Distillation for Proactive Streaming Large Video Model… | 🖼️ 多模态 | OPSD |
-| 30 | [2610.36477](https://arxiv.org/abs/2610.36477) | Proposing Better Rollouts for On-Policy Distillation | 📌 其他 | on-policy distillation |
-| 31 | [2610.36466](https://arxiv.org/abs/2610.36466) | Nemotron-Labs-Diffusion-Uni: Elastic Self-Refining Unified Diffusion LLM with Cr… | 🖼️ 多模态 | on-policy distillation |
-| 32 | [2610.36082](https://arxiv.org/abs/2610.36082) | How Much Does the Hint Matter? Scope Conditions for Hindsight Self-Distillation … | 📌 其他 | self-distillation |
-| 33 | [2610.35690](https://arxiv.org/abs/2610.35690) | EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Disti… | 🤖 Agent | on-policy distillation |
-| 34 | [2610.34415](https://arxiv.org/abs/2610.34415) | Spatial Audio Generation and Editing with Executable Plans and Self-Distilling T… | 📌 其他 | self-distill |
-| 35 | [2610.34191](https://arxiv.org/abs/2610.34191) | Timing Matters Twice: When to Query and When to Skip in Flow-Matching On-Policy … | 📌 其他 | on-policy distillation |
-| 36 | [2610.34005](https://arxiv.org/abs/2610.34005) | Steering the Teacher: Improving On-Policy Self-Distillation for Thinking Models | 📌 其他 | on-policy self-distillation |
-| 37 | [2610.33667](https://arxiv.org/abs/2610.33667) | SWE-Ladder: Learning to Localize, Reproduce, and Patch via Progressive Privilege… | 🤖 Agent | self-distillation |
-| 38 | [2610.33446](https://arxiv.org/abs/2610.33446) | MOTIO: Agentic Skill Engineering for Reality-Grounded Humanoid Loco-Manipulation | 🤖 Agent | DAgger |
-| 39 | [2610.33011](https://arxiv.org/abs/2610.33011) | When Agents Collude: Weak-to-Strong On-Policy Distillation for Mitigating Strate… | 🔬 白盒OPD | on-policy distillation |
+| 1 | [2611.04958](https://arxiv.org/abs/2611.04958) | Shuffled OPSD: When Semantic Consistency Hurts On-Policy Self-Distillation? | 📌 其他 | OPSD |
+| 2 | [2611.04386](https://arxiv.org/abs/2611.04386) | StepX-OPD: Rethinking Multi-Teacher On-Policy Distillation in Diffusion Models | 🖼️ 多模态 | on-policy distillation |
+| 3 | [2611.03953](https://arxiv.org/abs/2611.03953) | P$^2$-MOPD: Accelerating Multi-Teacher On-Policy Distillation via Parameter Prio… | 📌 其他 | on-policy distillation |
+| 4 | [2611.03272](https://arxiv.org/abs/2611.03272) | Diverse-Teacher On-Policy Distillation for Generative Recommendation | 📌 其他 | on-policy distillation |
+| 5 | [2611.03133](https://arxiv.org/abs/2611.03133) | Meet Students Where They Are: Student-Prefix Teacher Adaptation for On-Policy Di… | 📌 其他 | on-policy distillation |
+| 6 | [2611.02846](https://arxiv.org/abs/2611.02846) | SpecOPD: Branch-Parallel On-Policy Distillation for Speculative Decoding | 📌 其他 | on-policy distillation |
+| 7 | [2611.02803](https://arxiv.org/abs/2611.02803) | OmniOPD: Stable On-Policy Distillation for Joint Audio-Video Generation | 📌 其他 | on-policy distillation |
+| 8 | [2611.02746](https://arxiv.org/abs/2611.02746) | Replay for LLM Continual Learning with Multi-Teacher On-Policy Distillation | ♻️ OPSD | on-policy distillation |
+| 9 | [2611.02112](https://arxiv.org/abs/2611.02112) | Order-Only On-Policy Distillation | 📌 其他 | on-policy distillation |
+| 10 | [2611.02093](https://arxiv.org/abs/2611.02093) | Bernoulli On-Policy Distillation: Don&#39;t Ignore High-Confidence Student Token… | 📌 其他 | on-policy distillation |
+| 11 | [2611.01987](https://arxiv.org/abs/2611.01987) | Same Trajectory, Different Knowledge: Information-State-Aware On-Policy Distilla… | 🤖 Agent | on-policy distillation |
+| 12 | [2611.01967](https://arxiv.org/abs/2611.01967) | Better Answers, Weaker Evidence Control: Evidence Bypass in On-Policy Distillati… | 📌 其他 | on-policy distillation |
+| 13 | [2611.01965](https://arxiv.org/abs/2611.01965) | OC-OPD: Observation-coordinated Supervision for On-Policy Distillation | ♻️ OPSD | on-policy distillation |
+| 14 | [2611.01568](https://arxiv.org/abs/2611.01568) | Search-Aware On-Policy Self-Distillation with Sibling Alignment for Generative R… | 🔬 白盒OPD | on-policy self-distillation |
+| 15 | [2611.00852](https://arxiv.org/abs/2611.00852) | Adaptive-Policy Distillation: Knowledge Injection under Information Asymmetry | 📌 其他 | policy distillation |
+| 16 | [2611.00120](https://arxiv.org/abs/2611.00120) | DTP-OPSD: Reinforcement Learning with Distractor-Aware Temporal-Privilege On-Pol… | ♻️ OPSD | OPSD |
+| 17 | [2610.42128](https://arxiv.org/abs/2610.42128) | DecisionRank: On-Policy Distillation for Decision-Model Rerankers | 📌 其他 | on-policy distillation |
+| 18 | [2610.41307](https://arxiv.org/abs/2610.41307) | Erase the Injected Region: Multimodal Prompt-Injection Defense with On-Policy Se… | 🖼️ 多模态 | on-policy self-distillation |
+| 19 | [2610.41104](https://arxiv.org/abs/2610.41104) | MUON-RT Reusing the Teacher&#39;s Trajectory for Momentum-Free Muon for LLM Self… | 📌 其他 | self-distillation |
+| 20 | [2610.40574](https://arxiv.org/abs/2610.40574) | Every Token Needs Its Own Teacher: Multi-teacher Adaptive On-policy Self-distill… | 📌 其他 | on-policy self-distillation |
+| 21 | [2610.39020](https://arxiv.org/abs/2610.39020) | Distilling the Shape of Uncertainty: What On-Policy Distillation Learns and How … | 📌 其他 | on-policy distillation |
+| 22 | [2610.38732](https://arxiv.org/abs/2610.38732) | Adversarial Self-Distillation | 🔬 白盒OPD | self-distillation |
+| 23 | [2610.38681](https://arxiv.org/abs/2610.38681) | Weaken to Strengthen: Weakening-Induced On-Policy Self-Distillation for Large Re… | 📌 其他 | on-policy self-distillation |
+| 24 | [2610.38637](https://arxiv.org/abs/2610.38637) | On-Policy Self-Distillation with Teacher Evolution | 📌 其他 | on-policy self-distillation |
+| 25 | [2610.38391](https://arxiv.org/abs/2610.38391) | SCOPE: Selective Critical-Step On-Policy Self-Distillation for Agentic Reinforce… | 🔬 白盒OPD | on-policy self-distillation |
+| 26 | [2610.38383](https://arxiv.org/abs/2610.38383) | How Much Do Teacher Bridges Matter in Interleaved On-Policy Distillation? | 📌 其他 | on-policy distillation |
+| 27 | [2610.38160](https://arxiv.org/abs/2610.38160) | ATI-OPD: Adaptive Teacher Intervention for Stable Long-Sequence On-Policy Distil… | 📌 其他 | on-policy distillation |
+| 28 | [2610.38154](https://arxiv.org/abs/2610.38154) | MASS: Multi-mask Selective Self-Distillation for Leakage-Resilient Reasoning | 📌 其他 | self-distillation |
+| 29 | [2610.37778](https://arxiv.org/abs/2610.37778) | Multi-Draft On-Policy Distillation for Diffusion Drafters | 🖼️ 多模态 | on-policy distillation |
+| 30 | [2610.37281](https://arxiv.org/abs/2610.37281) | RPSD: Retrieval-Privileged On-Policy Self-Distillation with Optimal Transport | ♻️ OPSD+RL | on-policy self-distillation |
+| 31 | [2610.36973](https://arxiv.org/abs/2610.36973) | KL-MOPD: Discrepancy-Aware Multi-Objective On-Policy Distillation for Generative… | 🤖 Agent | on-policy distillation |
+| 32 | [2610.36959](https://arxiv.org/abs/2610.36959) | Live-OPSD: On-Policy Self-Distillation for Proactive Streaming Large Video Model… | 🖼️ 多模态 | OPSD |
+| 33 | [2610.36477](https://arxiv.org/abs/2610.36477) | Proposing Better Rollouts for On-Policy Distillation | 📌 其他 | on-policy distillation |
+| 34 | [2610.36466](https://arxiv.org/abs/2610.36466) | Nemotron-Labs-Diffusion-Uni: Elastic Self-Refining Unified Diffusion LLM with Cr… | 🖼️ 多模态 | on-policy distillation |
+| 35 | [2610.36082](https://arxiv.org/abs/2610.36082) | How Much Does the Hint Matter? Scope Conditions for Hindsight Self-Distillation … | 📌 其他 | self-distillation |
+| 36 | [2610.35690](https://arxiv.org/abs/2610.35690) | EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Disti… | 🤖 Agent | on-policy distillation |
+| 37 | [2610.34415](https://arxiv.org/abs/2610.34415) | Spatial Audio Generation and Editing with Executable Plans and Self-Distilling T… | 📌 其他 | self-distill |
+| 38 | [2610.34191](https://arxiv.org/abs/2610.34191) | Timing Matters Twice: When to Query and When to Skip in Flow-Matching On-Policy … | 📌 其他 | on-policy distillation |
+| 39 | [2610.34005](https://arxiv.org/abs/2610.34005) | Steering the Teacher: Improving On-Policy Self-Distillation for Thinking Models | 📌 其他 | on-policy self-distillation |
+| 40 | [2610.33667](https://arxiv.org/abs/2610.33667) | SWE-Ladder: Learning to Localize, Reproduce, and Patch via Progressive Privilege… | 🤖 Agent | self-distillation |
 
 ---
+
+## Shuffled OPSD: When Semantic Consistency Hurts On-Policy Self-Distillation?
+
+- **arXiv**: [2611.04958](https://arxiv.org/abs/2611.04958)
+- **类别**: 📌 其他（其他 / 待人工分类）
+- **匹配关键词**: OPSD
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+Knowledge distillation improves a student model&#39;s reasoning ability through supervision from a teacher. On-policy self-distillation (OPSD) uses the same model as both teacher and student under different contexts: the student generates reasoning trajectories from the question alone, while the teacher additionally receives a complete worked example and provides token-level supervision along those trajectories. Because the problem statement is shared, its content and ordering shape both student generation and teacher feedback. Preserving its semantic structure therefore seems natural, but does it always improve learning? We introduce Shuffled OPSD, which shuffles the words of the shared problem statement while keeping the teacher-only worked example intact. Across three mathematical reasoning benchmarks and three Qwen3 model scales, the method improves mean accuracy over both an intact-target control and Standard OPSD under matched training configurations. The largest gain over Standard OPSD is 3.52 percentage points on Qwen3-1.7B. Further controls show that preserving larger word blocks offers no advantage over word-level shuffling at the evaluated scales, whereas shuffling the teacher-only worked example reduces accuracy at every scale. Cross-problem mixing and target-removal experiments further distinguish the roles of problem content, word order, and teacher context. These results show that disrupting the shared problem statement can improve learning, while disrupting the teacher-only reference hurts performance. They challenge semantic coherence as a universally beneficial principle for OPSD and motivate closer study of how input structure shapes student generation and teacher supervision.
+
+## StepX-OPD: Rethinking Multi-Teacher On-Policy Distillation in Diffusion Models
+
+- **arXiv**: [2611.04386](https://arxiv.org/abs/2611.04386)
+- **类别**: 🖼️ 多模态（多模态 OPD）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+A deployable text-to-image diffusion model must hold several capabilities at once, such as instruction following, text rendering and human preference, and must sample in a few steps. Capabilities and few-step sampling are built in separate stages: a full-step model first consolidates capabilities through multi-teacher on-
+
+## P$^2$-MOPD: Accelerating Multi-Teacher On-Policy Distillation via Parameter Priors
+
+- **arXiv**: [2611.03953](https://arxiv.org/abs/2611.03953)
+- **类别**: 📌 其他（其他 / 待人工分类）
+- **匹配关键词**: on-policy distillation
+- **作者**: 
+- **提交日期**: 
+- **主分类**: 
+
+### Abstract
+Multi-teacher on-policy distillation consolidates expert capabilities by supervising student-generated trajectories, whereas task arithmetic offers a training-free alternative through linear parameter combinations. We view the linear combination of student and expert parameters as a single differentiable model and propose P$^2$-MOPD, which jointly optimizes the mixing coefficients and the student weights under the same on-policy distillation objective. Unlike task arithmetic, which stays within the span of the frozen student and expert parameters for any choice of merging coefficients, P$^2$-MOPD keeps the student trainable, so the experts act as parameter priors without confining it to this span. Across four domains at 1.7B and 4B scales, P$^2$-MOPD achieves faster and more balanced recovery than MOPD from the same initialization, surpassing its final average recovery in half the training steps. At the end of training, our 1.7B model reaches 94.7% average recovery, versus 80.9% for MOPD.
 
 ## Diverse-Teacher On-Policy Distillation for Generative Recommendation
 
@@ -107,7 +144,7 @@ Reinforcement learning (RL) elevates joint audio-video generation, but optimizin
 - **主分类**: 
 
 ### Abstract
-Multi-teacher on-policy distillation (MOPD) distills domain experts into one student but needs every expert at once. When domains arrive one at a time and earlier experts are gone, the previous-stage student can teach replayed prompts of earlier domains inside every stage. Some pipelines instead store every stage snapshot for a final multi-teacher recovery stage. On five domains with a 1.5B student and five public experts, this paper compares both with joint MOPD. It varies the replay budget and the replay signal. The signal is token-level distillation alone or with alignment of hidden states, attention and value relations. Sequential distillation without replay or recovery is 6.2 points below 208-step joint MOPD on a 14-benchmark average and 3.5 points below on the 11 benchmarks outside safety. Without snapshots, replay toward the previous student closes 3.8 of the 6.2 points when the earlier domains share the replay budget of a stage. With a fixed share of seven replay steps per earlier domain and stage, it closes 5.8 over two training runs. This is level with the 5.9 of recovery from all snapshots, both at its default length and when given as many training steps as the fixed share. Alignment terms on replay steps change the average by about one point or less. If refusal and compliance count equally in safety, shared-budget replay ranks first among the trained configurations, and the fixed share stays at or above recovery. Against the shared budget, the fixed share lowers the score on the newest domain. Recovery lowers this score as well, in five of six cases. The replay steps of the fixed share grow quadratically with the number of stages.
+Multi-teacher on-policy distillation (MOPD) distills several domain experts into one student and is used in the post-training of recent large language models. It trains on all domains at once, so every expert must be available at the same time. In practice, capabilities often arrive one after another, and the experts of earlier domains may be gone when a new domain is learned. Distilling the experts in sequence then suffers from catastrophic forgetting of the earlier domains. Some recent pipelines store a snapshot after every stage and end with a multi-teacher recovery stage taught by all snapshots. The number of stored models then grows with the number of stages. Different from these pipelines, this paper formulates continual MOPD by what is kept from earlier stages and studies replay toward the previous student. Inside every stage, prompts of earlier domains are replayed with the student of the previous stage as their teacher, so neither earlier experts nor stage snapshots are kept. Two design choices of replay are explored. The replay budget of a stage is either shared among the earlier domains or fixed per earlier domain. Replay steps either distill the token distribution alone or add alignment of hidden states, region-pooled self-attention scores and value relations. A five-domain benchmark of logic, math, code, safety and instruction following is built from public experts of one 1.5B student. Experiments on its 14 benchmarks show that, without storing any snapshot, replay toward the previous student closes most of the gap between sequential distillation and joint MOPD. With a fixed replay share per earlier domain, it performs on par with recovery from all stored snapshots.
 
 ## Order-Only On-Policy Distillation
 
@@ -492,27 +529,3 @@ On-policy self-distillation (OPSD) trains a student on its own reasoning traject
 
 ### Abstract
 Resolving a repository-level issue typically requires a software-engineering (SWE) agent to localize the faulty code, reproduce the failure, and patch the code. Reinforcement learning trains such agents from a single test result on the final patch, while on-
-
-## MOTIO: Agentic Skill Engineering for Reality-Grounded Humanoid Loco-Manipulation
-
-- **arXiv**: [2610.33446](https://arxiv.org/abs/2610.33446)
-- **类别**: 🤖 Agent（Agent 应用）
-- **匹配关键词**: DAgger
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-We present MOTIO, an agentic skill-engineering system that turns ordinary human-action videos, reality-grounded 3D assets, motion references, and reusable robot skills into executable humanoid loco-manipulation programs. Through in-context task and contact reasoning, an agent constructs staged robot-native interactions and improves them using physics execution, multi-frame feedback, and human validation---without task-specific teleoperation or robot demonstration collection. Agentic 3D supplies metric product and environment assets, while existing whole-body, inverse-kinematics, and dexterous-hand interfaces realize the programs. Across 33 timestamped first approvals, the median recorded agent-turn time is 97.0 minutes and request-to-approval duration is 2.80 hours. Simulation-side layout and object variation prepare a long-horizon bottle-disposal skill for a continuous 101.75-second physical G1 execution in a scanned office; physical refinement reduces screw-tightening thread residual by 76.0%. Agent-generated skills additionally supervise BC/DAgger
-
-## When Agents Collude: Weak-to-Strong On-Policy Distillation for Mitigating Strategic Deception in Multi-Agent Systems
-
-- **arXiv**: [2610.33011](https://arxiv.org/abs/2610.33011)
-- **类别**: 🔬 白盒OPD（白盒 OPD / 安全性）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-While recent advances in autonomous agents enable them to coordinate on increasingly complex tasks, prior work shows that this growing capacity for coordination can create safety risks, including collusion, in which agents jointly pursue misaligned actions while concealing the true basis of those actions from oversight. We study this risk in a simulated insider-trading environment, comparing single agents with sequential and decentralized teams across seven language models from three families. By varying agents&#39; system-level objectives and pressure conditions, we examine when coordinated agents act on material nonpublic information, conceal the basis of a misaligned trade in a report, and maintain that deception under follow-up questioning. Compared to single-agent decision-making, multi-agent interaction raises misaligned-action rates from 35.4% to 68.2% and persistent-deception rates from 31.0% to 62.2%, both measured over all runs. These effects are largest under existential pressure, where teams sustain deception through follow-up questioning in 87% of all runs. Qualitative analysis reveals shared cover stories and coordinated rationales, suggesting group-level strategic deception rather than isolated reporting errors. To mitigate this behavior, we introduce PACT, a weak-to-strong on-
