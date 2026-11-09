@@ -1,9 +1,9 @@
 # 📚 arXiv 新论文（自动拉取）
 
-> 拉取时间：2026-11-09 04:57 GMT+8
+> 拉取时间：2026-11-10 06:54 GMT+8
 
 
-**共 39 篇**
+**共 38 篇**
 
 | # | arXiv | 标题 | 类别 | 匹配关键词 |
 |---|-------|------|------|-----------|
@@ -45,7 +45,6 @@
 | 36 | [2610.38383](https://arxiv.org/abs/2610.38383) | How Much Do Teacher Bridges Matter in Interleaved On-Policy Distillation? | 📌 其他 | on-policy distillation |
 | 37 | [2610.38160](https://arxiv.org/abs/2610.38160) | ATI-OPD: Adaptive Teacher Intervention for Stable Long-Sequence On-Policy Distil… | 📌 其他 | on-policy distillation |
 | 38 | [2610.38154](https://arxiv.org/abs/2610.38154) | MASS: Multi-mask Selective Self-Distillation for Leakage-Resilient Reasoning | 📌 其他 | self-distillation |
-| 39 | [2610.37778](https://arxiv.org/abs/2610.37778) | Multi-Draft On-Policy Distillation for Diffusion Drafters | 🖼️ 多模态 | on-policy distillation |
 
 ---
 
@@ -107,7 +106,7 @@ On-policy distillation (OPD) supplies dense token-level supervision by aligning 
 - **主分类**: 
 
 ### Abstract
-On-policy distillation (OPD) improves language-model reasoning through dense teacher feedback on student-generated this http URL first observe an amplitude disparity in this feedback: on math reasoning responses, style-related positions exhibit 3.5 times the mean absolute teacher--student log-probability difference of mathematical this http URL OPD updates by these discrepancies thus directs much of the update strength toward matching the teacher&#39;s expression. We instead take the student&#39;s own pretrained base as a reference: the student--base difference records the token preferences acquired during post-training and provides supervision that does not depend on the student&#39;s distance from the teacher. Building on this reference, we propose Student-Delta On-Policy Distillation (SD-OPD), which uses centered student--base differences as update coefficients, keeps each coefficient only when its sign agrees with centered teacher--student feedback, and recomputes the student signal every training round. Across 5 teacher--student configurations with Qwen3 students of 1.7B to 8B parameters, SD-OPD improves six-task mathematics average pass@1 (avg@16) over OPD by 7.76 to 10.37 percentage points. Code is available at this https URL.
+On-policy distillation (OPD) improves language-model reasoning through dense teacher feedback on student-generated responses. We first observe an amplitude disparity in this feedback: on math reasoning responses, style-related positions exhibit 3.5 times the mean absolute teacher--student log-probability difference of mathematical positions. Scaling OPD updates by these discrepancies thus directs much of the update strength toward matching the teacher&#39;s expression. We instead take the student&#39;s own pretrained base as a reference: the student--base difference records the token preferences acquired during post-training and provides supervision that does not depend on the student&#39;s distance from the teacher. Building on this reference, we propose Student-Delta On-Policy Distillation (SD-OPD), which uses centered student--base differences as update coefficients, keeps each coefficient only when its sign agrees with centered teacher--student feedback, and recomputes the student signal every training round. Across 5 teacher--student configurations with Qwen3 students of 1.7B to 8B parameters, SD-OPD improves six-task mathematics average pass@1 (avg@16) over OPD by 7.76 to 10.37 percentage points. Code is available at this https URL.
 
 ## CST-Bench: Benchmarking Counterfactual Spatial Transition Reasoning with Causal Transition On-Policy Self-Distillation
 
@@ -504,15 +503,3 @@ On-policy distillation (OPD) trains a student on its own responses using token-l
 
 ### Abstract
 On-policy self-distillation enables the same model to act as student and teacher, with dense token-level supervision obtained by the teacher being given access to privileged information. However, conditioning the teacher on a single reference can concentrate its predictions on one reasoning trajectory and limit transfer to the student. We propose Multi-Mask Selective Self-Distillation (MASS), which approximates the unavailable marginal over diverse reference realizations using multiple independently masked views of one verified solution. MASS aggregates these complementary teacher predictions, selectively transfers reliable token-level corrections, and adaptively focuses masking on influential reference spans. Across mathematical reasoning benchmarks and model families, MASS consistently outperforms strong self-distillation baselines.
-
-## Multi-Draft On-Policy Distillation for Diffusion Drafters
-
-- **arXiv**: [2610.37778](https://arxiv.org/abs/2610.37778)
-- **类别**: 🖼️ 多模态（扩散模型 / 视觉）
-- **匹配关键词**: on-policy distillation
-- **作者**: 
-- **提交日期**: 
-- **主分类**: 
-
-### Abstract
-Speculative decoding is used to reduce the inference cost of language models. One-step diffusion drafters propose a block of multiple tokens in parallel, reducing the sequential cost of speculative decoding. On-
